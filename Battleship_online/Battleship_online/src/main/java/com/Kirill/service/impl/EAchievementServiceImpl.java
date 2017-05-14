@@ -1,8 +1,8 @@
-package com.Kirill.service.impl;
+package com.kirill.service.impl;
 
-import com.Kirill.entity.EAchievement;
-import com.Kirill.repository.EAchievementRepository;
-import com.Kirill.service.EAchievementService;
+import com.kirill.entity.EAchievement;
+import com.kirill.repository.EAchievementRepository;
+import com.kirill.service.EAchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ public class EAchievementServiceImpl implements EAchievementService
 
     @Override
     public EAchievement getByID(Integer ID) {
-        return null;
+        return ARepository.findByAchievementID(ID);
     }
 
     @Override

@@ -1,6 +1,6 @@
-package com.Kirill.service;
+package com.kirill.service;
 
-import com.Kirill.entity.EShip;
+import com.kirill.entity.EShip;
 
 /**
  * Created by Администратор on 24.12.2016.

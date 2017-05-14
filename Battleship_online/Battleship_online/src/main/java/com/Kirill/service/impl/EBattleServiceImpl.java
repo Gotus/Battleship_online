@@ -1,12 +1,13 @@
-package com.Kirill.service.impl;
+package com.kirill.service.impl;
 
-import com.Kirill.entity.EBattle;
-import com.Kirill.repository.EBattleRepository;
-import com.Kirill.service.EBattleService;
+import com.kirill.entity.EBattle;
+import com.kirill.repository.EBattleRepository;
+import com.kirill.service.EBattleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Администратор on 24.12.2016.
@@ -29,18 +30,28 @@ public class EBattleServiceImpl implements EBattleService
     }
 
     @Override
-    public EBattle getByCreation(Date D_of_C)
+    public List<EBattle> getByDateOfCreation(Date D_of_C)
     {
-        return BRepository.findByDate_of_creation(D_of_C);
+        return BRepository.findByDateOfCreation(D_of_C);
     }
 
     @Override
-    public EBattle getByHost_ID(Integer H_ID) {
-        return BRepository.findByHost_ID(H_ID);
+    public List<EBattle> getByDateOfEnding(Date D_of_E) { return  BRepository.findByDateOfEnding(D_of_E);}
+
+    @Override
+    public List<EBattle> getByHost_ID(Integer H_ID) {
+        return BRepository.findByHostID(H_ID);
     }
 
     @Override
-    public EBattle getByOpponent_ID(Integer O_ID) {
-        return BRepository.findByOpponent_ID(O_ID);
+    public List<EBattle> getByOpponent_ID(Integer O_ID) {
+
+        return BRepository.findByOpponentID(O_ID);
+    }
+
+    @Override
+    public List<EBattle> getAll() {
+
+        return BRepository.findAll();
     }
 }

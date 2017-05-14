@@ -1,6 +1,6 @@
-package com.Kirill.repository;
+package com.kirill.repository;
 
-import com.Kirill.entity.EUser_Data;
+import com.kirill.entity.EUser_Data;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface EUser_DataRepository  extends JpaRepository<EUser_Data, Integer>
 {
-    EUser_Data findByUser_ID(Integer ID);
+    EUser_Data findByUserID(Integer ID);
     EUser_Data findByMail(String Mail);
+    EUser_Data findByLogin(String login);
 }

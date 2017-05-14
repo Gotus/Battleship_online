@@ -1,4 +1,4 @@
-package com.Kirill.entity;
+package com.kirill.entity;
 
 import org.springframework.data.annotation.Id;
 
@@ -11,48 +11,48 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "Battle", schema = "private")
+@Table(name = "battle", schema = "public")
 public class EBattle {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Battle_ID")
-    private Long Battle_ID;
+    @Column(name = "battle_id")
+    private Long battleID;
 
-    @Column(name = "Host_ID")
-    private Integer Host_ID;
+    @Column(name = "host_id")
+    private Integer hostID;
 
-    @Column(name = "Opponent_ID")
-    private Integer Opponent_ID;
+    @Column(name = "opponent_id")
+    private Integer opponentID;
 
-    @Column(name = "Replay")
-    private String Replay;
+    @Column(name = "replay")
+    private String replay;
 
-    @Column(name = "Date_of_creation")
-    private Date Date_of_creation;
+    @Column(name = "date_of_creation")
+    private Date dateOfCreation;
 
-    @Column(name = "Date_of_joining")
-    private Date Date_of_joining;
+    @Column(name = "date_of_joining")
+    private Date dateOfJoining;
 
-    @Column(name = "Date_of_start")
-    private Date Date_of_start;
+    @Column(name = "date_of_start")
+    private Date dateOfStart;
 
-    @Column(name = "Date_of_ending")
-    private Date Date_of_ending;
+    @Column(name = "date_of_ending")
+    private Date dateOfEnding;
 
-    public Long getBattle_ID(){return Battle_ID;}
-    public void setBattle_ID(Long B_ID){Battle_ID = B_ID;}
-    public Integer getHost_ID(){return Host_ID;}
-    public void setHost_ID(Integer H_ID){Host_ID = H_ID;}
-    public Integer getOpponent_ID(){return Opponent_ID;}
-    public void setOpponent_ID(Integer O_ID){Opponent_ID = O_ID;}
-    public String getReplay(){return Replay;}
-    public void setReplay(String Rep){Replay = Rep;}
-    public Date getDate_of_creation(){return Date_of_creation;}
-    public void setDate_of_creation(Date D_of_C){Date_of_creation = D_of_C;}
-    public Date getDate_of_joining(){return Date_of_joining;}
-    public void setDate_of_joining(Date D_of_J){Date_of_joining = D_of_J;}
-    public Date getDate_of_start(){return Date_of_start;}
-    public void setDate_of_start(Date D_of_S){Date_of_start = D_of_S;}
-    public Date getDate_of_ending(){return Date_of_ending;}
-    public void setDate_of_ending(Date D_of_E){Date_of_ending = D_of_E;}
+    public Long getBattle_ID(){return battleID;}
+    public void setBattle_ID(Long B_ID){battleID = B_ID;}
+    public Integer getHost_ID(){return hostID;}
+    public void setHost_ID(Integer H_ID){hostID = H_ID;}
+    public Integer getOpponent_ID(){return opponentID;}
+    public void setOpponent_ID(Integer O_ID){opponentID = O_ID;}
+    public String getReplay(){return replay;}
+    public void setReplay(String Rep){replay = Rep;}
+    public Date getDate_of_creation(){return dateOfCreation;}
+    public void setDate_of_creation(Date D_of_C){dateOfCreation = D_of_C;}
+    public Date getDate_of_joining(){return dateOfJoining;}
+    public void setDate_of_joining(Date D_of_J){dateOfJoining = D_of_J;}
+    public Date getDate_of_start(){return dateOfStart;}
+    public void setDate_of_start(Date D_of_S){dateOfStart = D_of_S;}
+    public Date getDate_of_ending(){return dateOfEnding;}
+    public void setDate_of_ending(Date D_of_E){dateOfEnding = D_of_E;}
 }

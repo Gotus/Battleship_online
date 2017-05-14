@@ -1,4 +1,4 @@
-package com.Kirill.entity;
+package com.kirill.entity;
 
 import org.springframework.data.annotation.Id;
 
@@ -9,34 +9,34 @@ import java.util.Date;
  * Created by Администратор on 22.12.2016.
  */
 @Entity
-@Table(name = "User_data", schema = "private")
+@Table(name = "user_data", schema = "public")
 public class EUser_Data
 {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "User_ID")
-    private Integer User_ID;
+    @Column(name = "user_id")
+    private Integer userID;
 
-    @Column(name = "Mail")
-    private String Mail;
+    @Column(name = "mail")
+    private String mail;
 
-    @Column(name = "Login")
-    private String Login;
+    @Column(name = "login")
+    private String login;
 
-    @Column(name = "Password")
-    private String Password;
+    @Column(name = "password")
+    private String password;
 
-    @Column(name = "Date_of_registration")
-    private Date Date_of_registration;
+    @Column(name = "date_of_registration")
+    private Date dateOfRegistration;
 
-    public Integer getUser_ID(){return User_ID;}
-    public  void setUser_ID(Integer U_ID){User_ID = U_ID;}
-    public  String getMail(){return Mail;}
-    public void setMail(String M){Mail = M;}
-    public String getLogin(){return Login;}
-    public void setLogin(String U_Log){Login = U_Log;}
-    public String getPassword(){return Password;}
-    public void setPassword(String U_Pwd){Password = U_Pwd;}
-    public Date getDateOfRegistration(){return Date_of_registration;}
-    public void setDate_of_registration(Date D_of_R){Date_of_registration = D_of_R;}
+    public Integer getUser_ID(){return userID;}
+    public  void setUser_ID(Integer U_ID){userID = U_ID;}
+    public  String getMail(){return mail;}
+    public void setMail(String M){mail = M;}
+    public String getLogin(){return login;}
+    public void setLogin(String U_Log){login = U_Log;}
+    public String getPassword(){return password;}
+    public void setPassword(String U_Pwd){password = U_Pwd;}
+    public Date getDateOfRegistration(){return dateOfRegistration;}
+    public void setDate_of_registration(Date D_of_R){dateOfRegistration = D_of_R;}
 }

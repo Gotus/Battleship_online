@@ -1,12 +1,12 @@
-package com.Kirill.repository;
+package com.kirill.repository;
 
-import com.Kirill.entity.EShip;
+import com.kirill.entity.EShip;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by Администратор on 23.12.2016.
  */
 public interface EShipRepository extends JpaRepository<EShip, Long>{
-    EShipRepository findByBattle_ID(Long S_ID);
-    EShipRepository findByUser_ID(Integer U_ID);
+    EShipRepository findByBattleID(Long S_ID);
+    EShipRepository findByUserID(Integer U_ID);
 }

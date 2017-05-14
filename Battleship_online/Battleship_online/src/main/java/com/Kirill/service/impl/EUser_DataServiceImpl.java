@@ -1,8 +1,9 @@
-package com.Kirill.service.impl;
+package com.kirill.service.impl;
 
-import com.Kirill.entity.EUser_Data;
-import com.Kirill.repository.EUser_DataRepository;
-import com.Kirill.service.EUser_DataService;
+import com.kirill.entity.EUser_Data;
+import com.kirill.repository.EUser_DataRepository;
+import com.kirill.service.EUser_DataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +15,13 @@ import java.util.List;
 @Service("EUser_DataService")
 public class EUser_DataServiceImpl implements EUser_DataService
 {
+    @Autowired
     EUser_DataRepository URepository;
 
     @Override
     public EUser_Data getByUser_ID(Integer U_ID)
     {
-        return URepository.findByUser_ID(U_ID);
+        return URepository.findByUserID(U_ID);
     }
 
     @Override
@@ -33,6 +35,12 @@ public class EUser_DataServiceImpl implements EUser_DataService
     {
         EUser_Data EUserData = URepository.saveAndFlush(usr);
         return EUserData;
+    }
+
+    @Override
+    public EUser_Data getByLogin(String login)
+    {
+        return URepository.findByLogin(login);
     }
 
     @Override

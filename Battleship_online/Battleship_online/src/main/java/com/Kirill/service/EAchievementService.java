@@ -1,6 +1,6 @@
-package com.Kirill.service;
+package com.kirill.service;
 
-import com.Kirill.entity.EAchievement;
+import com.kirill.entity.EAchievement;
 
 import java.util.List;
 

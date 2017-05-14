@@ -1,4 +1,4 @@
-package com.Kirill.entity;
+package com.kirill.entity;
 
 
 
@@ -8,39 +8,39 @@ import javax.persistence.*;
  * Created by Администратор on 22.12.2016.
  */
 @Entity
-@Table(name = "Achievement", schema = "private")
+@Table(name = "achievement", schema = "public")
 public class EAchievement
 {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AchievementID")
-    private Integer AchievementID;
+    @Column(name = "achievement_id")
+    private Integer achievementID;
 
-    @Column(name = "Description")
-    private String Description;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "Name")
-    private String Name;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "Column")
-    private Integer Column;
+    @Column(name = "column")
+    private Integer column;
 
-    @Column(name = "Type")
-    private Integer Type;
+    @Column(name = "type")
+    private Integer type;
 
-    @Column(name = "Image_link")
-    private String Image_link;
+    @Column(name = "image_link")
+    private String imageLink;
 
-    public Integer getAchievementID(){return AchievementID;}
-    public void setAchievementID(Integer A_ID){AchievementID = A_ID;}
-    public String getDescriptiom(){return Description;}
-    public void setDescription(String Descr){Description = Descr;}
-    public String getName(){return Name;}
-    public void setName(String A_name){Name = A_name;}
-    public Integer getColumn(){return Column;}
-    public void setColumn(Integer Clmn){Column = Clmn;}
-    public Integer getType(){return Type;}
-    public void setType(Integer Typ){Type = Typ;}
-    public String getImage_link(){return Image_link;}
-    public void setImage_link(String Link){Image_link = Link;}
+    public Integer getAchievementID(){return achievementID;}
+    public void setAchievementID(Integer A_ID){achievementID = A_ID;}
+    public String getDescription(){return description;}
+    public void setDescription(String Descr){description = Descr;}
+    public String getName(){return name;}
+    public void setName(String A_name){name = A_name;}
+    public Integer getColumn(){return column;}
+    public void setColumn(Integer Clmn){column = Clmn;}
+    public Integer getType(){return type;}
+    public void setType(Integer Typ){type = Typ;}
+    public String getImageLink(){return imageLink;}
+    public void setImageLink(String Link){imageLink = Link;}
 }

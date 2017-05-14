@@ -1,6 +1,6 @@
-package com.Kirill.repository;
+package com.kirill.repository;
 
-import com.Kirill.entity.EAchievement;
+import com.kirill.entity.EAchievement;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,7 +10,8 @@ import java.util.List;
  */
 public interface EAchievementRepository extends JpaRepository<EAchievement, Integer>
 {
-    EAchievement findByID(Integer A_ID);
+    EAchievement findByAchievementID(Integer A_ID);
     EAchievement findByName(String Nm);
+    List<EAchievement> findAll();
 
 }

@@ -1,8 +1,8 @@
-package com.Kirill.service.impl;
+package com.kirill.service.impl;
 
-import com.Kirill.entity.EShip;
-import com.Kirill.repository.EShipRepository;
-import com.Kirill.service.EShipService;
+import com.kirill.entity.EShip;
+import com.kirill.repository.EShipRepository;
+import com.kirill.service.EShipService;
 import org.springframework.stereotype.Service;
 
 /**
