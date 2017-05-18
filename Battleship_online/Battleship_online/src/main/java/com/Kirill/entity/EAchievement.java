@@ -1,8 +1,7 @@
 package com.kirill.entity;
 
-
-
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Администратор on 22.12.2016.
@@ -30,6 +29,9 @@ public class EAchievement
 
     @Column(name = "image_link")
     private String imageLink;
+
+    @ManyToMany(mappedBy = "achievementsOfUser")
+    private Set<EUserData> users;
 
     public Integer getAchievementID(){return achievementID;}
     public void setAchievementID(Integer A_ID){achievementID = A_ID;}

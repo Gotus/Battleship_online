@@ -1,17 +1,14 @@
 package com.kirill.controllers;
 
-import com.kirill.entity.EUser_Data;
+import com.kirill.entity.EUserData;
 import com.kirill.service.EUser_DataService;
-import com.kirill.service.impl.EUser_DataServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Calendar;
+
 import java.util.Date;
-import java.util.Timer;
 import javax.annotation.Resource;
-import javax.validation.constraints.Null;
 
 /**
  * Created by Администратор on 02.12.2016.
@@ -67,7 +64,7 @@ public class loginController {
             {
                 System.out.println("Inputed mail already exists");
             } else {
-                EUser_Data userData = new EUser_Data();
+                EUserData userData = new EUserData();
                 userData.setLogin(login);
                 userData.setMail(mail);
                 userData.setPassword(password);
