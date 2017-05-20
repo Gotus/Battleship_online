@@ -1,10 +1,10 @@
-package edu.web.model.entities.preload;
+package com.web.model.entities.preload;
 
-import edu.web.model.entities.Battle;
-import edu.web.model.entities.Battlefield;
-import edu.web.model.entities.Coordinate;
-import edu.web.model.entities.Ship;
-import edu.web.util.Convert;
+import com.web.model.entities.Battle;
+import com.web.model.entities.Battlefield;
+import com.web.model.entities.Coordinate;
+import com.web.model.entities.Ship;
+import com.web.util.Convert;
 
 import java.util.ArrayList;
 

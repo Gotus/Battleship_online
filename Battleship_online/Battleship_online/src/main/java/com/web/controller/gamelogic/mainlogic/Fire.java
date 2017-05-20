@@ -1,8 +1,8 @@
-package edu.web.controller.gamelogic.mainlogic;
+package com.web.controller.gamelogic.mainlogic;
 
-import edu.web.model.entities.Battlefield;
-import edu.web.model.entities.Coordinate;
-import edu.web.model.entities.Ship;
+import com.web.model.entities.Battlefield;
+import com.web.model.entities.Coordinate;
+import com.web.model.entities.Ship;
 
 import java.util.ArrayList;
 

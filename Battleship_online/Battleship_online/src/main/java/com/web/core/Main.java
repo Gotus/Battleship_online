@@ -1,12 +1,12 @@
-package edu.web.core;
+package com.web.core;
 
-import edu.web.controller.gamelogic.achievementcheck.AchievementCheck;
-import edu.web.controller.gamelogic.mainlogic.Fire;
-import edu.web.controller.gamelogic.mainlogic.Place;
-import edu.web.controller.gamelogic.record.Record;
-import edu.web.view.ConsoleOutput;
+import com.web.controller.gamelogic.achievementcheck.AchievementCheck;
+import com.web.controller.gamelogic.mainlogic.Fire;
+import com.web.controller.gamelogic.mainlogic.Place;
+import com.web.controller.gamelogic.record.Record;
+import com.web.view.ConsoleOutput;
 
-import static edu.web.model.entities.preload.WhyNot.*;
+import static com.web.model.entities.preload.WhyNot.*;
 
 /**
  * Created by stalk on 23.04.2017.

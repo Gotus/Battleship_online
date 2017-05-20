@@ -1,9 +1,9 @@
-package edu.web.controller.gamelogic.record;
+package com.web.controller.gamelogic.record;
 
-import edu.web.model.entities.Battle;
-import edu.web.model.entities.Coordinate;
+import com.web.model.entities.Battle;
+import com.web.model.entities.Coordinate;
 
-import static edu.web.util.Convert.convertBack;
+import static com.web.util.Convert.convertBack;
 
 /**
  * Created by stalk on 05.05.2017.

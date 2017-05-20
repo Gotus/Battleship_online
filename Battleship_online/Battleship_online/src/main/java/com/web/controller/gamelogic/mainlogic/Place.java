@@ -1,7 +1,7 @@
-package edu.web.controller.gamelogic.mainlogic;
+package com.web.controller.gamelogic.mainlogic;
 
-import edu.web.model.entities.Coordinate;
-import edu.web.model.entities.Ship;
+import com.web.model.entities.Coordinate;
+import com.web.model.entities.Ship;
 
 /**
  * Created by stalk on 05.05.2017.

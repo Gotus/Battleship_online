@@ -43,7 +43,7 @@ public class actionController {
 
     //not tested
     //Method creates a new lobby
-    @RequestMapping(value = "/lobby/battle/{hostID}")
+    @RequestMapping(value = "/lobby/battle/{battleID}/{hostID}")
     public EBattle createLobby(@PathVariable("hostID") Integer hostID) {
 
         EBattle newBattle = new EBattle();
@@ -54,7 +54,7 @@ public class actionController {
 
     //not tested
     //Method adds opponent to lobby
-    @RequestMapping(value = "/lobby/battle/{battleID}")
+    @RequestMapping(value = "/lobby/battle/{battleID}/{opponentID}")
     public EBattle addOppponent(@PathVariable("battleID") Long battleID, @RequestParam(value = "opponentID") Integer opponentID) {
 
         EBattle selectedBattle = new EBattle();
@@ -63,6 +63,16 @@ public class actionController {
         selectedBattle.setDate_of_joining(new Date());
         battleService.addBattle(selectedBattle);
         return selectedBattle;
+    }
+
+
+
+    //not tested
+    //Method allow user to locate his ship in battlefield(лшдд ьуб здуфыуб ш вщтэе цфте штеупкфеу ершы ырше штещ ызкштп :( )
+    @RequestMapping(value = "/lobby/battle/{battleID}/{userID}")
+    public EBattle locateShip(@PathVariable("battleID") Long battleID, @PathVariable("userID") Integer userID) {
+
+        return null;
     }
 
     //not tested

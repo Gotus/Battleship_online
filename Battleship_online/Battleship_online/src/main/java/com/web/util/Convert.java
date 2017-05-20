@@ -1,6 +1,6 @@
-package edu.web.util;
+package com.web.util;
 
-import edu.web.model.entities.Coordinate;
+import com.web.model.entities.Coordinate;
 
 /**
  * Created by stalk on 23.04.2017.

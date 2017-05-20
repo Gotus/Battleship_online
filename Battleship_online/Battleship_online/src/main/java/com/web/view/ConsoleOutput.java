@@ -1,4 +1,4 @@
-package edu.web.view;
+package com.web.view;
 
 /**
  * Created by stalk on 01.05.2017.

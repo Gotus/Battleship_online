@@ -1,8 +1,8 @@
-package edu.web.controller.gamelogic.achievementcheck;
+package com.web.controller.gamelogic.achievementcheck;
 
-import edu.web.controller.gamelogic.achievementcheck.AchievementCheck;
-import edu.web.model.entities.Achievement;
-import edu.web.model.entities.Battle;
+import com.web.controller.gamelogic.achievementcheck.AchievementCheck;
+import com.web.model.entities.Achievement;
+import com.web.model.entities.Battle;
 
 import java.util.ArrayList;
 

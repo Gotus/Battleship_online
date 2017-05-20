@@ -1,4 +1,4 @@
-package edu.web.model.entities;
+package com.web.model.entities;
 
 /**
  * Created by stalk on 03.05.2017.
