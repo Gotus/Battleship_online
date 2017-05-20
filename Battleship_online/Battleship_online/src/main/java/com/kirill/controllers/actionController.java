@@ -5,6 +5,7 @@ import com.kirill.entity.EBattle;
 import com.kirill.entity.EUserData;
 import com.kirill.service.EBattleService;
 import com.kirill.service.EUser_DataService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,8 +40,8 @@ public class actionController {
     }
 
     //not tested
-    @RequestMapping(value = "/achievements")
-    public List<EAchievement> getUserAchievement(Integer userID) {
+    @RequestMapping(value = "/achievements/{id}")
+    public List<EAchievement> getUserAchievement(@PathVariable("id") Integer userID) {
 
         EUserData userData;
         userData = user_dataService.getByUser_ID(userID);
