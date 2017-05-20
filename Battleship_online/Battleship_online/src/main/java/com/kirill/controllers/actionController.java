@@ -7,6 +7,7 @@ import com.kirill.service.EBattleService;
 import com.kirill.service.EUser_DataService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -33,6 +34,7 @@ public class actionController {
     private EBattleService battleService;
 
     //not tested
+    //Method shows all available lobbies
     @RequestMapping(value = "/lobby")
     public List<EBattle> getAllLobby() {
 
@@ -40,6 +42,31 @@ public class actionController {
     }
 
     //not tested
+    //Method creates a new lobby
+    @RequestMapping(value = "/lobby/battle/{hostID}")
+    public EBattle createLobby(@PathVariable("hostID") Integer hostID) {
+
+        EBattle newBattle = new EBattle();
+        newBattle.setHost_ID(hostID);
+        newBattle.setDate_of_creation(new Date());
+        return newBattle;
+    }
+
+    //not tested
+    //Method adds opponent to lobby
+    @RequestMapping(value = "/lobby/battle/{battleID}")
+    public EBattle addOppponent(@PathVariable("battleID") Long battleID, @RequestParam(value = "opponentID") Integer opponentID) {
+
+        EBattle selectedBattle = new EBattle();
+        selectedBattle = battleService.getByBattle_ID(battleID);
+        selectedBattle.setOpponent_ID(opponentID);
+        selectedBattle.setDate_of_joining(new Date());
+        battleService.addBattle(selectedBattle);
+        return selectedBattle;
+    }
+
+    //not tested
+    //Method shows achievements of user
     @RequestMapping(value = "/achievements/{id}")
     public List<EAchievement> getUserAchievement(@PathVariable("id") Integer userID) {
 

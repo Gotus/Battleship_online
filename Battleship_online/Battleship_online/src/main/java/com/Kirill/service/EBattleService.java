@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Администратор on 24.12.2016.
  */
 public interface EBattleService {
-    EBattle addBattle(Long B_ID);
+    EBattle addBattle(EBattle eBattle);
     EBattle getByBattle_ID(Long B_ID);
     List<EBattle> getByDateOfCreation(Date D_of_C);
     List<EBattle> getByDateOfEnding(Date D_of_E);

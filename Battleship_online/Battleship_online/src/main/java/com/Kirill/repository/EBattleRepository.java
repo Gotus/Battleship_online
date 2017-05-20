@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface EBattleRepository extends JpaRepository<EBattle, Long>
 {
+
     EBattle findByBattleID(Long ID);
     List<EBattle> findByDateOfCreation(Date D_of_C);
     List<EBattle> findByDateOfEnding(Date D_of_E);

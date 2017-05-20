@@ -3,6 +3,7 @@ package com.kirill.service.impl;
 import com.kirill.entity.EBattle;
 import com.kirill.repository.EBattleRepository;
 import com.kirill.service.EBattleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +14,17 @@ import java.util.List;
  * Created by Администратор on 24.12.2016.
  */
 @Service("EBattleService")
-@Transactional
 public class EBattleServiceImpl implements EBattleService
 {
 
+    @Autowired
     private EBattleRepository BRepository;
+
     @Override
-    public EBattle addBattle(Long B_ID) {
-        return null;
+    public EBattle addBattle(EBattle eBattle) {
+
+        EBattle EBattle = BRepository.saveAndFlush(eBattle);
+        return EBattle;
     }
 
     @Override
