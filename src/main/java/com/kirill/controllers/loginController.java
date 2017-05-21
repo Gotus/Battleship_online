@@ -28,7 +28,7 @@ public class loginController {
 
 
     //валидировать данные запроса
-    @RequestMapping("/hello")
+    /*@RequestMapping("/hello")
     public String helloWorld(@RequestParam(value = "name", required = false, defaultValue = "Kirill")String name)
     {
         try {
@@ -56,7 +56,9 @@ public class loginController {
         return "Error";
         //return "hello, <a href=\"/user?id="+ 3 +"\">"+ name.replaceAll("<", "&lt").replaceAll(">", "&gt") + "</a> <h1>Hay</h1>";
     }
+    */
 
+    /*
     @RequestMapping(value = "/image/{imageName}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] giveImage(@PathVariable(value = "imageName") String imageName) {
         byte[] data = null;
@@ -73,7 +75,7 @@ public class loginController {
 
         return data;
     }
-
+    */
 
     /*
      * Method perform logging in
@@ -81,9 +83,9 @@ public class loginController {
      *
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public void login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
+    public String login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
 
-        if (user_dataService.getByLogin(login) == null)
+        /*if (user_dataService.getByLogin(login) == null)
         {
             System.out.println("Inputed login does not exist.");
         } else {
@@ -95,7 +97,30 @@ public class loginController {
 
                 System.out.println("Wrong password");
             }
+        }*/
+
+        try {
+
+            File file = new File("../../../../webapp/static/startpage.html");
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            String currentString = new String(reader.readLine());
+            StringBuilder builder = new StringBuilder();
+
+            while (currentString != null) {
+
+                builder.append(currentString);
+                currentString = reader.readLine();
+            }
+
+            return builder.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        return "Error";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
