@@ -1,0 +1,26 @@
+
+.achievement {
+    height: 100px;
+    width: 100px;
+    margin: 10px 5px 5px 10px;
+}
+
+.img-thumbnail {
+    padding: 5px 5px 5px 5px;
+    border-color: black;
+    background-color: black;
+    height: inherit;
+    width: inherit;
+}
+
+#statistic {
+    padding-top: 100px;
+}
+
+#achievements {
+    margin-top: 50px;
+}
+
+.achievements-block {
+    margin-top: 30px;
+}

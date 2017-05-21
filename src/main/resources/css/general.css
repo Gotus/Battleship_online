@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Kurale|Lobster');
+
+body {
+    background-color: #f3fdff;
+    font-family: "Kurale";
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: "Lobster";
+}
+
+.navbar {
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.jumbotron {
+    background-color: #ddf6f1;
+    padding: 20px 10px 10px 15px;
+}
+
+.no-padding {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.right-padding {
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+.left-padding {
+    padding-right: 0px;
+    padding-left: 10px;
+}
+
+#central {
+    padding-top: 10px;
+    padding-right: 45px;
+    padding-left: 45px;
+    padding-bottom: 10px;
+    border: 10px black;
+}
+
+
+#right .img{
+    height: 100vh;
+}
+
+#left .img{
+    height: 100vh;
+    max-width: 13vw;
+}

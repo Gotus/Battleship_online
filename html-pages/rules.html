@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Правила</title>
+    <!-- сайт на смартфоне должен быть увеличен, кнопки должны быть адаптивными -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/rules.css">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">Battle Ships Online</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">Лобби</a></li>
+                <li class="active"><a href="#">Правила</a></li>
+                <li><a href="#">Мой профиль</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Вход/Регистрация</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2 right-padding">
+            <div id="left" class="container-fluid right-padding affix">
+                <img src="../test/left.PNG" class="img">
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
+            <div id="lobbyrules">
+                <div class="jumbotron">
+                    <div class="container-fluid">
+                        <h1>Привет новичок!</h1>
+                        <h2>Прежде чем играть нужно создать или присоединиться к лобби.</h2>
+                        <p>
+                            <b>Для того, чтобы создать лобби:</b>
+                        <ul>
+                            <li>Нажмите на кнопку "Лобби" в меню сверху [гифка]</li>
+                            <li>Нажмите на кнопку "Создать лобби" над списком лобби [гифка]</li>
+                        </ul>
+                        <p>
+                            <b>Для того, чтобы присоедениться к лобби:</b>
+                        <ul>
+                            <li>Нажмите на кнопку "Лобби" в меню сверху [гифка]</li>
+                            <li>Выберите лобби в списке игр и нажмите на то, в которое вы хотите войти[гифка]</li>
+                            <li>Далее нажмите на кнопку присоединиться, если вы хотите зайти, как оппонент для создателя
+                                лобби[гифка]
+                            </li>
+                            <li>Далее нажмите на кнопку смотреть, если вы хотите зайти, как зритель[гифка]</li>
+                        </ul>
+                        <p>
+                            <b>Для того, чтобы присоедениться к лобби по приглашению:</b>
+                        <ul>
+                            <li>Просто ждите приглашение от игрока, а затем примите его [гифка]</li>
+                        </ul>
+                        <p>
+                            <b>Для того, чтобы пригласить игрока создатель лобби должен:</b>
+                        <ul>
+                            <li>Создать лобби(смотри выше)</li>
+                            <li>выбрать игрока в списке снизу[гифка]</li>
+                            <li>нажать пригласить</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gamerules">
+                <div class="jumbotron">
+                    <div class="container-fluid">
+                        <h2>Как только игроки собраны, начинается игра</h2>
+                        <p>
+                            В игре есть 2 поля. Левое принадлежит создателю, а правое - гостю.
+                            Около вашего поля есть корабли, которые нужно будет разместить на вашем поле.
+                            <b>Соответственно, игра состоит из 2 этапов:</b>
+                        <ul>
+                            <li>размещение кораблей</li>
+                            <li>непосредственно, сам бой</li>
+                        </ul>
+                        <p>
+                            <b>Размещение кораблей:</b>
+                        <ul>
+                            <li>Корябли не могут находиться вплотную друг к другу(даже по диагонали)</li>
+                            <li>Корабль может быть расположен либо вериткально, либо горизонтально</li>
+                            <li>Для того, чтобы поместить корабль на поле нажмите на него[гифка], перетащите его на
+                                поле[гифка]
+                            </li>
+                            <li>Как только вы расположите все корабли, нажмите кнопку "Готов"</li>
+                            <li>Вы обязаны разместить все корабли на поле!</li>
+                        </ul>
+                        <p>
+                            <b>Бой:</b>
+                        <ul>
+                            <li>Игроки ходят поочереди. Первый игрок выбирается случайно</li>
+                            <li>Игрок кликает(стреляет) на клетку поля противника. Если он попадает, то игрок может
+                                стрелять снова [гифка]
+                            </li>
+                            <li>Если игрок попадает во все клетки корабля, то он считается умершим.
+                                Так как вплотную к коряблю не могут прилягать другие корабли, то все клетки вокруг
+                                корабля будут считаться проверенными[гифка]
+                            </li>
+                            <li>Если игрок промазал,то ходит другой игрок</li>
+                            <li>Игра продолжается до тех пор, пока все корабли одного из игроков не будут считаться
+                                умершими
+                            </li>
+                        </ul>
+                        <p> Затем определяется победитель и лобби закрывается</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2 no-padding">
+            <div id="right" class="container-fluid no-padding affix">
+                <img src="../test/left.PNG" class="img">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Jquerry -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+﻿
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
