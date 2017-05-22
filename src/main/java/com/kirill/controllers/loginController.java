@@ -83,9 +83,9 @@ public class loginController {
      *
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
+    public void login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
 
-        /*if (user_dataService.getByLogin(login) == null)
+        if (user_dataService.getByLogin(login) == null)
         {
             System.out.println("Inputed login does not exist.");
         } else {
@@ -97,30 +97,25 @@ public class loginController {
 
                 System.out.println("Wrong password");
             }
-        }*/
-
-        try {
-
-            File file = new File("../../../../webapp/static/startpage.html");
-            FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
-            String currentString = new String(reader.readLine());
-            StringBuilder builder = new StringBuilder();
-
-            while (currentString != null) {
-
-                builder.append(currentString);
-                currentString = reader.readLine();
-            }
-
-            return builder.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        return "Error";
+
+/*
+        try {
+
+            byte[] data = null;
+            try {
+
+                String directory = "static/" + imageName;
+                Path path = Paths.get(directory);
+                data = Files.readAllBytes(path);
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+
+            return data;*/
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

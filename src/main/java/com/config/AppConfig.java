@@ -19,6 +19,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
 
-        registry.addResourceHandler("/gamegate/**").addResourceLocations("/static/");
+        registry.addResourceHandler("/game/**")
+                .addResourceLocations("file:///D:\\Science\\Web-programming\\Battleship_online\\src\\main\\resources\\static\\images");
     }
 }
