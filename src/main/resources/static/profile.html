@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <!-- сайт на смартфоне должен быть увеличен, кнопки должны быть адаптивными -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="resources/profile.css">
+    <link rel="stylesheet" href="resources/general.css">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">Battle Ships Online</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Главная</a></li>
+                <li><a href="#">Лобби</a></li>
+                <li><a href="#">Правила</a></li>
+                <li><a href="#">Мой профиль</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Вход/Регистрация</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2 right-padding">
+            <div id="left" class="container-fluid right-padding affix">
+                <img src="../test/left.PNG" class="img">
+            </div>
+        </div>
+
+        <div id="central" class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
+
+            <div id="statistic">
+                <h1 class="text-center">Общая статистика</h1>
+                <p class="text-center">Вы убили: ---</p>
+                <p class="text-center">Выйграно боев: ---</p>
+                <p class="text-center">Всего игр: ---</p>
+            </div>
+
+            <div id="achievements">
+                <h1 class="text-center">Достижения</h1>
+
+                <div id="killstreak" class="achievements-block">
+                    <h3 class="text-center">Достижения за убийства подряд</h3>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/Double_trouble.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/TRIPple_RIPple2.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/Fourth_wall.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/RAMPAGE.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/Sixth_sense.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/Wrath_of_7_seas.jpg" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/Octava_of_war.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/NEIN.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/When_is_my_turn.PNG" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="missstreak" class="achievements-block">
+                    <h3 class="text-center">Достижения за промахи подряд</h3>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/missstreak.jpg" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/unlucky_day.png" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/i_know_this_feeling_bro.png"
+                                         class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/Life_is_pain.png" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/Misserable.png" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="unique" class="achievements-block">
+                    <h3 class="text-center">Уникальные достижения</h3>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/first_blood.png" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
+                                <div class="achievement">
+                                    <img src="../test/intuition.png" class="img img-responsive img-thumbnail">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2 no-padding">
+            <div id="right" class="container-fluid left-padding affix">
+                <img src="../test/left.PNG" class="img">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Jquerry -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+﻿
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
