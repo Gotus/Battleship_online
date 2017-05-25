@@ -1,5 +1,6 @@
-package bs.kirill;
+package bs;
 
+import bs.ApplicationBattleshipOnline;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
@@ -7,7 +8,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(BattleshipOnlineApplication.class);
+		return application.sources(ApplicationBattleshipOnline.class);
 	}
 
 }

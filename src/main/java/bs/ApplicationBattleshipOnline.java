@@ -1,12 +1,12 @@
-package bs.kirill;
+package bs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BattleshipOnlineApplication {
+public class ApplicationBattleshipOnline {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BattleshipOnlineApplication.class, args);
+		SpringApplication.run(ApplicationBattleshipOnline.class, args);
 	}
 }

@@ -74,9 +74,9 @@ public class loginController {
      *
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
+    public void login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
 
-        /*
+
         if (user_dataService.getByLogin(login) == null)
         {
             System.out.println("Inputed login does not exist.");
@@ -89,9 +89,9 @@ public class loginController {
 
                 System.out.println("Wrong password");
             }
-        }*/
+        }
 
-        return "startpage.html";
+        //return "redirect:/";
 
 /*
         try {
