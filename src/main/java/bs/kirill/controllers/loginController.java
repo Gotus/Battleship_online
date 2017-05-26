@@ -2,6 +2,7 @@ package bs.kirill.controllers;
 
 import bs.kirill.entity.EUserData;
 import bs.kirill.service.EUser_DataService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -79,15 +80,15 @@ public class loginController {
 
         if (user_dataService.getByLogin(login) == null)
         {
-            System.out.println("Inputed login does not exist.");
+            //Login not found
         } else {
 
             if (user_dataService.getByLogin(login).getPassword().equals(password)) {
 
-                System.out.println("Login successful");
+                //Password is correct
             } else {
 
-                System.out.println("Wrong password");
+                //Password is wrong
             }
         }
 
