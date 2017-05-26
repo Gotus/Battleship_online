@@ -75,41 +75,25 @@ public class loginController {
      *
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public void login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
+    public String login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
 
 
         if (user_dataService.getByLogin(login) == null)
         {
             //Login not found
+            return "/startpage.html";
         } else {
 
             if (user_dataService.getByLogin(login).getPassword().equals(password)) {
 
                 //Password is correct
+                return "/main.html";
             } else {
 
                 //Password is wrong
+                return "startpage.html";
             }
         }
-
-        //return "redirect:/";
-
-/*
-        try {
-
-            byte[] data = null;
-            try {
-
-                String directory = "static/" + imageName;
-                Path path = Paths.get(directory);
-                data = Files.readAllBytes(path);
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-
-            return data;*/
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
