@@ -32,19 +32,19 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li> <a href="#">Главная</a></li>
-                <li> <a href="#">Лобби</a></li>
-                <li> <a href="#">Правила</a></li>
-                <li> <a href="#">Мой профиль</a></li>
+                <li> <a href="localhost:8080/static/main.html">Главная</a></li>
+                <li> <a href="localhost:8080/static/lobies.html">Лобби</a></li>
+                <li> <a href="localhost:8080/static/rules.html">Правила</a></li>
+                <li> <a href="localhost:8080/static/profile.html">Мой профиль</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"> <a href="#">Вход/Регистрация</a></li>
+                <li class="active"> <a href="localhost:8080/static/startpage.html">Вход/Регистрация</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-
+<script src="jsfiles/startpage.js"></script>
 <div class="container-fluid">
     <br><br><br><br>
     <div class="row">
@@ -58,13 +58,13 @@
                     <form role="form">
                         <div class="form-group">
                             <label for="log in login">Логин</label>
-                            <input class="form-control" id="log in login" placeholder="введите логин">
+                            <input class="form-control" id="log in login" placeholder="введите логин" onchange="login = this.value">
                         </div>
                         <div class="form-group">
                             <label for="log in password">Пароль</label>
-                            <input type="password" class="form-control" id="log in password" placeholder="введите пароль">
+                            <input type="password" class="form-control" id="log in password" placeholder="введите пароль" onchange="password = this.value">
                         </div>
-                        <div class="btn btn-success">войти</div>
+                        <div class="btn btn-success" onclick="logincheck()">войти</div>
                     </form>
 
                     <br><br>
@@ -72,18 +72,18 @@
                     <form role="form">
                         <div class="form-group">
                             <label for="sign up email">Email</label>
-                            <input type="email" class="form-control" id="sign up email" placeholder="введите email">
+                            <input type="email" class="form-control" id="sign up email" placeholder="введите email" onchange="email = this.value">
                         </div>
                         <div class="form-group">
                             <label for="sign up login">Логин</label>
-                            <input class="form-control" id="sign up login" placeholder="введите логин">
+                            <input class="form-control" id="sign up login" placeholder="введите логин" onchange="login2 = this.value">
                         </div>
                         <div class="form-group">
                             <label for="sign up password ">Пароль</label>
-                            <input type="password" class="form-control" id="sign up password " placeholder="введите пароль">
+                            <input type="password" class="form-control" id="sign up password " placeholder="введите пароль" onchange="password2 = this.value">
                         </div>
 
-                        <button type="button" class="btn btn-success">регистрация</button>
+                        <button class="btn btn-success" onclick="registrationcheck()">регистрация</button>
                     </form>
                 </div>
             </div>
