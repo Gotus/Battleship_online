@@ -5,19 +5,19 @@ var login, password, logincheck;
 var email, login2, password2, registrationcheck;
 
 /*logincheck = function () {
-    location.href = "http://localhost:8080/gamegate/login?login=" + login + "&password=" + password;
-};
+ location.href = "http://localhost:8080/gamegate/login?login=" + login + "&password=" + password;
+ };
 
-registrationcheck = function () {
-    location.href = "http://localhost:8080/gamegate/registrate?mail=" + email + "&login=" + login2 + "&password=" + password2;
-};*/
+ registrationcheck = function () {
+ location.href = "http://localhost:8080/gamegate/registrate?mail=" + email + "&login=" + login2 + "&password=" + password2;
+ };*/
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('#loginButton').click(function() {
+    $('#loginButton').click(function () {
         login = $("#loginlogin").val();
         password = $("#loginpassword").val();
-        if( login =='' || password ==''){
+        if (login == "" || password == "") {
             alert("Please fill all fields...!!!!!!");
         } else {
             $.ajax({
@@ -27,21 +27,21 @@ $(document).ready(function() {
                     login: login,
                     password: password
                 },
-                success: function(data) {
+                success: function (data) {
                     try {
                         object = $.parseJSON(data);
                         for (var key in object) {
                             //this if just checks if the key has a value, it is required
                             if (object.hasOwnProperty(key)) {
-                                var value=object[key];
-                                if (value == null || key == null){
-                                    alert("wrong login/number");
+                                var value = object[key];
+                                if (value == null || key == null) {
+                                    alert("wrong login/password");
                                     return;
                                 }
                                 //then we need to put the key and the value into session storage
                                 sessionStorage.setItem(key, value);
                             }
-                            location.href('http://localhost:8080/profile.html');
+                            location.href = "http://localhost:8080/profile.html";
                         }
                     } catch (e) {
                         // here you didn't get JSON back so we can assume it was an error, run your error code in here.  data will still be the error number (3)
@@ -51,16 +51,5 @@ $(document).ready(function() {
                 }
             });
         }
-     
-        if (password === undefined) {
-            alert("password should not be empty");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/gamegate/login?login=" + login + "&password=" + password,
-            data: {
-                username: login,
     });
 });
