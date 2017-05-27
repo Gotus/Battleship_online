@@ -20,7 +20,7 @@ $(document).ready(function() {
             return;
         }
         if (password === undefined) {
-            alert("login should not be empty");
+            alert("password should not be empty");
             return;
         }
 
