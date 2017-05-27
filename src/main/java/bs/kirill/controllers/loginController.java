@@ -3,8 +3,13 @@ package bs.kirill.controllers;
 import bs.kirill.entity.EUserData;
 import bs.kirill.service.EUser_DataService;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import javax.annotation.Resource;
 
@@ -74,24 +79,24 @@ public class loginController {
      * Parameters: login: user's login, password: user's password
      *
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public EUserData login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
 
 
         if (user_dataService.getByLogin(login) == null)
         {
             //Login not found
-            return "/startpage.html";
+            return null;
         } else {
 
             if (user_dataService.getByLogin(login).getPassword().equals(password)) {
 
                 //Password is correct
-                return "/main.html";
+                return user_dataService.getByLogin(login);
             } else {
 
                 //Password is wrong
-                return "startpage.html";
+                return null;
             }
         }
     }

@@ -12,6 +12,9 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+    <!-- jQuery linking -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
     <!--Подключение CSS-->
     <!--
     <link rel="stylesheet" href="c:url value=/resources/general.css" /> >
@@ -64,7 +67,7 @@
                             <label for="log in password">Пароль</label>
                             <input type="password" class="form-control" id="log in password" placeholder="введите пароль" onchange="password = this.value">
                         </div>
-                        <div class="btn btn-success" onclick="logincheck()">войти</div>
+                        <div class="btn btn-success" id="loginButton" onclick="logincheck()">войти</div>
                     </form>
 
                     <br><br>
@@ -83,7 +86,7 @@
                             <input type="password" class="form-control" id="sign up password " placeholder="введите пароль" onchange="password2 = this.value">
                         </div>
 
-                        <button class="btn btn-success" onclick="registrationcheck()">регистрация</button>
+                        <button class="btn btn-success" id="registerButton" onclick="registrationcheck()">регистрация</button>
                     </form>
                 </div>
             </div>
