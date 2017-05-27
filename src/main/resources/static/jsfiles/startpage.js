@@ -15,11 +15,11 @@ registrationcheck = function () {
 $(document).ready(function() {
 
     $('#loginButton').click(function() {
-        if (login === "undefined") {
+        if (login === undefined) {
             alert("login should not be empty");
             return;
         }
-        if (password === "undefined") {
+        if (password === undefined) {
             alert("login should not be empty");
             return;
         }
@@ -34,7 +34,7 @@ $(document).ready(function() {
             success: function(data)
             {
                 if (data !== null) {
-                    window.location.replace('admin/admin.php'); //lobies url
+                    window.location.replace('http://localhost:8080/lobies.html'); //lobies url
                 }
                 else {
                     alert("incorrect login/password");
