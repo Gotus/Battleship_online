@@ -51,5 +51,16 @@ $(document).ready(function() {
                 }
             });
         }
+     
+        if (password === undefined) {
+            alert("password should not be empty");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/gamegate/login?login=" + login + "&password=" + password,
+            data: {
+                username: login,
     });
 });
