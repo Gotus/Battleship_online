@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Администратор on 02.12.2016.
@@ -80,9 +81,11 @@ public class loginController {
      *
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public EUserData login(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) throws Exception {
 
+    public @ResponseBody EUserData login(HttpServletRequest request) throws Exception {
 
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
         if (user_dataService.getByLogin(login) == null)
         {
             //Login not found
