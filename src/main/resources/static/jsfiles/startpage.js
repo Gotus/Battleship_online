@@ -29,8 +29,11 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     try {
-                        object = $.parseJSON(data);
-                        for (var key in object) {
+                        var format = '{"userID":1,"mail":"PPAP@mail.ru","login":"PPAP","password":"123654","dateOfRegistration":"May 11, 2017 12:00:00 AM","achievementsOfUser":[]}'
+                        object = JSON.parse(format);
+                        alert(object.mail);
+
+                        /*for (var key in object) {
                             //this if just checks if the key has a value, it is required
                             if (object.hasOwnProperty(key)) {
                                 var value = object[key];
@@ -42,7 +45,7 @@ $(document).ready(function () {
                                 sessionStorage.setItem(key, value);
                             }
                             location.href = "http://localhost:8080/profile.html";
-                        }
+                        }*/
                     } catch (e) {
                         // here you didn't get JSON back so we can assume it was an error, run your error code in here.  data will still be the error number (3)
                         return false;
