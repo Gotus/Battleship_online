@@ -37,7 +37,7 @@ $(document).ready(function () {
                        }
                    })
                }
-    })
+    });
 
     $('#registerButton').click(function () {
             login2 = $("#signuplogin").val();
@@ -69,5 +69,5 @@ $(document).ready(function () {
                     }
                 })
             }
-    })
+    });
 });
