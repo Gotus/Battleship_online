@@ -32,6 +32,7 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     try {
+<<<<<<< HEAD
                     //alert(data.password);
                         //data = data + "";
                         alert(data);
@@ -40,7 +41,24 @@ $(document).ready(function () {
                         if(data.isSuccess) {
                             location.href = "http://localhost:8080/profile.html";
                         } else {
-                            alert("РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ/РїР°СЂРѕР»СЊ");
+                            alert("Неверный логин/пароль");
+                        }
+=======
+                        var format = '{"userID":1,"mail":"PPAP@mail.ru","login":"PPAP","password":"123654","dateOfRegistration":"May 11, 2017 12:00:00 AM","achievementsOfUser":[]}'
+                        object = JSON.parse(format);
+                        alert(object.mail);
+
+>>>>>>> 46d2cbc24646ac9b5e0449d43137bc1189768a2c
+                        /*for (var key in object) {
+                    //alert(data.password);
+                        //data = data + "";
+                        alert(data);
+                        //object = data;
+                        alert(data.isSuccess);
+                        if(data.isSuccess) {
+                            location.href = "http://localhost:8080/profile.html";
+                        } else {
+                            alert("Неверный логин/пароль");
                         }
                         /*for (var key in object) {
                             //this if just checks if the key has a value, it is required
@@ -55,6 +73,11 @@ $(document).ready(function () {
                             }
                             alert("redirection");
                             location.href = "http://localhost:8080/profile.html";
+                        }*/
+<<<<<<< HEAD
+
+=======
+>>>>>>> 46d2cbc24646ac9b5e0449d43137bc1189768a2c
                         }*/
 
                     } catch (e) {
