@@ -20,17 +20,29 @@ $(document).ready(function () {
         if (login == "" || password == "") {
             alert("Please fill all fields...!!!!!!");
         } else {
+        alert("pizdwes");
             $.ajax({
-                type: "POST",
                 url: "http://localhost:8080/gamegate/login",
-                data: {
+                type: "POST",
+                data: JSON.stringify({
                     login: login,
                     password: password
-                },
+                }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
                 success: function (data) {
                     try {
-                        object = $.parseJSON(data);
-                        for (var key in object) {
+                    //alert(data.password);
+                        //data = data + "";
+                        alert(data);
+                        //object = data;
+                        alert(data.isSuccess);
+                        if(data.isSuccess) {
+                            location.href = "http://localhost:8080/profile.html";
+                        } else {
+                            alert("Неверный логин/пароль");
+                        }
+                        /*for (var key in object) {
                             //this if just checks if the key has a value, it is required
                             if (object.hasOwnProperty(key)) {
                                 var value = object[key];
@@ -41,10 +53,13 @@ $(document).ready(function () {
                                 //then we need to put the key and the value into session storage
                                 sessionStorage.setItem(key, value);
                             }
+                            alert("redirection");
                             location.href = "http://localhost:8080/profile.html";
-                        }
+                        }*/
+
                     } catch (e) {
                         // here you didn't get JSON back so we can assume it was an error, run your error code in here.  data will still be the error number (3)
+                        alert("exception");
                         return false;
                     }
                     //run your code on the json object here.

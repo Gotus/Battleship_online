@@ -5,6 +5,7 @@ import bs.kirill.entity.EUserData;
 import bs.kirill.service.EBattleService;
 import bs.kirill.service.EUser_DataService;
 import bs.kirill.entity.EBattle;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

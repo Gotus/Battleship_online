@@ -2,14 +2,10 @@ package bs.kirill.controllers;
 
 import bs.kirill.entity.EUserData;
 import bs.kirill.service.EUser_DataService;
+import com.google.gson.Gson;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -78,30 +74,38 @@ public class loginController {
     /*
      * Method perform logging in
      * Parameters: login: user's login, password: user's password
-     *
+     * tested
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody LoginResult login(@RequestBody LoginData loginData, HttpServletRequest request) throws Exception {
 
-    public @ResponseBody EUserData login(HttpServletRequest request) throws Exception {
+        LoginResult result = new LoginResult();
+        result.setIsSuccess(false);
 
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        if (user_dataService.getByLogin(login) == null)
+        if (user_dataService.getByLogin(loginData.getLogin()) == null)
         {
             //Login not found
-            return null;
+            result.setIsSuccess(false);
+            return result;
         } else {
 
-            if (user_dataService.getByLogin(login).getPassword().equals(password)) {
+            if (user_dataService.getByLogin(loginData.getLogin()).getPassword().equals(loginData.getPassword())) {
 
+                Gson gson = new Gson();
+                String userDataJSON = gson.toJson(user_dataService.getByLogin(loginData.getLogin()));
+                System.out.println(userDataJSON);
                 //Password is correct
-                return user_dataService.getByLogin(login);
+
+                result.setIsSuccess(true);
+                return result;
             } else {
 
                 //Password is wrong
-                return null;
+                result.setIsSuccess(false);
+                return result;
             }
         }
+
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -129,5 +133,46 @@ public class loginController {
                 user_dataService.addUser(userData);
             }
         }
+    }
+}
+
+class LoginResult {
+    private Boolean isSuccess;
+
+    public Boolean getIsSuccess() {
+
+        return isSuccess;
+    }
+
+    public void setIsSuccess(Boolean isSuccess) {
+
+        this.isSuccess = isSuccess;
+    }
+
+}
+
+class LoginData {
+
+    public String login;
+    public String password;
+
+    public void setLogin(String login){
+
+        this.login = login;
+    }
+
+    public void setPassword(String password){
+
+        this.password = password;
+    }
+
+    public String getLogin() {
+
+        return this.login;
+    }
+
+    public String getPassword() {
+
+        return this.password;
     }
 }
