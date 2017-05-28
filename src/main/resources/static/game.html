@@ -14,10 +14,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/general.css">
-
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<!--<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,97 +29,170 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"> <a href="localhost:8080/main.html">Главная</a></li>
-                <li> <a href="localhost:8080/lobies.html">Лобби</a></li>
-                <li> <a href="localhost:8080/rules.html">Правила</a></li>
-                <li> <a href="localhost:8080/profile.html">Мой профиль</a></li>
+                <li class="active"><a href="localhost:8080/main.html">Главная</a></li>
+                <li><a href="localhost:8080/lobies.html">Лобби</a></li>
+                <li><a href="localhost:8080/rules.html">Правила</a></li>
+                <li><a href="localhost:8080/profile.html">Мой профиль</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li> <a href="localhost:8080/startpage.html">Вход/Регистрация</a></li>
+                <li><a href="localhost:8080/startpage.html">Вход/Регистрация</a></li>
             </ul>
         </div>
     </div>
-</nav>
+</nav>-->
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2 right-padding">
-            <div id="left" class="container-fluid right-padding affix">
-                <img src="../test/left.PNG" class="img">
-            </div>
-        </div>
-        <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
-            <div id="welcome">
-                <div class="jumbotron">
-                    <div class="container-fluid">
-                        <h1>Добро пожаловать на Морской Бой, Салага!</h1>
-                        <p>
-                            Морской бой - знаменитая игра для двоих игроков.
-                            Миллионы людей уже знают про эту игру и теперь у тебя появилась уникальная возможность
-                            сыграть в нее на компьютере!
-                            Теперь вам не нужно рисовать поле боя и отмечать попадания на бумаге: <b>мы все сделаем за
-                            вас!</b>
-                            Вам даже не нужно, чтобы соперник сидел поблизости(главное, чтобы у каждого из вас был
-                            компьютер и доступ в интернет)
-                            Все, что вам нужно - это знать правила!
-                        </p>
-                        <p>
-                            Кстати, они здесь(и в меню наверху)
-                            <a href="#" class="btn btn-info">Правила</a>
-                        </p>
-
-
-                    </div>
+    <div class="row" id="fields">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-4" style="background-color: cornflowerblue">
+            <div id="ships" class="row">
+                <div class="ship">
+                    <label id="ship4" for="4ship"></label>
+                    <img src="images/4ship.png" id="4ship" draggable="true" ondragstart="drag(event)"
+                         width="111" height="26">
+                </div>
+                <div class="ship">
+                    <label id="ship3" for="3ship"></label>
+                    <img src="images/3ship.png" id="3ship" draggable="true" ondragstart="drag(event)"
+                         width="83" height="26">
+                </div>
+                <div class="ship">
+                    <label id="ship2" for="2ship"></label>
+                    <img src="images/2ship.png" id="2ship" draggable="true" ondragstart="drag(event)"
+                         width="53" height="26">
+                </div>
+                <div class="ship">
+                    <label id="ship1" for="1ship"></label>
+                    <img src="images/1ship.png" id="1ship" draggable="true" ondragstart="drag(event)"
+                         width="26" height="26">
                 </div>
             </div>
-
-            <div id="post-welcome">
-                <div class="jumbotron">
-                    <div class="container-fluid">
-                        <h2>Уже изучил правила? Тогда вперед покарять моря и океаны!</h2>
-                        <p>
-                            Не забудь зарегестрироваться и войти, чтобы ты мог получать награды и участвовать в боях.
-                            <a href="#" class="btn btn-success">Вход/Регистрация</a>
-                        </p>
-                        <p>
-                            Да-да, ты не ослышался, ты можешь получать награды! Что такое награды?
-                            Это особенные значки, которые ты получаешь за некоторые действия во время игры.
-                            В своем профиле <a href="#" class="btn btn-info">Мой профиль</a> ты можешь увидеть, какие
-                            награды ты уже получил, а какие тебе еще предстоит получить
-                            Как их получить? Кликни на любую и ты сразу все поймешь.
-                        <p>
-                        <p>
-                            <b>Ох-хо-хо, что-то я тебя совсем заговорил, вперед в бой, тысяча чертей и бутылка рома!</b>
-                            <a href="#" class="btn btn-success">Лобби</a>
-                        </p>
-                    </div>
+            <div class="btn-group-vertical btn-group-justified">
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">&#160</label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                    <label class="btn btn-default btn-xs"> </label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
+                </div>
+                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
+                    <label class="btn btn-default btn-xs">1</label>
+                    <label class="btn btn-default btn-xs">2</label>
+                    <label class="btn btn-default btn-xs">3</label>
+                    <label class="btn btn-default btn-xs">4</label>
+                    <label class="btn btn-default btn-xs">5</label>
+                    <label class="btn btn-default btn-xs">6</label>
+                    <label class="btn btn-default btn-xs">7</label>
+                    <label class="btn btn-default btn-xs">8</label>
+                    <label class="btn btn-default btn-xs">9</label>
+                    <label class="btn btn-default btn-xs">10</label>
                 </div>
             </div>
-
-            <div id="news">
-                <div class="jumbotron">
-                    <div class="container-fluid">
-                        <h2>Новости </h2>
-                        <p>
-                            сайт создан!
-                        </p>
-
-                    </div>
-                </div>
-            </div>
-
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2 no-padding">
-            <div id="right" class="container-fluid left-padding affix">
-                <img src="../test/left.PNG" class="img">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-6" style="background-color: cornflowerblue">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-4" style="background-color: cornflowerblue">
             <div class="btn-group-vertical btn-group-justified">
                 <div class="btn-group-horizontal btn-group-xs btn-group-justified">
                     <label class="btn btn-default btn-xs">1</label>
@@ -244,132 +316,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-2" style="background-color: aliceblue"> </div>
-        <div class="col-lg-6" style="background-color: cornflowerblue">
-            <div class="btn-group-vertical btn-group-justified">
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-            </div>
-        </div>
+        <div class="col-lg-1"></div>
     </div>
 </div>
+<script src="jsfiles/game.js"></script>
+
 </body>
 </html>
