@@ -108,35 +108,68 @@ public class loginController {
 
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void registrateUser(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password, @RequestParam(value = "mail") String mail) throws Exception {
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody RegisterResult registrateUser(@RequestBody RegisterData registerData, HttpServletRequest request) throws Exception {
 
-        if (user_dataService.getByLogin(login) != null)
+        RegisterResult result = new RegisterResult();
+
+        if (user_dataService.getByLogin(registerData.getLogin()) != null)
         {
             System.out.println("Inputed login already exists");
-            return;
+            System.out.println(registerData.getLogin());
+            System.out.println(registerData.getMail());
+            System.out.println(registerData.getPassword());
+            result.setIsSuccess(false);
+            System.out.println(result.getIsSuccess());
+            return result;
 
         } else {
 
-            if (user_dataService.getByMail(mail) != null)
+            if (user_dataService.getByMail(registerData.getMail()) != null)
             {
                 System.out.println("Inputed mail already exists");
+                System.out.println(registerData.getLogin());
+                System.out.println(registerData.getMail());
+                System.out.println(registerData.getPassword());
+                result.setIsSuccess(false);
+                System.out.println(result.getIsSuccess());
+                return result;
             } else {
                 EUserData userData = new EUserData();
-                userData.setLogin(login);
-                userData.setMail(mail);
-                userData.setPassword(password);
+                userData.setLogin(registerData.getLogin());
+                userData.setMail(registerData.getMail());
+                userData.setPassword(registerData.getPassword());
 
                 Date curDate = new Date();
 
                 userData.setDate_of_registration(curDate);
                 user_dataService.addUser(userData);
+                System.out.println(registerData.getLogin());
+                System.out.println(registerData.getMail());
+                System.out.println(registerData.getPassword());
+                result.setIsSuccess(true);
+                System.out.println(result.getIsSuccess());
+                return result;
             }
         }
     }
 }
 
 class LoginResult {
+    private Boolean isSuccess;
+
+    public Boolean getIsSuccess() {
+
+        return isSuccess;
+    }
+
+    public void setIsSuccess(Boolean isSuccess) {
+
+        this.isSuccess = isSuccess;
+    }
+}
+
+class RegisterResult {
     private Boolean isSuccess;
 
     public Boolean getIsSuccess() {
@@ -174,5 +207,42 @@ class LoginData {
     public String getPassword() {
 
         return this.password;
+    }
+}
+
+class RegisterData {
+
+    public String login;
+    public String password;
+    public String email;
+
+    public void setLogin(String login){
+
+        this.login = login;
+    }
+
+    public void setPassword(String password){
+
+        this.password = password;
+    }
+
+    public void setMail(String email) {
+
+        this.email = email;
+    }
+
+    public String getLogin() {
+
+        return this.login;
+    }
+
+    public String getPassword() {
+
+        return this.password;
+    }
+
+    public String getMail(){
+
+        return this.email;
     }
 }
