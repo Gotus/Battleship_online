@@ -19,7 +19,7 @@
 <!--<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button class="navbar-toggle" data-toggle="ylapse" data-target=".navbar-ylapse">
                 <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -27,7 +27,7 @@
             </button>
             <a href="#" class="navbar-brand">Battle Ships Online</a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-ylapse ylapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="localhost:8080/main.html">Главная</a></li>
                 <li><a href="localhost:8080/lobies.html">Лобби</a></li>
@@ -42,10 +42,10 @@
 </nav>-->
 
 <div class="container-fluid">
-    <div class="row" id="fields">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-4" style="background-color: cornflowerblue">
-            <div id="ships" class="row">
+    <div class="y" id="fields">
+        <div class="y-lg-1"></div>
+        <div class="y-lg-4" style="background-yor: cornflowerblue">
+            <div id="ships" class="y">
                 <div class="ship">
                     <label id="ship4" for="4ship"></label>
                     <img src="images/4ship.png" id="4ship" draggable="true" ondragstart="drag(event)"
@@ -67,256 +67,257 @@
                          width="26" height="26">
                 </div>
             </div>
-            <div class="btn-group-vertical btn-group-justified">
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">&#160</label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
-                    <label class="btn btn-default btn-xs"> </label>
+
+            <div class="btn-group-vertical btn-group-justified ">
+                <div class="btn-group btn-group-xs" id="xA">
+                    <button type="button" name='yA' class="btn btn-primary">A1</button>
+                    <button type="button" name='yA' class="btn btn-primary">A2</button>
+                    <button type="button" name='yA' class="btn btn-primary">A3</button>
+                    <button type="button" name='yA' class="btn btn-primary">A4</button>
+                    <button type="button" name='yA' class="btn btn-primary">A5</button>
+                    <button type="button" name='yA' class="btn btn-primary">A6</button>
+                    <button type="button" name='yA' class="btn btn-primary">A7</button>
+                    <button type="button" name='yA' class="btn btn-primary">A8</button>
+                    <button type="button" name='yA' class="btn btn-primary">A9</button>
+                    <button type="button" name='yA' class="btn btn-primary">A10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xB">
+                    <button type="button" name='yB' class="btn btn-primary">B1</button>
+                    <button type="button" name='yB' class="btn btn-primary">B2</button>
+                    <button type="button" name='yB' class="btn btn-primary">B3</button>
+                    <button type="button" name='yB' class="btn btn-primary">B4</button>
+                    <button type="button" name='yB' class="btn btn-primary">B5</button>
+                    <button type="button" name='yB' class="btn btn-primary">B6</button>
+                    <button type="button" name='yB' class="btn btn-primary">B7</button>
+                    <button type="button" name='yB' class="btn btn-primary">B8</button>
+                    <button type="button" name='yB' class="btn btn-primary">B9</button>
+                    <button type="button" name='yB' class="btn btn-primary">B10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xC">
+                    <button type="button" name='yC' class="btn btn-primary">C1</button>
+                    <button type="button" name='yC' class="btn btn-primary">C2</button>
+                    <button type="button" name='yC' class="btn btn-primary">C3</button>
+                    <button type="button" name='yC' class="btn btn-primary">C4</button>
+                    <button type="button" name='yC' class="btn btn-primary">C5</button>
+                    <button type="button" name='yC' class="btn btn-primary">C6</button>
+                    <button type="button" name='yC' class="btn btn-primary">C7</button>
+                    <button type="button" name='yC' class="btn btn-primary">C8</button>
+                    <button type="button" name='yC' class="btn btn-primary">C9</button>
+                    <button type="button" name='yC' class="btn btn-primary">C10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xD">
+                    <button type="button" name='yD' class="btn btn-primary">D1</button>
+                    <button type="button" name='yD' class="btn btn-primary">D2</button>
+                    <button type="button" name='yD' class="btn btn-primary">D3</button>
+                    <button type="button" name='yD' class="btn btn-primary">D4</button>
+                    <button type="button" name='yD' class="btn btn-primary">D5</button>
+                    <button type="button" name='yD' class="btn btn-primary">D6</button>
+                    <button type="button" name='yD' class="btn btn-primary">D7</button>
+                    <button type="button" name='yD' class="btn btn-primary">D8</button>
+                    <button type="button" name='yD' class="btn btn-primary">D9</button>
+                    <button type="button" name='yD' class="btn btn-primary">D10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xE">
+                    <button type="button" name='yE' class="btn btn-primary">E1</button>
+                    <button type="button" name='yE' class="btn btn-primary">E2</button>
+                    <button type="button" name='yE' class="btn btn-primary">E3</button>
+                    <button type="button" name='yE' class="btn btn-primary">E4</button>
+                    <button type="button" name='yE' class="btn btn-primary">E5</button>
+                    <button type="button" name='yE' class="btn btn-primary">E6</button>
+                    <button type="button" name='yE' class="btn btn-primary">E7</button>
+                    <button type="button" name='yE' class="btn btn-primary">E8</button>
+                    <button type="button" name='yE' class="btn btn-primary">E9</button>
+                    <button type="button" name='yE' class="btn btn-primary">E10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xF">
+                    <button type="button" name='yF' class="btn btn-primary">F1</button>
+                    <button type="button" name='yF' class="btn btn-primary">F2</button>
+                    <button type="button" name='yF' class="btn btn-primary">F3</button>
+                    <button type="button" name='yF' class="btn btn-primary">F4</button>
+                    <button type="button" name='yF' class="btn btn-primary">F5</button>
+                    <button type="button" name='yF' class="btn btn-primary">F6</button>
+                    <button type="button" name='yF' class="btn btn-primary">F7</button>
+                    <button type="button" name='yF' class="btn btn-primary">F8</button>
+                    <button type="button" name='yF' class="btn btn-primary">F9</button>
+                    <button type="button" name='yF' class="btn btn-primary">F10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xG">
+                    <button type="button" name='yG' class="btn btn-primary">G1</button>
+                    <button type="button" name='yG' class="btn btn-primary">G2</button>
+                    <button type="button" name='yG' class="btn btn-primary">G3</button>
+                    <button type="button" name='yG' class="btn btn-primary">G4</button>
+                    <button type="button" name='yG' class="btn btn-primary">G5</button>
+                    <button type="button" name='yG' class="btn btn-primary">G6</button>
+                    <button type="button" name='yG' class="btn btn-primary">G7</button>
+                    <button type="button" name='yG' class="btn btn-primary">G8</button>
+                    <button type="button" name='yG' class="btn btn-primary">G9</button>
+                    <button type="button" name='yG' class="btn btn-primary">G10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xH">
+                    <button type="button" name='yH' class="btn btn-primary">H1</button>
+                    <button type="button" name='yH' class="btn btn-primary">H2</button>
+                    <button type="button" name='yH' class="btn btn-primary">H3</button>
+                    <button type="button" name='yH' class="btn btn-primary">H4</button>
+                    <button type="button" name='yH' class="btn btn-primary">H5</button>
+                    <button type="button" name='yH' class="btn btn-primary">H6</button>
+                    <button type="button" name='yH' class="btn btn-primary">H7</button>
+                    <button type="button" name='yH' class="btn btn-primary">H8</button>
+                    <button type="button" name='yH' class="btn btn-primary">H9</button>
+                    <button type="button" name='yH' class="btn btn-primary">H10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xI">
+                    <button type="button" name='yI' class="btn btn-primary">I1</button>
+                    <button type="button" name='yI' class="btn btn-primary">I2</button>
+                    <button type="button" name='yI' class="btn btn-primary">I3</button>
+                    <button type="button" name='yI' class="btn btn-primary">I4</button>
+                    <button type="button" name='yI' class="btn btn-primary">I5</button>
+                    <button type="button" name='yI' class="btn btn-primary">I6</button>
+                    <button type="button" name='yI' class="btn btn-primary">I7</button>
+                    <button type="button" name='yI' class="btn btn-primary">I8</button>
+                    <button type="button" name='yI' class="btn btn-primary">I9</button>
+                    <button type="button" name='yI' class="btn btn-primary">I10</button>
                 </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-1"></div>
-        <div class="col-lg-1"></div>
-        <div class="col-lg-4" style="background-color: cornflowerblue">
-            <div class="btn-group-vertical btn-group-justified">
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
-                </div>
-                <div class="btn-group-horizontal btn-group-xs btn-group-justified">
-                    <label class="btn btn-default btn-xs">1</label>
-                    <label class="btn btn-default btn-xs">2</label>
-                    <label class="btn btn-default btn-xs">3</label>
-                    <label class="btn btn-default btn-xs">4</label>
-                    <label class="btn btn-default btn-xs">5</label>
-                    <label class="btn btn-default btn-xs">6</label>
-                    <label class="btn btn-default btn-xs">7</label>
-                    <label class="btn btn-default btn-xs">8</label>
-                    <label class="btn btn-default btn-xs">9</label>
-                    <label class="btn btn-default btn-xs">10</label>
+                <div class="btn-group btn-group-xs" id="xJ">
+                    <button type="button" name='yJ' class="btn btn-primary">J1</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J2</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J3</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J4</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J5</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J6</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J7</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J8</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J9</button>
+                    <button type="button" name='yJ' class="btn btn-primary">J10</button>
                 </div>
             </div>
         </div>
-        <div class="col-lg-1"></div>
+        <div class="y-lg-1"></div>
+        <div class="y-lg-1"></div>
+        <div class="y-lg-4" style="background-yor: cornflowerblue">
+            <div class="btn-group-vertical btn-group-justified ">
+                <div class="btn-group btn-group-xs" id="exA">
+                    <button type="button" name='eyA' class="btn btn-primary">A1</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A2</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A3</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A4</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A5</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A6</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A7</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A8</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A9</button>
+                    <button type="button" name='eyA' class="btn btn-primary">A10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exB">
+                    <button type="button" name='eyB' class="btn btn-primary">B1</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B2</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B3</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B4</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B5</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B6</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B7</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B8</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B9</button>
+                    <button type="button" name='eyB' class="btn btn-primary">B10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exC">
+                    <button type="button" name='eyC' class="btn btn-primary">C1</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C2</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C3</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C4</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C5</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C6</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C7</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C8</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C9</button>
+                    <button type="button" name='eyC' class="btn btn-primary">C10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exD">
+                    <button type="button" name='eyD' class="btn btn-primary">D1</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D2</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D3</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D4</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D5</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D6</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D7</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D8</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D9</button>
+                    <button type="button" name='eyD' class="btn btn-primary">D10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exE">
+                    <button type="button" name='eyE' class="btn btn-primary">E1</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E2</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E3</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E4</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E5</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E6</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E7</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E8</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E9</button>
+                    <button type="button" name='eyE' class="btn btn-primary">E10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exF">
+                    <button type="button" name='eyF' class="btn btn-primary">F1</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F2</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F3</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F4</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F5</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F6</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F7</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F8</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F9</button>
+                    <button type="button" name='eyF' class="btn btn-primary">F10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exG">
+                    <button type="button" name='eyG' class="btn btn-primary">G1</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G2</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G3</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G4</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G5</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G6</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G7</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G8</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G9</button>
+                    <button type="button" name='eyG' class="btn btn-primary">G10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exH">
+                    <button type="button" name='eyH' class="btn btn-primary">H1</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H2</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H3</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H4</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H5</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H6</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H7</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H8</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H9</button>
+                    <button type="button" name='eyH' class="btn btn-primary">H10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exI">
+                    <button type="button" name='eyI' class="btn btn-primary">I1</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I2</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I3</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I4</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I5</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I6</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I7</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I8</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I9</button>
+                    <button type="button" name='eyI' class="btn btn-primary">I10</button>
+                </div>
+                <div class="btn-group btn-group-xs" id="exJ">
+                    <button type="button" name='eyJ' class="btn btn-primary">J1</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J2</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J3</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J4</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J5</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J6</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J7</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J8</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J9</button>
+                    <button type="button" name='eyJ' class="btn btn-primary">J10</button>
+                </div>
+            </div>
+            <div class="y-lg-1"></div>
+        </div>
     </div>
 </div>
 <script src="jsfiles/game.js"></script>
