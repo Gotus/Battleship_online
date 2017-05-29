@@ -20,7 +20,6 @@ $(document).ready( function () {
                         contentType: 'application/json; charset=utf-8',
                         dataType: "json",
                         success: function (data) {
-
                             if(data.isSuccess) {
                                 location.href = "http://localhost:8080/profile.html";
                             } else {
