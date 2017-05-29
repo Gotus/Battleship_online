@@ -5,11 +5,9 @@ import bs.kirill.entity.EUserData;
 import bs.kirill.service.EBattleService;
 import bs.kirill.service.EUser_DataService;
 import bs.kirill.entity.EBattle;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class actionController {
 
     //not tested
     //Method shows all available lobbies
-    @RequestMapping(value = "/lobby")
+    @RequestMapping(value = "/lobby", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public DataContainer[] getAllLobby() {
 
         ArrayList<EBattle> battleArrayList = new ArrayList<EBattle>(battleService.getByDateOfEnding(null));
@@ -60,7 +58,7 @@ public class actionController {
 
     //not tested
     //Method creates a new lobby
-    @RequestMapping(value = "/lobby/battle/{hostLogin}")
+    @RequestMapping(value = "/lobby/battle/{hostLogin}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public EBattle createLobby(@PathVariable("hostLogin") String hostLogin) {
 
         EBattle newBattle = new EBattle();
@@ -71,7 +69,7 @@ public class actionController {
 
     //not tested
     //Method adds opponent to lobby
-    @RequestMapping(value = "/lobby/battle/{battleID}/{opponentLogin}")
+    @RequestMapping(value = "/lobby/battle/{battleID}/{opponentLogin}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public EBattle addOppponent(@PathVariable("battleID") Long battleID, @RequestParam(value = "opponentLogin") String opponentLogin) {
 
         EBattle selectedBattle = new EBattle();
