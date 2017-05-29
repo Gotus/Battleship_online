@@ -11,7 +11,6 @@ $(document).ready(function () {
                if (login == "" || password == "") {
                    alert("Please fill all fields...!!!!!!");
                } else {
-               alert("pizdwes");
                    $.ajax({
                        url: "http://localhost:8080/gamegate/login",
                        type: "POST",

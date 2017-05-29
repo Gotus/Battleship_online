@@ -108,6 +108,11 @@ public class loginController {
 
     }
 
+    /*
+    *
+    *
+    *  tested
+    */
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody RegisterResult registrateUser(@RequestBody RegisterData registerData, HttpServletRequest request) throws Exception {
 
