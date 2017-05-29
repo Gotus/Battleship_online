@@ -8,8 +8,8 @@ function getCookie(name) {
     else return "";
 }
 
-var conditionwait = "ожидается противник";
-var conditionbattle = "идет бой";
+var conditionwait = "ожидается противник"; //opponentConnected = 0
+var conditionbattle = "идет бой"; //opponentConnected = 1
 
 $(document).ready(function () {
 
@@ -25,11 +25,10 @@ $(document).ready(function () {
                     "<tr>" +
                     "<td>" + gamemas[i].battleID + "</td>" +
                     "<td>" + gamemas[i].hostLogin + "</td>" +
-                    "<td>" + gamemas[i].opponentConnected ? conditionwait : conditionbattle + "</td>" +
-                        "<td>" + gamemas[i].opponentConnected ?
+                    "<td>" + gamemas[i].opponentConnected ? conditionbattle : conditionwait + "</td>" +
+                        "<td>" + gamemas[i].opponentConnected ? "" :
                         "<a href=\"http://localhost:8080/game/lobby/battle/" + gamemas[i].battleID + "/" +
-                        getCookie(login) + "\"" + " class=\"btn btn-success\">присоединиться</a>"
-                                                                : "" +
+                        getCookie(login) + "\"" + " class=\"btn btn-success\">присоединиться</a>" +
                         "<a href=\"#\" class =\"btn btn-primary\">смотреть</a>" +
                         "</td>" +
                         "</tr>");
