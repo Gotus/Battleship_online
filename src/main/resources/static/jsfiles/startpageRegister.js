@@ -9,7 +9,6 @@ $(document).ready( function () {
                 if (login == "" || password == "" || email == "") {
                     alert("Please fill all fields...!!!!!!");
                 } else {
-                        alert("pizdwes");
                         $.ajax({
                         url: "http://localhost:8080/gamegate/register",
                         type: "POST",
@@ -21,19 +20,13 @@ $(document).ready( function () {
                         contentType: 'application/json; charset=utf-8',
                         dataType: "json",
                         success: function (data) {
-                            try {
-                                 alert("pizdwespizdews" + data.isSuccess);
 
-                                if(data.isSuccess) {
-                                    location.href = "http://localhost:8080/profile.html";
-                                } else {
-                                    alert("Введённый логин/email уже существует");
+                            if(data.isSuccess) {
+                                location.href = "http://localhost:8080/profile.html";
+                            } else {
+                                alert("Введённый логин/email уже существует");
 
-                                }
-                            } catch (e){
-
-                                alert("exception");
-                                }
+                            }
                         }
                     })
                 }
