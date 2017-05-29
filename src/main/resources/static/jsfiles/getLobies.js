@@ -16,9 +16,9 @@ $(document).ready(function () {
             for (var i = 0; i < gamemas.length; i++) {
                 $("#myTable").append(
                     "<tr>" +
-                    "<td>gamemas[i].battleID</td>" +
-                    "<td>gamemas[i].login</td>" +
-                    "<td>gamemas[i].condition ? condition1 : condition2</td>" +
+                    "<td>"gamemas[i].battleID"</td>" +
+                    "<td>"gamemas[i].login"</td>" +
+                    "<td>"gamemas[i].condition ? condition1 : condition2"</td>" +
                     "<td>" +
                     "<a href=\"http://localhost:8080/game.html\" class=\"btn btn-success\">присоединиться</a>" +
                     "<a href=\"http://localhost:8080/game.html\" class=\"btn btn-primary\">смотреть</a>" +
