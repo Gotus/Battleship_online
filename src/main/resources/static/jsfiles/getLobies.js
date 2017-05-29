@@ -28,7 +28,7 @@ $(document).ready(function () {
                     "<td>" + gamemas[i].opponentConnected ? conditionwait : conditionbattle + "</td>" +
                         "<td>" + gamemas[i].opponentConnected ?
                         "<a href=\"http://localhost:8080/game/lobby/battle/" + gamemas[i].battleID + "/" +
-                        getCookie(login) + "\"" + " class=\"btn btn-success\">присоединиться</a>" 
+                        getCookie(login) + "\"" + " class=\"btn btn-success\">присоединиться</a>"
                                                                 : "" +
                         "<a href=\"#\" class =\"btn btn-primary\">смотреть</a>" +
                         "</td>" +

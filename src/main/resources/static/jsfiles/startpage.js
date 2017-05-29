@@ -38,7 +38,6 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.isSuccess) {
                         setCookie("login", login);
-                        setCookie("password", password);
                         location.href = "http://localhost:8080/profile.html";
                     } else {
                         alert("Неверный логин/пароль");
