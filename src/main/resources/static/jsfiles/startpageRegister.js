@@ -25,7 +25,6 @@ $(document).ready(function () {
                         location.href = "http://localhost:8080/profile.html";
                     } else {
                         alert("Введённый логин/email уже существует");
-
                     }
                 }
             })
