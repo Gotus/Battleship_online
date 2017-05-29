@@ -33,30 +33,50 @@ public class actionController {
     //not tested
     //Method shows all available lobbies
     @RequestMapping(value = "/lobby")
-    public List<EBattle> getAllLobby() {
+    public DataContainer[] getAllLobby() {
 
-        return battleService.getByDateOfEnding(null);
+        ArrayList<EBattle> battleArrayList = new ArrayList<EBattle>(battleService.getByDateOfEnding(null));
+        ArrayList<DataContainer> allData = new ArrayList<DataContainer>(battleArrayList.size());
+        for(int i = 0; i < battleArrayList.size(); i++) {
+
+            allData.get(i).setBattleID(battleArrayList.get(i).getBattle_ID());
+            allData.get(i).setHostLogin(user_dataService.getByUser_ID(battleArrayList.get(i).getHost_ID()).getLogin());
+            if (battleArrayList.get(i).getDate_of_joining() == null) {
+
+                allData.get(i).setOpponentConnected(false);
+            } else {
+
+                allData.get(i).setOpponentConnected(true);
+            }
+        }
+
+        DataContainer[] dataArray = new DataContainer[allData.size()];
+        for (int i = 0; i < allData.size(); i++) {
+
+            dataArray[i] = allData.get(i);
+        }
+        return dataArray;
     }
 
     //not tested
     //Method creates a new lobby
-    @RequestMapping(value = "/lobby/battle/{battleID}/{hostID}")
-    public EBattle createLobby(@PathVariable("hostID") Integer hostID) {
+    @RequestMapping(value = "/lobby/battle/{hostLogin}")
+    public EBattle createLobby(@PathVariable("hostLogin") String hostLogin) {
 
         EBattle newBattle = new EBattle();
-        newBattle.setHost_ID(hostID);
+        newBattle.setHost_ID(user_dataService.getByLogin(hostLogin).getUser_ID());
         newBattle.setDate_of_creation(new Date());
         return newBattle;
     }
 
     //not tested
     //Method adds opponent to lobby
-    @RequestMapping(value = "/lobby/battle/{battleID}/{opponentID}")
-    public EBattle addOppponent(@PathVariable("battleID") Long battleID, @RequestParam(value = "opponentID") Integer opponentID) {
+    @RequestMapping(value = "/lobby/battle/{battleID}/{opponentLogin}")
+    public EBattle addOppponent(@PathVariable("battleID") Long battleID, @RequestParam(value = "opponentLogin") String opponentLogin) {
 
         EBattle selectedBattle = new EBattle();
         selectedBattle = battleService.getByBattle_ID(battleID);
-        selectedBattle.setOpponent_ID(opponentID);
+        selectedBattle.setOpponent_ID(user_dataService.getByLogin(opponentLogin).getUser_ID());
         selectedBattle.setDate_of_joining(new Date());
         battleService.addBattle(selectedBattle);
         return selectedBattle;
@@ -81,5 +101,42 @@ public class actionController {
         userData = user_dataService.getByUser_ID(userID);
         List<EAchievement> achievementArrayList = new ArrayList<EAchievement>(userData.getAchievementsOfUser());
         return achievementArrayList;
+    }
+}
+
+class DataContainer {
+
+    private Long battleID;
+    private String hostLogin;
+    private Boolean opponentConnected;
+
+    public void setBattleID(Long battleID) {
+
+        this.battleID = battleID;
+    }
+
+    public void setHostLogin(String hostLogin) {
+
+        this.hostLogin = hostLogin;
+    }
+
+    public void setOpponentConnected(Boolean opponentConnected) {
+
+        this.opponentConnected = opponentConnected;
+    }
+
+    public Long getBattleID() {
+
+        return battleID;
+    }
+
+    public String getHostLogin() {
+
+        return hostLogin;
+    }
+
+    public Boolean getOpponentConnected() {
+
+        return opponentConnected;
     }
 }
