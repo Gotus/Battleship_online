@@ -23,8 +23,6 @@ $(document).ready(function () {
                        dataType: "json",
                        success: function (data) {
                            try {
-                               alert(data);
-                               alert(data.isSuccess);
                                if(data.isSuccess) {
                                    location.href = "http://localhost:8080/profile.html";
                                } else {
@@ -36,5 +34,6 @@ $(document).ready(function () {
                        }
                    })
                }
+               return false;
     });
 });

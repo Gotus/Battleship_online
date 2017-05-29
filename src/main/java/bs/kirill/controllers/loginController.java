@@ -112,9 +112,6 @@ public class loginController {
     public @ResponseBody RegisterResult registrateUser(@RequestBody RegisterData registerData, HttpServletRequest request) throws Exception {
 
         RegisterResult result = new RegisterResult();
-        System.out.println(registerData.getLogin());
-        System.out.println(registerData.getMail());
-        System.out.println(registerData.getPassword());
 
         if (user_dataService.getByLogin(registerData.getLogin()) != null)
         {
