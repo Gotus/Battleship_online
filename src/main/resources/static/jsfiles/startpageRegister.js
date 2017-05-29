@@ -9,6 +9,7 @@ $(document).ready( function () {
                 if (login == "" || password == "" || email == "") {
                     alert("Please fill all fields...!!!!!!");
                 } else {
+                        alert("pizdwes");
                         $.ajax({
                         url: "http://localhost:8080/gamegate/register",
                         type: "POST",
@@ -21,6 +22,8 @@ $(document).ready( function () {
                         dataType: "json",
                         success: function (data) {
                             try {
+                                 alert("pizdwespizdews" + data.isSuccess);
+
                                 if(data.isSuccess) {
                                     location.href = "http://localhost:8080/profile.html";
                                 } else {
@@ -30,7 +33,7 @@ $(document).ready( function () {
                             } catch (e){
 
                                 alert("exception");
-                            }
+                                }
                         }
                     })
                 }
