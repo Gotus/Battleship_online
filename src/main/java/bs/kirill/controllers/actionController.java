@@ -83,8 +83,8 @@ public class actionController {
 
     //not tested
     //Method adds opponent to lobby
-    @RequestMapping(value = "/lobby/battle/{battleID}/{opponentLogin}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public EBattle addOppponent(@PathVariable("battleID") Long battleID, @RequestParam(value = "opponentLogin") String opponentLogin) {
+    @RequestMapping(value = "/lobby/battle", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public EBattle addOppponent(@RequestParam("battleID") Long battleID, @RequestParam(value = "opponentLogin") String opponentLogin) {
 
         EBattle selectedBattle = new EBattle();
         selectedBattle = battleService.getByBattle_ID(battleID);
@@ -93,8 +93,6 @@ public class actionController {
         battleService.addBattle(selectedBattle);
         return selectedBattle;
     }
-
-
 
     //not tested
     //Method allow user to locate his ship in battlefield(лшдд ьуб здуфыуб ш вщтэе цфте штеупкфеу ершы ырше штещ ызкштп :( )
