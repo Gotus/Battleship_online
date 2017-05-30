@@ -8,6 +8,7 @@ function getCookie(name) {
     else return "";
 }
 
+var mylogin = getCookie("login");
 var conditionwait = "ожидается противник"; //opponentConnected = 0
 var conditionbattle = "идет бой"; //opponentConnected = 1
 
@@ -23,17 +24,16 @@ $(document).ready(function () {
             for (var i = 0; i < gamemas.length; i++) {
                 $("#games").append(
                     "<tr>" +
-                    "<td>" + gamemas[i].battleID + "</td>" +
-                    "<td>" + gamemas[i].hostLogin + "</td>" +
-                    "<td>" + gamemas[i].opponentConnected ? conditionbattle : conditionwait + "</td>" +
+                        "<td>" + gamemas[i].battleID + "</td>" +
+                        "<td>" + gamemas[i].hostLogin + "</td>" +
+                        "<td>" + gamemas[i].opponentConnected ? conditionbattle : conditionwait + "</td>" +
                         "<td>" + gamemas[i].opponentConnected ? "" :
-                        "<a href=\"http://localhost:8080/game/lobby/battle/" + gamemas[i].battleID + "/" +
-                        getCookie(login) + "\"" + " class=\"btn btn-success\">присоединиться</a>" +
-                        "<a href=\"#\" class =\"btn btn-primary\">смотреть</a>" +
+                            "<a href=\"http://localhost:8080/game/lobby/battle/" + gamemas[i].battleID + "/" +
+                            mylogin + "\"" + " class=\"btn btn-success\">присоединиться</a>" +
+                            "<a href=\"#\" class =\"btn btn-primary\">смотреть</a>" +
                         "</td>" +
-                        "</tr>");
+                    "</tr>");
             }
         }
     });
-
 });
