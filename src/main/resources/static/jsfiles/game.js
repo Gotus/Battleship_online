@@ -8,6 +8,7 @@ function getCookie(name) {
 }
 var mylogin = getCookie("login");
 var readytofight = false;
+var GOSTIL = false;
 
 var shipselem;
 var orient = true;//horizontal
@@ -203,7 +204,7 @@ var buffermas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  //J
 ];
 
-var button, shiptoplace, tobreak;
+var shiptoplace, tobreak;
 function refresh() {
     readytofight = true;
     /*places ships*/
@@ -225,37 +226,63 @@ function refresh() {
         }
     }
 
+    showField(buffermas,buttonsmas);
+
+    if (readytofight) {
+        shipselem.innerHTML = "";
+        document.removeEventListener("keypress", keyPressFunction);
+        GOSTIL = true;
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://localhost:8080/game/readytofight",
+                type: "POST",
+                data: JSON.stringify({
+                    login: mylogin, //to find game
+                    ready: readytofight
+                }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (data) {
+                    if (data.isSuccess) {
+                        alert("вы расположили корабли.");
+                    }
+                }
+            });
+        });
+    }
+
+}
+function showField(dataforbuttons, buttons) {
+    var button;
     /*checks what number in battlefield and sets attributes*/
     for (var x = 0; x < 10; x++) {
         for (var y = 0; y < 10; y++) {
-            if (buffermas[x][y] === 1) {
-                button = buttonsmas[x][y];
+            if (dataforbuttons[x][y] === 1) {
+                button = buttons[x][y];
                 button.setAttribute("class", "btn btn-primary disabled");
             }
-            if (buffermas[x][y] === 0) {
-                button = buttonsmas[x][y];
+            if (dataforbuttons[x][y] === 0) {
+                button = buttons[x][y];
                 button.setAttribute("ondragover", "allowDrop(event)");
                 button.setAttribute("ondrop", "drop(event)");
             }
-            if (buffermas[x][y] === 2) {
-                button = buttonsmas[x][y];
+            if (dataforbuttons[x][y] === 2) {
+                button = buttons[x][y];
                 button.removeAttribute("ondragover");
                 button.removeAttribute("ondrop");
                 button.setAttribute("class", "btn btn-danger");
             }
-            if (buffermas[x][y] === 3) {
-                button = buttonsmas[x][y];
+            if (dataforbuttons[x][y] === 3) {
+                button = buttons[x][y];
                 button.removeAttribute("ondragover");
                 button.removeAttribute("ondrop");
                 button.setAttribute("class", "btn btn-danger disabled");
             }
         }
     }
-    if (readytofight) {
-        shipselem.innerHTML = "";
-        document.removeEventListener("keypress", keyPressFunction);
-    }
 }
+
 refresh();
 
 function allowDrop(dragAndDropEvent) {
@@ -287,7 +314,7 @@ function drop(dragAndDropEvent) {
 
                 $(document).ready(function () {
                     $.ajax({
-                        url: "http://localhost:8080/game/battle/",//AAAAAAAAAAAA
+                        url: "http://localhost:8080/game/location",
                         type: "POST",
                         data: JSON.stringify({
                             login: mylogin, //to find game
