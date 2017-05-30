@@ -14,7 +14,7 @@ var conditionwait = "ожидается противник"; //opponentConnected
 var conditionbattle = "идет бой"; //opponentConnected = 1
 
 $(document).ready(function () {
-
+    var table = $("#games").find('tbody');
     $.ajax({
         url: "http://localhost:8080/game/lobby",
         type: "GET",
@@ -23,18 +23,23 @@ $(document).ready(function () {
             var gamemas = [];
             console.log(data);
             for (var i = 0; i < data.length; i++) {
-                console.log(data[i].hostLogin);
-                $("#games").append(
-                    "<tr>" +
-                        "<td>" + data[i].battleID + "</td>" +
-                        "<td>" + data[i].hostLogin + "</td>" +
-                        "<td>" + data[i].opponentConnected ? conditionbattle : conditionwait + "</td>" +
-                        "<td>" + data[i].opponentConnected ? "" :
-                            "<a href=\"http://localhost:8080/game/lobby/battle/" + data[i].battleID + "/" +
-                            mylogin + "\"" + " class=\"btn btn-success\">присоединиться</a>" +
-                            "<a href=\"#\" class =\"btn btn-primary\">смотреть</a>" +
-                        "</td>" +
-                    "</tr>");
+                var battleID = $('<td>').append(data[i].battleID);
+                var hostLogin = $('<td>').append(data[i].hostLogin);
+                var opponentConnected = $('<td>').append(data[i].opponentConnected ? conditionbattle : conditionwait);
+                var joinbutton = $('<td>').append($('<a>')
+                    .attr("href", "http://localhost:8080/game/lobby/battle/" + data[i].battleID + "/" + mylogin)
+                    .attr("class", "btn btn-success"))
+                    .attr("value", "присоединиться");
+                var watchbutton = $('<td>').append($('<a>')
+                    .attr("href", "#")
+                    .attr("class", "btn btn-primary"))
+                    .attr("value", "смотреть");
+                table.append($('<tr>')
+                    .append(battleID)
+                    .append(hostLogin)
+                    .append(opponentConnected)
+                    .append(joinbutton)
+                    .append(watchbutton));
             }
             return false;
         }
