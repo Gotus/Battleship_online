@@ -20,7 +20,7 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             var gamemas = [];
-            gamemas = data.dataArray;
+            gamemas = data.DataContainer;
             for (var i = 0; i < gamemas.length; i++) {
                 $("#games").append(
                     "<tr>" +

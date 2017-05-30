@@ -7,9 +7,12 @@ function getCookie(name) {
     else return "";
 }
 var mylogin = getCookie("login");
+var readytofight = false;
 
+var shipselem;
 var orient = true;//horizontal
-document.addEventListener("keypress", function (keyPressEvent) {
+var keyPressFunction;
+document.addEventListener("keypress", keyPressFunction = function (keyPressEvent) {
     if (keyPressEvent.key === "q" || keyPressEvent.key === "e" || keyPressEvent.key === "Q" || keyPressEvent.key === "E") {
         orient ? orient = false : orient = true;
         console.log(orient);
@@ -59,6 +62,7 @@ document.addEventListener("keypress", function (keyPressEvent) {
             width="26" height="26">';
     }
 });
+
 
 var ship = function (id, elementid) {
     {
@@ -201,7 +205,7 @@ var buffermas = [
 
 var button, shiptoplace, tobreak;
 function refresh() {
-
+    readytofight = true;
     /*places ships*/
     for (var i = 0; i < 10; i++) {
         tobreak = false;
@@ -209,6 +213,7 @@ function refresh() {
         for (var xx = shiptoplace.prown.xx; xx <= shiptoplace.stern.xx; xx++) {
             for (var yy = shiptoplace.prown.yy; yy <= shiptoplace.stern.yy; yy++) {
                 if (xx === -1 || yy === -1) {
+                    readytofight = false;
                     tobreak = true;
                     break;
                 }
@@ -238,13 +243,17 @@ function refresh() {
                 button.removeAttribute("ondrop");
                 button.setAttribute("class", "btn btn-danger");
             }
-            if (buffermas[x][y] === 2) {
+            if (buffermas[x][y] === 3) {
                 button = buttonsmas[x][y];
                 button.removeAttribute("ondragover");
                 button.removeAttribute("ondrop");
                 button.setAttribute("class", "btn btn-danger disabled");
             }
         }
+    }
+    if (readytofight) {
+        shipselem.innerHTML = "";
+        document.removeEventListener("keypress", keyPressFunction);
     }
 }
 refresh();
@@ -275,8 +284,6 @@ function drop(dragAndDropEvent) {
     for (var xbutton = 0; xbutton < 10; xbutton++) {
         for (var ybutton = 0; ybutton < 10; ybutton++) {
             if (buttonsmas[xbutton][ybutton] === dropbutton) {//отправим x и y серверу
-                console.log(xbutton);
-                console.log(ybutton);
 
                 $(document).ready(function () {
                     $.ajax({
@@ -292,20 +299,22 @@ function drop(dragAndDropEvent) {
                         contentType: 'application/json; charset=utf-8',
                         dataType: "json",
                         success: function (data) {
-                            if (data.isSuccess) {
-                                location.href = "http://localhost:8080/game.html";
-                            } else {
-                                alert("something went wrong");
+                            var serverFleet = [];
+                            serverFleet = data.shipArray;
+                            for (var i=0; i< serverFleet.length; i++){
+                                fleet[i].prown.xx=serverFleet[i].prown.xx;
+                                fleet[i].prown.yy=serverFleet[i].prown.yy;
+                                fleet[i].stern.xx=serverFleet[i].stern.xx;
+                                fleet[i].stern.xx=serverFleet[i].stern.xx;
                             }
                         }
                     });
                 });
-
+                refresh();
                 return;
             }
         }
     }
-
 }
 
 
