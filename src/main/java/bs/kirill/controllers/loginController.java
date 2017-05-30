@@ -22,55 +22,6 @@ public class loginController {
 
 
     //валидировать данные запроса
-    /*@RequestMapping("/hello")
-    public String helloWorld(@RequestParam(value = "name", required = false, defaultValue = "Kirill")String name)
-    {
-        try {
-
-            File file = new File("HTML-pages/hello.html");
-            FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
-            String currentString = new String(reader.readLine());
-            StringBuilder builder = new StringBuilder();
-
-            while (currentString != null) {
-
-                builder.append(currentString);
-                currentString = reader.readLine();
-            }
-
-            System.out.println(builder.toString());
-            return builder.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "Error";
-        //return "hello, <a href=\"/user?id="+ 3 +"\">"+ name.replaceAll("<", "&lt").replaceAll(">", "&gt") + "</a> <h1>Hay</h1>";
-    }
-    */
-
-    /*
-    @RequestMapping(value = "/image/{imageName}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] giveImage(@PathVariable(value = "imageName") String imageName) {
-        byte[] data = null;
-        try {
-
-            String directory = "static/" + imageName;
-            Path path = Paths.get(directory);
-            data = Files.readAllBytes(path);
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
-
-        return data;
-    }
-    */
-
     /*
      * Method perform logging in
      * Parameters: login: user's login, password: user's password

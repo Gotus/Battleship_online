@@ -31,39 +31,51 @@ public class actionController {
     //not tested
     //Method shows all available lobbies
     @RequestMapping(value = "/lobby", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DataContainer[] getAllLobby() {
+    public @ResponseBody DataContainer[] getAllLobby() {
 
         ArrayList<EBattle> battleArrayList = new ArrayList<EBattle>(battleService.getByDateOfEnding(null));
-        ArrayList<DataContainer> allData = new ArrayList<DataContainer>(battleArrayList.size());
+        DataContainer[] allData = new DataContainer[battleArrayList.size()];
+
+        for (int i = 0; i < allData.length; i++){
+
+            allData[i] = new DataContainer();
+        }
+
         for(int i = 0; i < battleArrayList.size(); i++) {
 
-            allData.get(i).setBattleID(battleArrayList.get(i).getBattle_ID());
-            allData.get(i).setHostLogin(user_dataService.getByUser_ID(battleArrayList.get(i).getHost_ID()).getLogin());
+            allData[i].setBattleID(battleArrayList.get(i).getBattle_ID());
+            allData[i].setHostLogin(user_dataService.getByUser_ID(battleArrayList.get(i).getHost_ID()).getLogin());
             if (battleArrayList.get(i).getDate_of_joining() == null) {
 
-                allData.get(i).setOpponentConnected(false);
+                allData[i].setOpponentConnected(false);
+
             } else {
 
-                allData.get(i).setOpponentConnected(true);
+                allData[i].setOpponentConnected(true);
             }
         }
 
-        DataContainer[] dataArray = new DataContainer[allData.size()];
-        for (int i = 0; i < allData.size(); i++) {
 
-            dataArray[i] = allData.get(i);
-        }
-        return dataArray;
+        return allData;
     }
 
-    //not tested
+    //works correct
     //Method creates a new lobby
-    @RequestMapping(value = "/battle/login/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/battle/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody CreatingLobbyResult createLobby(@RequestBody LoginContainer hostLoginContainer) {
 
+        //System.out.println(hostLoginContainer.getLogin());
+        //inputed login is correct
         EBattle newBattle = new EBattle();
         newBattle.setHost_ID(user_dataService.getByLogin(hostLoginContainer.getLogin()).getUser_ID());
         newBattle.setDate_of_creation(new Date());
+
+        /*System.out.println(newBattle.getBattle_ID());
+          System.out.println(newBattle.getDate_of_creation());
+          System.out.println(newBattle.getHost_ID());
+        */
+
+        battleService.addBattle(newBattle);
         CreatingLobbyResult result = new CreatingLobbyResult();
         result.setIsSuccess(true);
         return result;
