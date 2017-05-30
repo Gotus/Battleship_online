@@ -58,13 +58,15 @@ public class actionController {
 
     //not tested
     //Method creates a new lobby
-    @RequestMapping(value = "/lobby/battle/{hostLogin}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public EBattle createLobby(@PathVariable("hostLogin") String hostLogin) {
+    @RequestMapping(value = "/battle/login/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody CreatingLobbyResult createLobby(@RequestBody LoginContainer hostLoginContainer) {
 
         EBattle newBattle = new EBattle();
-        newBattle.setHost_ID(user_dataService.getByLogin(hostLogin).getUser_ID());
+        newBattle.setHost_ID(user_dataService.getByLogin(hostLoginContainer.getLogin()).getUser_ID());
         newBattle.setDate_of_creation(new Date());
-        return newBattle;
+        CreatingLobbyResult result = new CreatingLobbyResult();
+        result.setIsSuccess(true);
+        return result;
     }
 
     //not tested
@@ -136,5 +138,34 @@ class DataContainer {
     public Boolean getOpponentConnected() {
 
         return opponentConnected;
+    }
+}
+
+class CreatingLobbyResult {
+    private Boolean isSuccess;
+
+    public Boolean getIsSuccess() {
+
+        return isSuccess;
+    }
+
+    public void setIsSuccess(Boolean isSuccess) {
+
+        this.isSuccess = isSuccess;
+    }
+}
+
+class LoginContainer {
+
+    public String login;
+
+    public void setLogin(String login) {
+
+        this.login = login;
+    }
+
+    public String getLogin() {
+
+        return login;
     }
 }
