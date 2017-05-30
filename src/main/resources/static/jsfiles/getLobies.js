@@ -21,15 +21,16 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             var gamemas = [];
-            gamemas = data.DataContainer;
-            for (var i = 0; i < gamemas.length; i++) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i].hostLogin);
                 $("#games").append(
                     "<tr>" +
-                        "<td>" + gamemas[i].battleID + "</td>" +
-                        "<td>" + gamemas[i].hostLogin + "</td>" +
-                        "<td>" + gamemas[i].opponentConnected ? conditionbattle : conditionwait + "</td>" +
-                        "<td>" + gamemas[i].opponentConnected ? "" :
-                            "<a href=\"http://localhost:8080/game/lobby/battle/" + gamemas[i].battleID + "/" +
+                        "<td>" + data[i].battleID + "</td>" +
+                        "<td>" + data[i].hostLogin + "</td>" +
+                        "<td>" + data[i].opponentConnected ? conditionbattle : conditionwait + "</td>" +
+                        "<td>" + data[i].opponentConnected ? "" :
+                            "<a href=\"http://localhost:8080/game/lobby/battle/" + data[i].battleID + "/" +
                             mylogin + "\"" + " class=\"btn btn-success\">присоединиться</a>" +
                             "<a href=\"#\" class =\"btn btn-primary\">смотреть</a>" +
                         "</td>" +
