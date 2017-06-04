@@ -134,5 +134,5 @@ var timer = setInterval(function () {
             });
         }, 1000)
     }
-    console.log("0.2 is passed")
+    console.log("gostil proveryaet")
 }, 1000);

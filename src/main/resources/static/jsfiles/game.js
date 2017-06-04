@@ -16,7 +16,6 @@ var keyPressFunction;
 document.addEventListener("keypress", keyPressFunction = function (keyPressEvent) {
     if (keyPressEvent.key === "q" || keyPressEvent.key === "e" || keyPressEvent.key === "Q" || keyPressEvent.key === "E") {
         orient ? orient = false : orient = true;
-        console.log(orient);
     }
     shipselem = document.getElementById("ships");
     if (orient) {
@@ -75,106 +74,27 @@ var ship = function (id, elementid) {
 var shipfour1, shipthree1, shipthree2, shiptwo1, shiptwo2, shiptwo3, shipone1, shipone2, shipone3, shipone4;
 
 shipfour1 = new ship(0, "shipfour1");
-shipfour1['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shipfour1['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shipthree1 = new ship(1, "shipthree1");
-shipthree1['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shipthree1['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shipthree2 = new ship(2, "shipthree2");
-shipthree2['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shipthree2['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shiptwo1 = new ship(3, "shiptwo1");
-shiptwo1['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shiptwo1['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shiptwo2 = new ship(4, "shiptwo2");
-shiptwo2['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shiptwo2['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shiptwo3 = new ship(5, "shiptwo3");
-shiptwo3['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shiptwo3['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shipone1 = new ship(6, "shipone1");
-shipone1['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shipone1['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shipone2 = new ship(7, "shipone2");
-shipone2['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shipone2['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shipone3 = new ship(8, "shipone3");
-shipone3['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shipone3['stern'] = {
-    xx: -1,
-    yy: -1
-};
-
 shipone4 = new ship(9, "shipone4");
-shipone4['prown'] = {
-    xx: -1,
-    yy: -1
-};
-shipone4['stern'] = {
-    xx: -1,
-    yy: -1
-};
 
 var fleet = [shipfour1, shipthree1, shipthree2, shiptwo1, shiptwo2, shiptwo3, shipone1, shipone2, shipone3, shipone4];
+for (var i = 0; i < fleet.length; i++) {
+    fleet[i]['prown'] = {
+        xx: -1,
+        yy: -1
+    };
+    fleet[i]['stern'] = {
+        xx: -1,
+        yy: -1
+    };
+}
 var selectship = new ship(null, null);
 
 var A, B, C, D, E, F, G, H, I, J; // columns
@@ -330,9 +250,13 @@ function drop(dragAndDropEvent) {
                             serverFleet = data;
                             for (var i=0; i< serverFleet.length; i++){
                                 fleet[i].prown.xx=serverFleet[i].prown.xx;
+                                console.log(fleet[i].prown.xx);
                                 fleet[i].prown.yy=serverFleet[i].prown.yy;
+                                console.log(fleet[i].prown.yy);
                                 fleet[i].stern.xx=serverFleet[i].stern.xx;
+                                console.log(fleet[i].stern.xx);
                                 fleet[i].stern.xx=serverFleet[i].stern.xx;
+                                console.log(fleet[i].stern.xx);
                             }
                         }
                     });
