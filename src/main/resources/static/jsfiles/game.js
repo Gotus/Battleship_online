@@ -327,7 +327,7 @@ function drop(dragAndDropEvent) {
                         dataType: "json",
                         success: function (data) {
                             var serverFleet = [];
-                            serverFleet = data.shipArray;
+                            serverFleet = data;
                             for (var i=0; i< serverFleet.length; i++){
                                 fleet[i].prown.xx=serverFleet[i].prown.xx;
                                 fleet[i].prown.yy=serverFleet[i].prown.yy;
