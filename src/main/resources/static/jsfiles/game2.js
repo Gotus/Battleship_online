@@ -92,11 +92,15 @@ function fire(fireevent) {
 
 var timer = setInterval(function () {
     if (GOSTIL) {
+        clearInterval(timer);
         var timer2 = setInterval(function () {
             $(document).ready(function () {
                 $.ajax({
-                    url: "http://localhost:8080/game/readytofight",
-                    type: "GET",
+                    url: "http://localhost:8080/game/isready",
+                    type: "POST",
+                    data: JSON.stringify({
+                        login: mylogin //to find game
+                    }),
                     contentType: 'application/json; charset=utf-8',
                     dataType: "text",
                     success: function (data) {
@@ -114,7 +118,7 @@ var timer = setInterval(function () {
                                     dataType: "json",
                                     success: function (data) {
                                         buffermas = data;//мое поле- по нему попали
-                                        showField();
+                                        showField(buffermas, buttonsmas);
                                     }
                                 });
                             });
@@ -122,6 +126,7 @@ var timer = setInterval(function () {
                         if (data === "gameover"){
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
+                            clearInterval(timer2);
                             alert("игра окончена");
                         }
                     }
@@ -129,5 +134,5 @@ var timer = setInterval(function () {
             });
         }, 1000)
     }
-    console.log("0.2 is passed")
-}, 200);
+    console.log("gostil proveryaet")
+}, 1000);
