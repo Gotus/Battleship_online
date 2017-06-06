@@ -125,21 +125,22 @@ var buffermas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  //J
 ];
 
+
 var tobreak;
 function refresh() {
     readytofight = true;
 
-    fleet[9].prown.xx=0;
-    fleet[9].prown.yy=0;
-    fleet[9].stern.xx=1;
-    fleet[9].stern.yy=0;
-
+    for(var i = 0; i < 10; i++) {
+        for(var j = 0; j < 10; j++) {
+            buffermas[i][j] = 0;
+        }
+    }
     /*places ships*/
     for (var i = 0; i < 10; i++) {
         tobreak = false;
         for (var xx = fleet[i].prown.xx; xx <= fleet[i].stern.xx; xx++) {
             for (var yy = fleet[i].prown.yy; yy <= fleet[i].stern.yy; yy++) {
-                if (xx === -1 || yy === -1) {
+                if (xx == -1 || yy == -1) {
                     readytofight = false;
                     tobreak = true;
                     break;
@@ -151,6 +152,7 @@ function refresh() {
             }
         }
     }
+    console.log(fleet);
     console.log(buffermas);
 
     showField(buffermas,buttonsmas);
@@ -193,6 +195,7 @@ function showField(dataforbuttons, buttons) {
                 button = buttons[x][y];
                 button.setAttribute("ondragover", "allowDrop(event)");
                 button.setAttribute("ondrop", "drop(event)");
+                button.setAttribute("class", "btn btn-primary");
             }
             if (dataforbuttons[x][y] === 2) {
                 button = buttons[x][y];
@@ -257,13 +260,13 @@ function drop(dragAndDropEvent) {
                                 fleet[i].prown.xx=data[i].prown.xx;
                                 fleet[i].prown.yy=data[i].prown.yy;
                                 fleet[i].stern.xx=data[i].stern.xx;
-                                fleet[i].stern.xx=data[i].stern.xx;
-                                console.log(fleet[i]);
+                                fleet[i].stern.yy=data[i].stern.yy;
                             }
+                            refresh();
                         }
                     });
                 });
-                refresh();
+
                 return;
             }
         }
