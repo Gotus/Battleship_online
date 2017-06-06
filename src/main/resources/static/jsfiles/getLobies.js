@@ -20,7 +20,7 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
         success: function (data) {
-            console.log(data);
+
             for (var i = 0; i < data.length; i++) {
                 var battleID = $('<td>').append(data[i].battleID);
                 var hostLogin = $('<td>').append(data[i].hostLogin);
@@ -28,8 +28,9 @@ $(document).ready(function () {
                 var joinbutton = $('<td>')
 
                 .append($('<a>')
-                    .attr("href", "http://localhost:8080/game/lobby/battle/" + data[i].battleID + "/" + mylogin)
+                    .attr("href", "#")
                     .attr("class", "btn btn-success")
+                    .attr("id", data[i].battleID)
                     .append("Присоединиться")
                 )
 
@@ -45,7 +46,32 @@ $(document).ready(function () {
                     .append(opponentConnected)
                     .append(joinbutton)
                 );
+
+
+                $(document).ready(function () {
+
+                    $('#' + data[i].battleID).click(function () {
+                        $.ajax({
+                            url: "http://localhost:8080/game/lobby/battle/" + data[i].battleID + "/" + mylogin,
+                            type: "POST",
+                            data: JSON.stringify({
+                                login: login
+                            }),
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: "json",
+                            success: function (data2) {
+                                if (data2.isSuccess) {
+                                    location.href = "http://localhost:8080/game.html";
+                                } else {
+                                    alert("something went wrong");
+                                }
+                            }
+                        });
+                        return false;
+                    });
+                });
             }
+
             return false;
         }
     });
