@@ -1,6 +1,7 @@
 package bs.kirill.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -28,6 +29,9 @@ public class EUserData
     @Column(name = "date_of_registration")
     private Date dateOfRegistration;
 
+    @Column(name = "current_battle")
+    Long currentBattle;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "achievement_user_data",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "user_id"),
@@ -52,4 +56,7 @@ public class EUserData
 
     public void setAchievementsOfUser(Set<EAchievement> achievementsOfUser) {this.achievementsOfUser = achievementsOfUser;}
     public Set<EAchievement> getAchievementsOfUser() {return achievementsOfUser;}
+
+    public void setCurrentBattle(Long currentBattle) {this.currentBattle = currentBattle;}
+    public Long getCurrentBattle() {return currentBattle;}
 }

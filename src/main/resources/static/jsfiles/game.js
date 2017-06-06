@@ -177,6 +177,9 @@ shipone4['stern'] = {
 var fleet = [shipfour1, shipthree1, shipthree2, shiptwo1, shiptwo2, shiptwo3, shipone1, shipone2, shipone3, shipone4];
 var selectship = new ship(null, null);
 
+//I need JSON!
+
+
 var A, B, C, D, E, F, G, H, I, J; // columns
 /*rows in column*/
 A = document.getElementsByName("yA");
@@ -322,12 +325,14 @@ function drop(dragAndDropEvent) {
                             xx: xbutton,
                             yy: ybutton,
                             orientation: orient
+
                         }),
                         contentType: 'application/json; charset=utf-8',
                         dataType: "json",
                         success: function (data) {
                             var serverFleet = [];
-                            serverFleet = data.shipArray;
+                            serverFleet = data;
+                            console.log(serverFleet);
                             for (var i=0; i< serverFleet.length; i++){
                                 fleet[i].prown.xx=serverFleet[i].prown.xx;
                                 fleet[i].prown.yy=serverFleet[i].prown.yy;

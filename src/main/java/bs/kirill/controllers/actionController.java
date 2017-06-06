@@ -5,18 +5,26 @@ import bs.kirill.entity.EUserData;
 import bs.kirill.service.EBattleService;
 import bs.kirill.service.EUser_DataService;
 import bs.kirill.entity.EBattle;
+import bs.kirill.util.ClassExecutingTask;
+import bs.web.BattleMap;
+import bs.web.controller.gamelogic.mainlogic.Place;
+import bs.web.model.entities.Battle;
+import bs.web.model.entities.Battlefield;
+import bs.web.model.entities.Coordinate;
+import bs.web.model.entities.Ship;
+import bs.web.view.ConsoleOutput;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * Created by Gotus on 12.05.2017.
  */
+
 
 @RestController
 @RequestMapping(value = "/game")
@@ -28,7 +36,80 @@ public class actionController {
     @Resource(name = "EBattleService")
     private EBattleService battleService;
 
-    //not tested
+    public ClassExecutingTask executingTask = new ClassExecutingTask();
+
+   // executingTask.start();
+
+    public EBattleService getBattleService(){
+
+        return this.battleService;
+    }
+
+    public void destroyBarrle(Date currentDate, Long battleID) {
+
+        EBattle battle = new EBattle();
+        battle = battleService.getByBattle_ID(battleID);
+        battle.setDate_of_ending(currentDate);
+    }
+
+
+
+    /*
+     * Not tested
+     * Method puts ship to selected location
+     * Gets number of ship in fleet, coordinates of its location and battlefield
+     * returns battlefield with located ship
+     */
+    @RequestMapping(value = "/location", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public  @ResponseBody Object[] putShip(@RequestBody FullBattleData fullBattleData) {
+
+        List<EBattle> battle = new ArrayList<>();
+        Boolean playerIsHost = false;
+
+        //Get battle in which player is and define his role: opponent or host
+
+        if (battleService.getByHostIDAndDateOfEnding(user_dataService.
+                getByLogin(fullBattleData.getLogin()).getUser_ID(),
+                null) == null)
+        {
+
+            //player is opponent
+            battle = battleService.getByOpponentIDAndDateOfEnding(user_dataService
+                    .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
+            playerIsHost = false;
+        } else {
+
+            //player is host
+            battle = battleService.getByHostIDAndDateOfEnding(user_dataService
+                    .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
+            playerIsHost = true;
+        }
+
+         Battle currentBattle = new Battle();
+         currentBattle = BattleMap.battleHashMap.get(battle.get(battleService.getAll().size() - 1).getBattle_ID());
+        System.out.println(battle.get(0).getBattle_ID());
+
+        if (playerIsHost) {
+
+            Battlefield hostBattlefield = currentBattle.getBattlefields().get(0);
+            Place.place(hostBattlefield.getBattlefield(),
+                    hostBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
+                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
+                    fullBattleData.getOrientation());
+
+            return hostBattlefield.getFleet().toArray();
+        } else {
+
+            Battlefield opponentBattlefield = currentBattle.getBattlefields().get(1);
+            Place.place(opponentBattlefield.getBattlefield(),
+                    opponentBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
+                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
+                    fullBattleData.getOrientation());
+            return opponentBattlefield.getFleet().toArray();
+        }
+    }
+
+    //works correct
     //Method shows all available lobbies
     @RequestMapping(value = "/lobby", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody DataContainer[] getAllLobby() {
@@ -55,7 +136,6 @@ public class actionController {
             }
         }
 
-
         return allData;
     }
 
@@ -64,21 +144,33 @@ public class actionController {
     @RequestMapping(value = "/battle/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody CreatingLobbyResult createLobby(@RequestBody LoginContainer hostLoginContainer) {
 
-        //System.out.println(hostLoginContainer.getLogin());
-        //inputed login is correct
         EBattle newBattle = new EBattle();
         newBattle.setHost_ID(user_dataService.getByLogin(hostLoginContainer.getLogin()).getUser_ID());
-        newBattle.setDate_of_creation(new Date());
-
-        /*System.out.println(newBattle.getBattle_ID());
-          System.out.println(newBattle.getDate_of_creation());
-          System.out.println(newBattle.getHost_ID());
-        */
-
-        battleService.addBattle(newBattle);
+        Date currentDate = new Date();
+        newBattle.setDate_of_creation(currentDate);
+        newBattle.setDate_of_last_action(currentDate);
         CreatingLobbyResult result = new CreatingLobbyResult();
-        result.setIsSuccess(true);
-        return result;
+
+        if ( user_dataService.getByLogin(hostLoginContainer.getLogin()).getCurrentBattle() == null){
+
+            battleService.addBattle(newBattle);
+            result.setIsSuccess(true);
+
+            user_dataService.getByLogin(hostLoginContainer.getLogin()).setCurrentBattle(newBattle.getBattle_ID());
+
+            Integer id = battleService.getAll().size();
+
+            Battle battle = new Battle();
+            BattleMap.battleHashMap.put(id, battle);
+            ConsoleOutput.consoleprint(BattleMap.battleHashMap.get(id).getBattlefields().get(0).getBattlefield());
+            System.out.println(id);
+            return result;
+
+        } else {
+
+            result.setIsSuccess(false);
+            return result;
+        }
     }
 
     //not tested
@@ -179,3 +271,96 @@ class LoginContainer {
         return login;
     }
 }
+
+class FullBattleData {
+
+    public String login;
+    public Integer numberinfleet;
+    public Integer xx;
+    public Integer yy;
+    public Boolean orientation;
+
+    public void setLogin(String login) {
+
+        this.login = login;
+    }
+
+    public void setNumberInFleet(Integer numberinfleet) {
+
+        this.numberinfleet = numberinfleet;
+    }
+
+    public void setXx(Integer xx) {
+
+        this.xx = xx;
+    }
+
+    public void setYy(Integer yy) {
+
+        this.yy = yy;
+    }
+
+    public void setOrientation(Boolean orient) {
+
+        this.orientation = orient;
+    }
+
+    public String getLogin() {
+
+        return login;
+    }
+
+    public Integer getNumberInFleet() {
+
+        return numberinfleet;
+    }
+
+    public Integer getXx() {
+
+        return xx;
+    }
+
+    public Integer getYy() {
+
+        return yy;
+    }
+
+    public Boolean getOrientation() {
+
+        return orientation;
+    }
+}
+
+/*
+ *
+ * Class contains information about user's battlefield
+ * and fleet
+ */
+
+/*
+class UserBattleData {
+
+    public Battlefield userBattlefield;
+    public ArrayList<Ship> fleet;
+
+    public void setUserBattlefield(Battlefield battlefield) {
+
+        this.userBattlefield = battlefield;
+    }
+
+    public void setFleet(ArrayList<Ship> fleet) {
+
+        this.fleet = fleet;
+    }
+
+    public Battlefield getUserBattlefield() {
+
+        return userBattlefield;
+    }
+
+    public ArrayList<Ship> getFleet() {
+
+        return fleet;
+    }
+}*/
+

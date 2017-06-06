@@ -2,6 +2,8 @@ package bs.kirill.repository;
 
 import bs.kirill.entity.EBattle;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -19,5 +21,9 @@ public interface EBattleRepository extends JpaRepository<EBattle, Long>
     List<EBattle> findByOpponentID(Integer O_ID);
     List<EBattle> findAll();
 
+    //Finding battle by host_ID and dateOfEnding
+    List<EBattle> findByHostIDAndDateOfEnding(Integer hostID, Date dateOfEnding);
 
+    //Finding battle by opponent_ID and dateOfEnding
+    List<EBattle> findByOpponentIDAndDateOfEnding(Integer opponentID, Date dateOfEnding);
 }

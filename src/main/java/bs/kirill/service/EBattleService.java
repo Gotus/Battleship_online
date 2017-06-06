@@ -15,5 +15,7 @@ public interface EBattleService {
     List<EBattle> getByDateOfEnding(Date D_of_E);
     List<EBattle> getByHost_ID(Integer H_ID);
     List<EBattle> getByOpponent_ID(Integer O_ID);
+    List<EBattle> getByHostIDAndDateOfEnding(Integer H_ID, Date dateOfEnding);
+    List<EBattle> getByOpponentIDAndDateOfEnding(Integer H_ID, Date dateOfEnding);
     List<EBattle> getAll();
 }
