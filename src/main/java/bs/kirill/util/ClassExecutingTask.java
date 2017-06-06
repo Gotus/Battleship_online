@@ -1,6 +1,7 @@
 package bs.kirill.util;
 
 import bs.kirill.entity.EBattle;
+import bs.kirill.entity.EUserData;
 import bs.kirill.service.EBattleService;
 import bs.kirill.service.EUser_DataService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,7 +26,7 @@ public class ClassExecutingTask {
     @Resource(name = "EUser_DataService")
     private EUser_DataService user_dataService;
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 300000)
     public void tick() {
         // Получить дату текущую
         // убить все старые игры
@@ -54,10 +55,21 @@ public class ClassExecutingTask {
             System.out.println(milliseconds/1000);
             if (milliseconds/(60*1000) > 5){
 
+                EUserData host = new EUserData();
+
                 allActiveBattles.get(i).setDate_of_ending(new Date());
                 battleService.addBattle(allActiveBattles.get(i));
-                user_dataService.getByUser_ID(allActiveBattles.get(i).getHost_ID()).setCurrentBattle(null);
-                user_dataService.getByUser_ID(allActiveBattles.get(i).getOpponent_ID()).setCurrentBattle(null);
+
+                host = user_dataService.getByUser_ID(allActiveBattles.get(i).getHost_ID());
+                host.setCurrentBattle(null);
+                user_dataService.updateUser(host);
+                if (allActiveBattles.get(i).getDate_of_joining() != null){
+
+                    EUserData opponent = new EUserData();
+                    opponent = user_dataService.getByUser_ID(allActiveBattles.get(i).getOpponent_ID());
+                    opponent.setCurrentBattle(null);
+                    user_dataService.updateUser(opponent);
+                }
             }
             System.out.println("I checked");
         }

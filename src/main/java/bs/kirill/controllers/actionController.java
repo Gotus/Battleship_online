@@ -85,10 +85,13 @@ public class actionController {
             playerIsHost = true;
         }
 
-         Battle currentBattle = new Battle();
-         currentBattle = BattleMap.battleHashMap.get(battle.get(battleService.getAll().size() - 1).getBattle_ID());
-        System.out.println(battle.get(0).getBattle_ID());
+        Battle currentBattle = new Battle();
 
+        System.out.println(battleService.getAll().size() - 1);
+        System.out.println(battle.get(0));
+        System.out.println("id " + BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue()));
+
+        currentBattle = BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue());
         if (playerIsHost) {
 
             Battlefield hostBattlefield = currentBattle.getBattlefields().get(0);
@@ -150,20 +153,33 @@ public class actionController {
         newBattle.setDate_of_creation(currentDate);
         newBattle.setDate_of_last_action(currentDate);
         CreatingLobbyResult result = new CreatingLobbyResult();
+        EUserData userData = new EUserData();
 
         if ( user_dataService.getByLogin(hostLoginContainer.getLogin()).getCurrentBattle() == null){
 
             battleService.addBattle(newBattle);
+
+            userData = user_dataService.getByLogin(hostLoginContainer.getLogin());
+            userData.setCurrentBattle(newBattle.getBattle_ID());
+            user_dataService.updateUser(userData);
+
+            Long id = battleService.getByHostIDAndDateOfEnding(user_dataService.
+                    getByLogin(hostLoginContainer.getLogin()).
+                    getUser_ID(), null).
+                    get(0).
+                    getBattle_ID();
+            Battle battle = new Battle();
+            BattleMap.battleHashMap.put(id.intValue(), battle);
+
+            System.out.println(id.intValue());
+            System.out.println(BattleMap.battleHashMap.get(id.intValue()));
+            System.out.println(BattleMap.battleHashMap.get(id.intValue()).getBattlefields());
+            System.out.println(BattleMap.battleHashMap.get(id.intValue()).getBattlefields().get(0));
+            System.out.println(BattleMap.battleHashMap.get(id.intValue()).getBattlefields().get(0).getBattlefield());
+            ConsoleOutput.consoleprint(BattleMap.battleHashMap.get(id.intValue()).getBattlefields().get(0).getBattlefield());
+
             result.setIsSuccess(true);
 
-            user_dataService.getByLogin(hostLoginContainer.getLogin()).setCurrentBattle(newBattle.getBattle_ID());
-
-            Integer id = battleService.getAll().size();
-
-            Battle battle = new Battle();
-            BattleMap.battleHashMap.put(id, battle);
-            ConsoleOutput.consoleprint(BattleMap.battleHashMap.get(id).getBattlefields().get(0).getBattlefield());
-            System.out.println(id);
             return result;
 
         } else {

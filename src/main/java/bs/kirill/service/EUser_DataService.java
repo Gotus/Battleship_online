@@ -13,5 +13,6 @@ public interface EUser_DataService
     EUserData getByMail(String Mail);
     EUserData addUser(EUserData usr);
     EUserData getByLogin(String login); //was added 6.5.2017 1:28
+    EUserData updateUser(EUserData usr);
     List<EUserData> getAll();
 }

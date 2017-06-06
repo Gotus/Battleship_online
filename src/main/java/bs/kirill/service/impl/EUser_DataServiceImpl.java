@@ -48,4 +48,7 @@ public class EUser_DataServiceImpl implements EUser_DataService
     {
         return (List<EUserData>)URepository.findAll();
     }
+
+    @Override
+    public EUserData updateUser(EUserData usr){return URepository.saveAndFlush(usr);}
 }

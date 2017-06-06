@@ -46,7 +46,10 @@ public class loginController {
                 String userDataJSON = gson.toJson(user_dataService.getByLogin(loginData.getLogin()));
                 System.out.println(userDataJSON);
                 //Password is correct
-
+                EUserData userData = new EUserData();
+                userData = user_dataService.getByLogin(loginData.getLogin());
+                userData.setCurrentBattle(null);
+                user_dataService.updateUser(userData);
                 result.setIsSuccess(true);
                 return result;
             } else {

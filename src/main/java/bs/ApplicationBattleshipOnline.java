@@ -9,6 +9,5 @@ public class ApplicationBattleshipOnline {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicationBattleshipOnline.class, args);
-		//executionTask.start();
 	}
 }
