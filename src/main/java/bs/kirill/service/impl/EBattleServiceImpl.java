@@ -6,6 +6,7 @@ import bs.kirill.service.EBattleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,18 @@ public class EBattleServiceImpl implements EBattleService
     public List<EBattle> getByOpponent_ID(Integer O_ID) {
 
         return BRepository.findByOpponentID(O_ID);
+    }
+
+    @Override
+    public List<EBattle> getByHostIDAndDateOfEnding(Integer H_ID, Date dateOfEnding){
+
+        return BRepository.findByHostIDAndDateOfEnding(H_ID, dateOfEnding);
+    }
+
+    @Override
+    public List<EBattle> getByOpponentIDAndDateOfEnding(Integer O_ID, Date dateOfEnding){
+
+        return BRepository.findByOpponentIDAndDateOfEnding(O_ID, dateOfEnding);
     }
 
     @Override

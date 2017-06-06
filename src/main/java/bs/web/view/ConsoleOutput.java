@@ -5,7 +5,7 @@ package bs.web.view;
  */
 public class ConsoleOutput {
 
-    public void consoleprint(int[][] battlefield) {
+    public static void consoleprint(int[][] battlefield) {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {

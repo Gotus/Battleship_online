@@ -8,7 +8,7 @@ import bs.web.model.entities.Ship;
  */
 public class Place {
 
-    public void place(int[][] battlefield, Ship ship, Coordinate coordinate, boolean orient) {
+    public static void place(int[][] battlefield, Ship ship, Coordinate coordinate, boolean orient) {
         coordinate = new Coordinate(coordinate.getXx(), coordinate.getYy());
         int newPrownXX = coordinate.getXx();
         int newPrownYY = coordinate.getYy();
@@ -61,23 +61,8 @@ public class Place {
                     }
                 }
             }
-            if (newPrownYY + 1 <= 9) { //граница снизу
-                if (battlefield[newPrownYY + 1][newPrownXX] == 2) {
-                    return;
-                }
-            }
-            if (newPrownXX - 1 >= 0) { //граница слева
-                if (battlefield[newPrownYY][newPrownXX - 1] == 2) {
-                    return;
-                }
-            }
-            if (newPrownXX + 1 <= 9) { //граница справа
-                if (battlefield[newPrownYY][newPrownXX + 1] == 2) {
-                    return;
-                }
-            }
 
-            for (int i = 1; i < size - 1; i++) {                        //проверка палубы на корабли вплотную
+            for (int i = 0; i < size; i++) {                        //проверка палубы на корабли вплотную
                 if (newPrownXX + 1 <= 9) //граница справа
                 {
                     if (battlefield[newPrownYY + i][newPrownXX + 1] == 2) {
@@ -90,7 +75,7 @@ public class Place {
                         return;
                     }
                 }
-                if (newPrownYY + 1 <= 9) //граница снизу
+                if (newPrownYY + i + 1 <= 9) //граница снизу
                 {
                     if (battlefield[newPrownYY + i + 1][newPrownXX] == 2) {
                         return;
@@ -98,38 +83,22 @@ public class Place {
                 }
             }
 
-            if (newPrownYY + 1 <= 9)  // граница снизу                               //проверка последнего квадрата(кормы) на корабли вплотную
+            if (newPrownYY + size <= 9)  // граница снизу                               //проверка последнего квадрата(кормы) на корабли вплотную
             {
-                if (battlefield[newPrownYY + (size - 1) + 1][newPrownXX] == 2) {
-                    return;
-                }
 
                 if (newPrownXX + 1 <= 9) // граница справа(снизу)
                 {
-                    if (battlefield[newPrownYY + (size - 1) + 1][newPrownXX + 1] == 2) {
+                    if (battlefield[newPrownYY + size][newPrownXX + 1] == 2) {
                         return;
                     }
                 }
                 if (newPrownXX - 1 >= 0) // граница слева(снизу)
                 {
-                    if (battlefield[newPrownYY + (size - 1) + 1][newPrownXX - 1] == 2) {
+                    if (battlefield[newPrownYY + size][newPrownXX - 1] == 2) {
                         return;
                     }
                 }
             }
-            if (newPrownXX - 1 >= 0)  //граница слева
-            {
-                if (battlefield[newPrownYY + (size - 1)][newPrownXX - 1] == 2) {
-                    return;
-                }
-            }
-            if (newPrownXX + 1 <= 9)  // граница справа
-            {
-                if (battlefield[newPrownYY + (size - 1)][newPrownXX + 1] == 2) {
-                    return;
-                }
-            }
-
 
             for (int i = 0; i < size; i++) {
                 battlefield[newPrownYY + i][newPrownXX] = 2;                              // введение в матрицу
@@ -159,94 +128,68 @@ public class Place {
             if (newPrownXX > 10 - ship.getSize()) {   //выход за границы массива
                 return;
             }
+
+            if (battlefield[newPrownYY][newPrownXX] == 2) {
+                return; //занятость текущей клетки
+            }
+
             if (newPrownXX - 1 >= 0)   // ограничение слева               //проверка первого квадрата на корабли вплотную
             {
                 if (battlefield[newPrownYY][newPrownXX - 1] == 2) {
                     return;
                 }
-                if (newPrownYY - 1 >= 0) //ограничение слева снизу
+                if (newPrownYY - 1 >= 0) //ограничение слева сверху
                 {
                     if (battlefield[newPrownYY - 1][newPrownXX - 1] == 2) {
                         return;
                     }
                 }
-                if (newPrownYY + 1 <= 9) //ограничение слева сверху
+                if (newPrownYY + 1 <= 9) //ограничение слева снизу
                 {
                     if (battlefield[newPrownYY + 1][newPrownXX - 1] == 2) {
                         return;
                     }
                 }
             }
-            if (newPrownXX + 1 <= 9) //ограничение справа
-            {
-                if (battlefield[newPrownYY][newPrownXX + 1] == 2) {
-                    return;
-                }
-            }
-            if (newPrownYY - 1 >= 0) // ограничение сверху
-            {
-                if (battlefield[newPrownYY - 1][newPrownXX] == 2) {
-                    return;
-                }
-            }
-            if (newPrownYY + 1 <= 9) // ограничение снизу
-            {
-                if (battlefield[newPrownYY + 1][newPrownXX] == 2) {
-                    return;
-                }
-            }
 
-            for (int i = 1; i < size - 1; i++)                      //проверка палубы на корабли вплотную
+
+
+            for (int i = 0; i < size; i++)                      //проверка палубы на корабли вплотную
             {
-                if (newPrownYY - 1 >= 0) //ограничение снизу
+                if (newPrownYY - 1 >= 0) //ограничение сверху
                 {
                     if (battlefield[newPrownYY - 1][newPrownXX + i] == 2) {
                         return;
                     }
                 }
-                if (newPrownYY + 1 <= 9) //ограничение сверху
+                if (newPrownYY + 1 <= 9) //ограничение снизу
                 {
                     if (battlefield[newPrownYY + 1][newPrownXX + i] == 2) {
                         return;
                     }
                 }
-                if (newPrownXX + 1 <= 9) //ограничение справа
+
+                if (newPrownXX + i <= 9)  // ограничение справа                            //проверка последнего квадрата на корабли вплотную
                 {
-                    if (battlefield[newPrownYY][newPrownXX + i + 1] == 2) {
+                    if (battlefield[newPrownYY][newPrownXX + i] == 2) {
                         return;
                     }
                 }
-
             }
 
-            if (newPrownXX + 1 <= 9)  // ограничение справа                            //проверка последнего квадрата на корабли вплотную
+            if (newPrownXX + size <= 9)  // ограничение справа                            //проверка последнего квадрата на корабли вплотную
             {
-                if (battlefield[newPrownYY][newPrownXX + (size - 1) + 1] == 2) {
-                    return;
-                }
                 if (newPrownYY - 1 >= 0)  //ограничение справа сверху
                 {
-                    if (battlefield[newPrownYY - 1][newPrownXX + (size - 1) + 1] == 2) {
+                    if (battlefield[newPrownYY - 1][newPrownXX + size] == 2) {
                         return;
                     }
                 }
                 if (newPrownYY + 1 <= 9) //ограничение справа снизу
                 {
-                    if (battlefield[newPrownYY + 1][newPrownXX + (size - 1) + 1] == 2) {
+                    if (battlefield[newPrownYY + 1][newPrownXX + size] == 2) {
                         return;
                     }
-                }
-            }
-            if (newPrownYY + 1 <= 9)  //ограничение снизу
-            {
-                if (battlefield[newPrownYY + 1][newPrownXX + (size - 1)] == 2) {
-                    return;
-                }
-            }
-            if (newPrownXX - 1 >= 0) // ограничение сверху
-            {
-                if (battlefield[newPrownYY - 1][newPrownXX + (size - 1)] == 2) {
-                    return;
                 }
             }
 
