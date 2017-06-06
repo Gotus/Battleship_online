@@ -18,6 +18,7 @@ document.addEventListener("keypress", keyPressFunction = function (keyPressEvent
         orient ? orient = false : orient = true;
     }
     shipselem = document.getElementById("ships");
+    console.log(orient);
     if (orient) {
         shipselem.innerHTML = '<img src="images/4ship.png" id="shipfour1" draggable="true" ondragstart="drag(event)"\
             width="111" height="26">\
@@ -124,15 +125,20 @@ var buffermas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  //J
 ];
 
-var shiptoplace, tobreak;
+var tobreak;
 function refresh() {
     readytofight = true;
+
+    fleet[9].prown.xx=0;
+    fleet[9].prown.yy=0;
+    fleet[9].stern.xx=1;
+    fleet[9].stern.yy=0;
+
     /*places ships*/
     for (var i = 0; i < 10; i++) {
         tobreak = false;
-        shiptoplace = fleet[i];
-        for (var xx = shiptoplace.prown.xx; xx <= shiptoplace.stern.xx; xx++) {
-            for (var yy = shiptoplace.prown.yy; yy <= shiptoplace.stern.yy; yy++) {
+        for (var xx = fleet[i].prown.xx; xx <= fleet[i].stern.xx; xx++) {
+            for (var yy = fleet[i].prown.yy; yy <= fleet[i].stern.yy; yy++) {
                 if (xx === -1 || yy === -1) {
                     readytofight = false;
                     tobreak = true;
@@ -145,6 +151,7 @@ function refresh() {
             }
         }
     }
+    console.log(buffermas);
 
     showField(buffermas,buttonsmas);
 
@@ -171,8 +178,8 @@ function refresh() {
             });
         });
     }
-
 }
+
 function showField(dataforbuttons, buttons) {
     var button;
     /*checks what number in battlefield and sets attributes*/
@@ -246,17 +253,12 @@ function drop(dragAndDropEvent) {
                         contentType: 'application/json; charset=utf-8',
                         dataType: "json",
                         success: function (data) {
-                            var serverFleet = [];
-                            serverFleet = data;
-                            for (var i=0; i< serverFleet.length; i++){
-                                fleet[i].prown.xx=serverFleet[i].prown.xx;
-                                console.log(fleet[i].prown.xx);
-                                fleet[i].prown.yy=serverFleet[i].prown.yy;
-                                console.log(fleet[i].prown.yy);
-                                fleet[i].stern.xx=serverFleet[i].stern.xx;
-                                console.log(fleet[i].stern.xx);
-                                fleet[i].stern.xx=serverFleet[i].stern.xx;
-                                console.log(fleet[i].stern.xx);
+                            for (var i=0; i< data.length; i++){
+                                fleet[i].prown.xx=data[i].prown.xx;
+                                fleet[i].prown.yy=data[i].prown.yy;
+                                fleet[i].stern.xx=data[i].stern.xx;
+                                fleet[i].stern.xx=data[i].stern.xx;
+                                console.log(fleet[i]);
                             }
                         }
                     });
