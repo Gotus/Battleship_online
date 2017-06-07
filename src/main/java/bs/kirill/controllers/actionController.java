@@ -1,25 +1,24 @@
 package bs.kirill.controllers;
 
 import bs.kirill.entity.EAchievement;
+import bs.kirill.entity.EBattle;
 import bs.kirill.entity.EUserData;
 import bs.kirill.service.EBattleService;
 import bs.kirill.service.EUser_DataService;
-import bs.kirill.entity.EBattle;
 import bs.kirill.util.ClassExecutingTask;
 import bs.web.BattleMap;
 import bs.web.controller.gamelogic.mainlogic.Place;
 import bs.web.model.entities.Battle;
 import bs.web.model.entities.Battlefield;
 import bs.web.model.entities.Coordinate;
-import bs.web.model.entities.Ship;
 import bs.web.view.ConsoleOutput;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Gotus on 12.05.2017.
@@ -38,9 +37,9 @@ public class actionController {
 
     public ClassExecutingTask executingTask = new ClassExecutingTask();
 
-   // executingTask.start();
+    // executingTask.start();
 
-    public EBattleService getBattleService(){
+    public EBattleService getBattleService() {
 
         return this.battleService;
     }
@@ -53,15 +52,14 @@ public class actionController {
     }
 
 
-
     /*
-     * Not tested
+     * Works correct
      * Method puts ship to selected location
      * Gets number of ship in fleet, coordinates of its location and battlefield
      * returns battlefield with located ship
      */
     @RequestMapping(value = "/location", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public  @ResponseBody Object[] putShip(@RequestBody FullBattleData fullBattleData) {
+    public @ResponseBody Object[] putShip(@RequestBody FullBattleData fullBattleData) {
 
         List<EBattle> battle = new ArrayList<>();
         Boolean playerIsHost = false;
@@ -69,11 +67,11 @@ public class actionController {
         //Get battle in which player is and define his role: opponent or host
 
         if (battleService.getByHostIDAndDateOfEnding(user_dataService.
-                getByLogin(fullBattleData.getLogin()).getUser_ID(),
-                null) == null)
-        {
+                        getByLogin(fullBattleData.getLogin()).getUser_ID(),
+                null).isEmpty()) {
 
             //player is opponent
+            System.out.println("i am opponent");
             battle = battleService.getByOpponentIDAndDateOfEnding(user_dataService
                     .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
             playerIsHost = false;
@@ -82,14 +80,17 @@ public class actionController {
             //player is host
             battle = battleService.getByHostIDAndDateOfEnding(user_dataService
                     .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
+            System.out.println("i am host");
             playerIsHost = true;
         }
 
         Battle currentBattle = new Battle();
 
-        System.out.println(battleService.getAll().size() - 1);
+        /*System.out.println(fullBattleData.getLogin());
+        System.out.println(battleService.getAll().size());
         System.out.println(battle.get(0));
         System.out.println("id " + BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue()));
+        */
 
         currentBattle = BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue());
         if (playerIsHost) {
@@ -100,6 +101,8 @@ public class actionController {
                     new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
                     fullBattleData.getOrientation());
 
+            battle.get(0).setDate_of_last_action(new Date());
+            battleService.addBattle(battle.get(0));
             return hostBattlefield.getFleet().toArray();
         } else {
 
@@ -108,6 +111,9 @@ public class actionController {
                     opponentBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
                     new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
                     fullBattleData.getOrientation());
+
+            battle.get(0).setDate_of_last_action(new Date());
+            battleService.addBattle(battle.get(0));
             return opponentBattlefield.getFleet().toArray();
         }
     }
@@ -115,17 +121,19 @@ public class actionController {
     //works correct
     //Method shows all available lobbies
     @RequestMapping(value = "/lobby", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody DataContainer[] getAllLobby() {
+    public
+    @ResponseBody
+    DataContainer[] getAllLobby() {
 
         ArrayList<EBattle> battleArrayList = new ArrayList<EBattle>(battleService.getByDateOfEnding(null));
         DataContainer[] allData = new DataContainer[battleArrayList.size()];
 
-        for (int i = 0; i < allData.length; i++){
+        for (int i = 0; i < allData.length; i++) {
 
             allData[i] = new DataContainer();
         }
 
-        for(int i = 0; i < battleArrayList.size(); i++) {
+        for (int i = 0; i < battleArrayList.size(); i++) {
 
             allData[i].setBattleID(battleArrayList.get(i).getBattle_ID());
             allData[i].setHostLogin(user_dataService.getByUser_ID(battleArrayList.get(i).getHost_ID()).getLogin());
@@ -145,17 +153,19 @@ public class actionController {
     //works correct
     //Method creates a new lobby
     @RequestMapping(value = "/battle/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody CreatingLobbyResult createLobby(@RequestBody LoginContainer hostLoginContainer) {
+    public
+    @ResponseBody
+    Result createLobby(@RequestBody LoginContainer hostLoginContainer) {
 
         EBattle newBattle = new EBattle();
         newBattle.setHost_ID(user_dataService.getByLogin(hostLoginContainer.getLogin()).getUser_ID());
         Date currentDate = new Date();
         newBattle.setDate_of_creation(currentDate);
         newBattle.setDate_of_last_action(currentDate);
-        CreatingLobbyResult result = new CreatingLobbyResult();
+        Result result = new Result();
         EUserData userData = new EUserData();
 
-        if ( user_dataService.getByLogin(hostLoginContainer.getLogin()).getCurrentBattle() == null){
+        if (user_dataService.getByLogin(hostLoginContainer.getLogin()).getCurrentBattle() == null) {
 
             battleService.addBattle(newBattle);
 
@@ -171,11 +181,12 @@ public class actionController {
             Battle battle = new Battle();
             BattleMap.battleHashMap.put(id.intValue(), battle);
 
-            System.out.println(id.intValue());
+            /*System.out.println(id.intValue());
             System.out.println(BattleMap.battleHashMap.get(id.intValue()));
             System.out.println(BattleMap.battleHashMap.get(id.intValue()).getBattlefields());
             System.out.println(BattleMap.battleHashMap.get(id.intValue()).getBattlefields().get(0));
             System.out.println(BattleMap.battleHashMap.get(id.intValue()).getBattlefields().get(0).getBattlefield());
+            */
             ConsoleOutput.consoleprint(BattleMap.battleHashMap.get(id.intValue()).getBattlefields().get(0).getBattlefield());
 
             result.setIsSuccess(true);
@@ -191,15 +202,35 @@ public class actionController {
 
     //not tested
     //Method adds opponent to lobby
-    @RequestMapping(value = "/lobby/battle", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public EBattle addOppponent(@RequestParam("battleID") Long battleID, @RequestParam(value = "opponentLogin") String opponentLogin) {
+    @RequestMapping(value = "/join", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Result addOppponent(@RequestBody OpponentData opponentData) {
 
         EBattle selectedBattle = new EBattle();
-        selectedBattle = battleService.getByBattle_ID(battleID);
-        selectedBattle.setOpponent_ID(user_dataService.getByLogin(opponentLogin).getUser_ID());
-        selectedBattle.setDate_of_joining(new Date());
+        EUserData opponent = new EUserData();
+        Result result = new Result();
+        Date currentMoment = new Date();
+        result.setIsSuccess(false);
+        selectedBattle = battleService.getByBattle_ID(opponentData.getBattleID());
+        opponent = user_dataService.getByLogin(opponentData.getLogin());
+        if (selectedBattle.getDate_of_ending() != null) {
+
+            return result;
+        }
+        if (opponent.getCurrentBattle() != null) {
+
+            return result;
+        }
+
+        selectedBattle.setOpponent_ID(opponent.getUser_ID());
+        selectedBattle.setDate_of_joining(currentMoment);
+        selectedBattle.setDate_of_last_action(currentMoment);
+
+        opponent.setCurrentBattle(selectedBattle.getBattle_ID());
+
         battleService.addBattle(selectedBattle);
-        return selectedBattle;
+        user_dataService.updateUser(opponent);
+        result.setIsSuccess(true);
+        return result;
     }
 
     //not tested
@@ -259,7 +290,30 @@ class DataContainer {
     }
 }
 
-class CreatingLobbyResult {
+class OpponentData {
+
+    private Long battleID;
+    private String login;
+
+    public void setBattleID(Long battleID) {
+        this.battleID = battleID;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public Long getBattleID() {
+        return battleID;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+}
+
+class Result {
     private Boolean isSuccess;
 
     public Boolean getIsSuccess() {

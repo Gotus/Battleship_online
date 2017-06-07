@@ -15,6 +15,7 @@ var conditionbattle = "идет бой"; //opponentConnected = 1
 
 $(document).ready(function () {
     var table = $("#games").find('tbody');
+    var savedButtonID, savedBattleID;
     $.ajax({
         url: "http://localhost:8080/game/lobby",
         type: "GET",
@@ -47,15 +48,18 @@ $(document).ready(function () {
                     .append(joinbutton)
                 );
 
+                savedButtonID='#' + data[i].battleID;
+                savedBattleID=data[i].battleID;
 
                 $(document).ready(function () {
 
-                    $('#' + data[i].battleID).click(function () {
+                    $(savedButtonID).click(function () {
                         $.ajax({
-                            url: "http://localhost:8080/game/lobby/battle/" + data[i].battleID + "/" + mylogin,
+                            url: "http://localhost:8080/game/join/",
                             type: "POST",
                             data: JSON.stringify({
-                                login: login
+                                login: mylogin,
+                                battleID: savedBattleID
                             }),
                             contentType: 'application/json; charset=utf-8',
                             dataType: "json",
