@@ -90,6 +90,7 @@ function fire(fireevent) {
     }
 }
 
+var answer;
 var timer = setInterval(function () {
     if (GOSTIL) {
         clearInterval(timer);
@@ -104,9 +105,10 @@ var timer = setInterval(function () {
                     contentType: 'application/json; charset=utf-8',
                     dataType: "text",
                     success: function (data) {
-                        if (data === "success") {
+                        if (data === "myturn") {
                             allowFire();
 
+                            /*посмотреть, что стало с моим полем после выстрела*/
                             $(document).ready(function () {
                                 $.ajax({
                                     url: "http://localhost:8080/game/getmyfield",
@@ -116,18 +118,29 @@ var timer = setInterval(function () {
                                     }),
                                     contentType: 'application/json; charset=utf-8',
                                     dataType: "json",
-                                    success: function (data) {
-                                        buffermas = data;//мое поле- по нему попали
+                                    success: function (data2) {
+                                        buffermas = data2;
                                         showField(buffermas, buttonsmas);
                                     }
                                 });
                             });
                         }
-                        if (data === "gameover"){
+                        if (data === "success") {
+                            allowFire();
+                        }
+                        if (data === "gameover1"){
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
                             clearInterval(timer2);
-                            alert("игра окончена");
+                            answer = confirm("Победил первый игрок(создатель сессии). Хотите сохранить реплей этого боя?");
+                            //TODO сохранять в бд запись
+                        }
+                        if (data === "gameover2"){
+                            banFire();
+                            showField(ebuffermas,ebuttonsmas);
+                            clearInterval(timer2);
+                            answer = confirm("Победил второй игрок(присоединившийся грок). Хотите сохранить реплей этого боя?");
+                            //TODO сохранять в бд запись
                         }
                     }
                 });
