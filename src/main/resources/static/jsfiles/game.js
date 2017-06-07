@@ -126,7 +126,7 @@ var buffermas = [
 ];
 
 
-var tobreak;
+var tobreak, imageship;
 function refresh() {
     readytofight = true;
 
@@ -135,16 +135,20 @@ function refresh() {
             buffermas[i][j] = 0;
         }
     }
+
     /*places ships*/
     for (var i = 0; i < 10; i++) {
         tobreak = false;
+        imageship = document.getElementById(fleet[i].imageid);
         for (var xx = fleet[i].prown.xx; xx <= fleet[i].stern.xx; xx++) {
             for (var yy = fleet[i].prown.yy; yy <= fleet[i].stern.yy; yy++) {
                 if (xx == -1 || yy == -1) {
+                    imageship.style.opacity="1.0";
                     readytofight = false;
                     tobreak = true;
                     break;
                 }
+                imageship.style.opacity="0.4";
                 buffermas[xx][yy] = 2;
             }
             if (tobreak) {
@@ -199,21 +203,21 @@ function showField(dataforbuttons, buttons) {
             }
             if (dataforbuttons[x][y] === 2) {
                 button = buttons[x][y];
-                button.removeAttribute("ondragover");
-                button.removeAttribute("ondrop");
+                /*button.removeAttribute("ondragover");
+                button.removeAttribute("ondrop");*/
                 button.setAttribute("class", "btn btn-danger");
             }
             if (dataforbuttons[x][y] === 3) {
                 button = buttons[x][y];
-                button.removeAttribute("ondragover");
-                button.removeAttribute("ondrop");
+                /*button.removeAttribute("ondragover");
+                button.removeAttribute("ondrop");*/
                 button.setAttribute("class", "btn btn-danger disabled");
             }
         }
     }
 }
 
-refresh();
+showField(buffermas,buttonsmas);
 
 function allowDrop(dragAndDropEvent) {
     dragAndDropEvent.preventDefault();

@@ -30,7 +30,7 @@ $(document).ready(function () {
                 .append($('<a>')
                     .attr("href", "#")
                     .attr("class", "btn btn-success")
-                    .attr("id", data[i].battleID)
+                    .attr("id", "" + data[i].battleID)
                     .append("Присоединиться")
                 )
 
