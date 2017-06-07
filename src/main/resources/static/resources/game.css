@@ -22,5 +22,9 @@
 }
 
 #field, #efield {
-    width: 300px;
+    width: 330px;
+}
+
+#kostil, #kostil2 {
+    margin-top: 30px;
 }
