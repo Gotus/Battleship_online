@@ -69,54 +69,66 @@ public class actionController {
 
         List<EBattle> battle = new ArrayList<>();
         Boolean playerIsHost = false;
-
         //Get battle in which player is and define his role: opponent or host
+        try {
 
-        if (battleService.getByHostIDAndDateOfEnding(user_dataService.
-                        getByLogin(fullBattleData.getLogin()).getUser_ID(),
-                null).isEmpty()) {
+            if (battleService.getByHostIDAndDateOfEnding(user_dataService.
+                            getByLogin(fullBattleData.getLogin()).getUser_ID(),
+                    null).isEmpty()) {
 
-            //player is opponent
-            System.out.println("i am opponent");
-            battle = battleService.getByOpponentIDAndDateOfEnding(user_dataService
-                    .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
-            playerIsHost = false;
-        } else {
+                //player is opponent
+                System.out.println("i am opponent");
+                battle = battleService.getByOpponentIDAndDateOfEnding(user_dataService
+                        .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
+                playerIsHost = false;
+            } else {
 
-            //player is host
-            battle = battleService.getByHostIDAndDateOfEnding(user_dataService
-                    .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
-            System.out.println("i am host");
-            playerIsHost = true;
-        }
+                //player is host
+                battle = battleService.getByHostIDAndDateOfEnding(user_dataService
+                        .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
+                System.out.println("i am host");
+                playerIsHost = true;
+            }
 
-        Battle currentBattle = new Battle();
+            Battle currentBattle = new Battle();
 
-        currentBattle = BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue());
-        if (playerIsHost) {
+            currentBattle = BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue());
+            if (playerIsHost) {
 
-            Battlefield hostBattlefield = currentBattle.getBattlefields().get(0);
-            Place.place(hostBattlefield.getBattlefield(),
-                    hostBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
-                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
-                    fullBattleData.getOrientation());
+                Battlefield hostBattlefield = currentBattle.getBattlefields().get(0);
+                Place.place(hostBattlefield.getBattlefield(),
+                        hostBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
+                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
+                        fullBattleData.getOrientation());
 
-            battle.get(0).setDate_of_last_action(new Date());
-            battleService.addBattle(battle.get(0));
-            return hostBattlefield.getFleet().toArray();
-        } else {
+                battle.get(0).setDate_of_last_action(new Date());
+                battleService.addBattle(battle.get(0));
+                return hostBattlefield.getFleet().toArray();
+            } else {
 
-            Battlefield opponentBattlefield = currentBattle.getBattlefields().get(1);
-            Place.place(opponentBattlefield.getBattlefield(),
-                    opponentBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
-                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
-                    fullBattleData.getOrientation());
+                Battlefield opponentBattlefield = currentBattle.getBattlefields().get(1);
+                Place.place(opponentBattlefield.getBattlefield(),
+                        opponentBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
+                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
+                        fullBattleData.getOrientation());
 
-            battle.get(0).setDate_of_last_action(new Date());
-            battleService.addBattle(battle.get(0));
-            return opponentBattlefield.getFleet().toArray();
+                battle.get(0).setDate_of_last_action(new Date());
+                battleService.addBattle(battle.get(0));
+                return opponentBattlefield.getFleet().toArray();
+            }
+        } catch (NullPointerException exception) {
+
+            EUserData slowUser = new EUserData();
+            slowUser = user_dataService.getByLogin(fullBattleData.getLogin());
+            slowUser.setCurrentBattle(null);
+            user_dataService.updateUser(slowUser);
+
+            Object [] error = null;
+            return error;
         }
     }
+
+
 
     @RequestMapping(value = "/readytofight", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Result markAsReady(@RequestBody ReadyToFightContainer readyToFightContainer) {
@@ -124,15 +136,22 @@ public class actionController {
         EBattle currentEBattle = new EBattle();
         EUserData userData = new EUserData();
         Battle currentBattle = new Battle();
+        Result result = new Result();
         ArrayList<Ship> fleet = new ArrayList<Ship>(10);
         //ArrayList<EShip> eFleet = new ArrayList<EShip>(10);
 
         userData = user_dataService.getByLogin(readyToFightContainer.getLogin());
         Boolean isHost = false;
+        result.setIsSuccess(false);
         if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
 
             //user is opponent
             currentEBattle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (currentEBattle.getDate_of_ending() != null) {
+
+                return result;
+            }
+
             currentBattle = BattleMap.battleHashMap.get(currentEBattle.getBattle_ID().intValue());
             currentBattle.setOpponentIsReady(true);
             fleet = currentBattle.getBattlefields().get(1).getFleet();
@@ -153,14 +172,20 @@ public class actionController {
                 shipService.addShip(currentShip);
             }
 
-            Result result = new Result();
+
             result.setIsSuccess(true);
             return result;
 
         } else {
 
             //user is host
+
             currentEBattle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (currentEBattle.getDate_of_ending() != null) {
+
+                return result;
+            }
+
             currentBattle = BattleMap.battleHashMap.get(currentEBattle.getBattle_ID().intValue());
             currentBattle.setHostIsReady(true);
             fleet = currentBattle.getBattlefields().get(0).getFleet();
@@ -181,7 +206,6 @@ public class actionController {
                 shipService.addShip(currentShip);
             }
 
-            Result result = new Result();
             result.setIsSuccess(true);
             return result;
         }
