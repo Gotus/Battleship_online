@@ -2,8 +2,10 @@ package bs.kirill.controllers;
 
 import bs.kirill.entity.EAchievement;
 import bs.kirill.entity.EBattle;
+import bs.kirill.entity.EShip;
 import bs.kirill.entity.EUserData;
 import bs.kirill.service.EBattleService;
+import bs.kirill.service.EShipService;
 import bs.kirill.service.EUser_DataService;
 import bs.kirill.util.ClassExecutingTask;
 import bs.web.BattleMap;
@@ -11,6 +13,7 @@ import bs.web.controller.gamelogic.mainlogic.Place;
 import bs.web.model.entities.Battle;
 import bs.web.model.entities.Battlefield;
 import bs.web.model.entities.Coordinate;
+import bs.web.model.entities.Ship;
 import bs.web.view.ConsoleOutput;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,9 @@ public class actionController {
 
     @Resource(name = "EBattleService")
     private EBattleService battleService;
+
+    @Resource(name = "EShipService")
+    private EShipService shipService;
 
     public ClassExecutingTask executingTask = new ClassExecutingTask();
 
@@ -86,12 +92,6 @@ public class actionController {
 
         Battle currentBattle = new Battle();
 
-        /*System.out.println(fullBattleData.getLogin());
-        System.out.println(battleService.getAll().size());
-        System.out.println(battle.get(0));
-        System.out.println("id " + BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue()));
-        */
-
         currentBattle = BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue());
         if (playerIsHost) {
 
@@ -118,12 +118,79 @@ public class actionController {
         }
     }
 
+    @RequestMapping(value = "/readytofight", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Result markAsReady(@RequestBody ReadyToFightContainer readyToFightContainer) {
+
+        EBattle currentEBattle = new EBattle();
+        EUserData userData = new EUserData();
+        Battle currentBattle = new Battle();
+        ArrayList<Ship> fleet = new ArrayList<Ship>(10);
+        //ArrayList<EShip> eFleet = new ArrayList<EShip>(10);
+
+        userData = user_dataService.getByLogin(readyToFightContainer.getLogin());
+        Boolean isHost = false;
+        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+
+            //user is opponent
+            currentEBattle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            currentBattle = BattleMap.battleHashMap.get(currentEBattle.getBattle_ID().intValue());
+            currentBattle.setOpponentIsReady(true);
+            fleet = currentBattle.getBattlefields().get(1).getFleet();
+            Integer fleetSize = fleet.size();
+
+            //Puttting data of user's fleet in database
+            for (int i = 0; i < fleetSize; i++){
+
+                EShip currentShip = new EShip();
+                currentShip.setBattleID(currentEBattle.getBattle_ID());
+                currentShip.setUserID(userData.getUser_ID());
+                currentShip.setLength(fleet.get(i).getSize());
+                currentShip.setProwXX(fleet.get(i).getPrown().getXx());
+                currentShip.setProwYY(fleet.get(i).getPrown().getYy());
+                currentShip.setSternXX(fleet.get(i).getStern().getXx());
+                currentShip.setSternYY(fleet.get(i).getStern().getYy());
+
+                shipService.addShip(currentShip);
+            }
+
+            Result result = new Result();
+            result.setIsSuccess(true);
+            return result;
+
+        } else {
+
+            //user is host
+            currentEBattle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            currentBattle = BattleMap.battleHashMap.get(currentEBattle.getBattle_ID().intValue());
+            currentBattle.setHostIsReady(true);
+            fleet = currentBattle.getBattlefields().get(0).getFleet();
+            Integer fleetSize = fleet.size();
+
+            //Puttting data of user's fleet in database
+            for (int i = 0; i < fleetSize; i++){
+
+                EShip currentShip = new EShip();
+                currentShip.setBattleID(currentEBattle.getBattle_ID());
+                currentShip.setUserID(userData.getUser_ID());
+                currentShip.setLength(fleet.get(i).getSize());
+                currentShip.setProwXX(fleet.get(i).getPrown().getXx());
+                currentShip.setProwYY(fleet.get(i).getPrown().getYy());
+                currentShip.setSternXX(fleet.get(i).getStern().getXx());
+                currentShip.setSternYY(fleet.get(i).getStern().getYy());
+
+                shipService.addShip(currentShip);
+            }
+
+            Result result = new Result();
+            result.setIsSuccess(true);
+            return result;
+        }
+    }
+
     //works correct
     //Method shows all available lobbies
     @RequestMapping(value = "/lobby", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public
-    @ResponseBody
-    DataContainer[] getAllLobby() {
+    public @ResponseBody DataContainer[] getAllLobby() {
 
         ArrayList<EBattle> battleArrayList = new ArrayList<EBattle>(battleService.getByDateOfEnding(null));
         DataContainer[] allData = new DataContainer[battleArrayList.size()];
@@ -287,6 +354,32 @@ class DataContainer {
     public Boolean getOpponentConnected() {
 
         return opponentConnected;
+    }
+}
+
+class ReadyToFightContainer {
+
+    private String login;
+    private Boolean readyToFight;
+
+    public String getLogin() {
+
+        return login;
+    }
+
+    public void setLogin(String login) {
+
+        this.login = login;
+    }
+
+    public Boolean getReadyToFight() {
+
+        return readyToFight;
+    }
+
+    public void setReadyToFight(Boolean readyToFight) {
+
+        this.readyToFight = readyToFight;
     }
 }
 

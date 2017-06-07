@@ -18,7 +18,6 @@ document.addEventListener("keypress", keyPressFunction = function (keyPressEvent
         orient ? orient = false : orient = true;
     }
     shipselem = document.getElementById("ships");
-    console.log(orient);
     if (orient) {
         shipselem.innerHTML = '<img src="images/4ship.png" id="shipfour1" draggable="true" ondragstart="drag(event)"\
             width="111" height="26">\
@@ -62,6 +61,7 @@ document.addEventListener("keypress", keyPressFunction = function (keyPressEvent
                 <img src="images/1ship-vertical.png" id="shipone4" draggable="true" ondragstart="drag(event)"\
             width="26" height="26">';
     }
+    refresh();
 });
 
 

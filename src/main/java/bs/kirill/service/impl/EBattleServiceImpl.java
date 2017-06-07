@@ -16,7 +16,6 @@ import java.util.List;
 @Service("EBattleService")
 public class EBattleServiceImpl implements EBattleService
 {
-
     @Autowired
     private EBattleRepository BRepository;
 

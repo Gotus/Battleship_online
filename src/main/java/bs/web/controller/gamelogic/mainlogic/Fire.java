@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Fire {
 
-    public int fire(Battlefield battlefieldclass, Coordinate shot) { //функция проверяет есть ли корабль в клетке и ставит 3 или 1 + deadzone, если корабль мертв
+    public static int fire(Battlefield battlefieldclass, Coordinate shot) { //функция проверяет есть ли корабль в клетке и ставит 3 или 1 + deadzone, если корабль мертв
         int[][] battlefield = battlefieldclass.getBattlefield();
         ArrayList<Ship> fleet = battlefieldclass.getFleet();
 
@@ -60,7 +60,7 @@ public class Fire {
 
     }
 
-    private void deadzone(int[][] battlefield, Ship ship) {
+    private static void deadzone(int[][] battlefield, Ship ship) {
         Coordinate prown = ship.getPrown();
         Coordinate stern = ship.getStern();
 

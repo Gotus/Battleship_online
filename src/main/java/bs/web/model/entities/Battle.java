@@ -14,13 +14,33 @@ public class Battle {
       replay[3]- shot result (1 - miss, 2 - hit, 3 - dead)
      */
     private char[] replay = new char[800];
+    private Boolean hostIsReady, opponentIsReady;
 
     public Battle() {
         Battlefield firstField = new Battlefield();
         Battlefield secondField = new Battlefield();
 
+        hostIsReady = Boolean.FALSE;
+        opponentIsReady = Boolean.FALSE;
+
         battlefields.add(firstField);
         battlefields.add(secondField);
+    }
+
+    public Boolean getHostIsReady() {
+        return hostIsReady;
+    }
+
+    public void setHostIsReady(Boolean hostIsReady) {
+        this.hostIsReady = hostIsReady;
+    }
+
+    public Boolean getOpponentIsReady() {
+        return opponentIsReady;
+    }
+
+    public void setOpponentIsReady(Boolean opponentIsReady) {
+        this.opponentIsReady = opponentIsReady;
     }
 
     public ArrayList<Battlefield> getBattlefields() {
