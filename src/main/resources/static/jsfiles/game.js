@@ -260,6 +260,10 @@ function drop(dragAndDropEvent) {
                         contentType: 'application/json; charset=utf-8',
                         dataType: "json",
                         success: function (data) {
+                            if(data=null){
+                                alert("игра закончена из-за бездействия игроков");
+                                location.href = "http://localhost:8080/lobies.html";
+                            }
                             for (var i=0; i< data.length; i++){
                                 fleet[i].prown.xx=data[i].prown.xx;
                                 fleet[i].prown.yy=data[i].prown.yy;

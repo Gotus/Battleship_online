@@ -105,6 +105,10 @@ var timer = setInterval(function () {
                     contentType: 'application/json; charset=utf-8',
                     dataType: "text",
                     success: function (data) {
+                        if (data === "") {
+                            alert("игра закончена из-за бездействия игроков");
+                            location.href = "http://localhost:8080/lobies.html";
+                        }
                         if (data === "myturn") {
                             allowFire();
 
@@ -128,6 +132,11 @@ var timer = setInterval(function () {
                         if (data === "success") {
                             allowFire();
                         }
+
+                        if (data === "failure") {
+                            allowFire();
+                        }
+
                         if (data === "gameover1"){
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
