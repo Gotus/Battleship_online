@@ -129,12 +129,24 @@ var timer = setInterval(function () {
                                 });
                             });
                         }
-                        if (data === "success") {
-                            allowFire();
-                        }
 
                         if (data === "failure") {
-                            allowFire();
+                            banFire();
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: "http://localhost:8080/game/getmyfield",
+                                    type: "POST",
+                                    data: JSON.stringify({
+                                        login: mylogin //to find game
+                                    }),
+                                    contentType: 'application/json; charset=utf-8',
+                                    dataType: "json",
+                                    success: function (data2) {
+                                        buffermas = data2;
+                                        showField(buffermas, buttonsmas);
+                                    }
+                                });
+                            });
                         }
 
                         if (data === "gameover1"){

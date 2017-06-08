@@ -9,11 +9,17 @@ function getCookie(name) {
 }
 var mylogin = getCookie("login");
 
-var enter = $("<nav>").find('.navbar-right');
+var rightside = document.getElementsByClassName('navbar-right');
+var enter = rightside[0];
 
 if (mylogin!==""){
-    enter.innerHTML = '<li> <a href="#" onclick="deleteCookie("login")">Выйти</a></li>';
+    enter.innerHTML = '<li> <a href="#" onclick="exit(event)">Выйти</a></li>';
 }
+
+function exit(event) {
+deleteCookie("login");
+}
+
 
 function deleteCookie(name) {
     var date = new Date(); // Берём текущую дату

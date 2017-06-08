@@ -14,7 +14,7 @@ public class Battle {
       replay[3]- shot result (1 - miss, 2 - hit, 3 - dead)
      */
     private char[] replay = new char[800];
-    private Boolean hostIsReady, opponentIsReady, allPlayersIsReady;
+    private Boolean hostIsReady, opponentIsReady, gameBegun, hostTurn;
 
     public Battle() {
         Battlefield firstField = new Battlefield();
@@ -27,15 +27,27 @@ public class Battle {
         battlefields.add(secondField);
     }
 
+    public Boolean getGameBegun() {
+        return gameBegun;
+    }
+
+    public void setGameBegun(Boolean gameBegun) {
+        this.gameBegun = gameBegun;
+    }
+
+    public Boolean getHostTurn() {
+        return hostTurn;
+    }
+
+    public void setHostTurn(Boolean hostTurn) {
+        this.hostTurn = hostTurn;
+    }
+
     public Boolean getHostIsReady() {
         return hostIsReady;
     }
 
-    public Boolean getAllPlayersIsReady() { return allPlayersIsReady; }
-
-    public void setAllPlayersIsReady(Boolean allPlayersIsReady) { this.allPlayersIsReady = allPlayersIsReady; }
-
-    public void setHostIsReady(Boolean hostIsReady) {
+   public void setHostIsReady(Boolean hostIsReady) {
         this.hostIsReady = hostIsReady;
     }
 

@@ -129,7 +129,10 @@ public class actionController {
     }
 
 
-
+    /*
+    * Method marks user as ready, if all ships were located
+    *
+    */
     @RequestMapping(value = "/readytofight", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Result markAsReady(@RequestBody ReadyToFightContainer readyToFightContainer) {
 
@@ -173,6 +176,15 @@ public class actionController {
             }
 
 
+            if ((currentBattle.getHostIsReady() == true) && (currentBattle.getOpponentIsReady() == true)){
+
+                currentBattle.setGameBegun(true);
+            } else {
+
+                currentBattle.setGameBegun(false);
+                currentBattle.setHostTurn(false);
+            }
+
             result.setIsSuccess(true);
             return result;
 
@@ -206,10 +218,58 @@ public class actionController {
                 shipService.addShip(currentShip);
             }
 
+            if ((currentBattle.getHostIsReady() == true) && (currentBattle.getOpponentIsReady() == true)){
+
+                currentBattle.setGameBegun(true);
+            } else {
+
+                currentBattle.setGameBegun(false);
+                currentBattle.setHostTurn(true);
+            }
+
             result.setIsSuccess(true);
             return result;
         }
     }
+
+    /*
+     * Method refresh order of user's turn
+     *
+     */
+    @RequestMapping(value = "/isready", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String refreshOrderTurn(@RequestBody LoginContainer loginContainer){
+
+        EUserData userData = new EUserData();
+        EBattle battle = new EBattle();
+        Boolean userIsHost = false;
+        userData = user_dataService.getByLogin(loginContainer.getLogin());
+        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+
+            //player is opponent
+            battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
+
+                return "";
+
+            } else {
+
+                return "myturn";
+            }
+        } else {
+
+            //player is host
+            battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
+
+                return "myturn";
+            } else {
+
+                return "";
+            }
+        }
+
+    }
+
 
     //works correct
     //Method shows all available lobbies

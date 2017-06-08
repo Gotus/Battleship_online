@@ -8,6 +8,6 @@ function getCookie(name) {
     else return "";
 }
 
-if (getCookie("login")==="") {
+if (getCookie("login")=="") {
     location.href = "http://localhost:8080/startpage.html";
 }
