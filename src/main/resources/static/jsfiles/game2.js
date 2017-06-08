@@ -90,7 +90,27 @@ function fire(fireevent) {
     }
 }
 
-var answer;
+function getMyField(){
+    /*посмотреть, что стало с моим полем после выстрела*/
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://localhost:8080/game/getmyfield",
+            type: "POST",
+            data: JSON.stringify({
+                login: mylogin //to find game
+            }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (data2) {
+                buffermas = data2;
+                showField(buffermas, buttonsmas);
+            }
+        });
+    });
+}
+
+var replayResult;
+var gotMyField = false;
 var timer = setInterval(function () {
     if (GOSTIL) {
         clearInterval(timer);
@@ -111,56 +131,30 @@ var timer = setInterval(function () {
                         }
                         if (data === "myturn") {
                             allowFire();
-
-                            /*посмотреть, что стало с моим полем после выстрела*/
-                            $(document).ready(function () {
-                                $.ajax({
-                                    url: "http://localhost:8080/game/getmyfield",
-                                    type: "POST",
-                                    data: JSON.stringify({
-                                        login: mylogin //to find game
-                                    }),
-                                    contentType: 'application/json; charset=utf-8',
-                                    dataType: "json",
-                                    success: function (data2) {
-                                        buffermas = data2;
-                                        showField(buffermas, buttonsmas);
-                                    }
-                                });
-                            });
+                            if (!gotMyField) {
+                                getMyField();
+                                gotMyField = true;
+                            }
                         }
 
                         if (data === "failure") {
                             banFire();
-                            $(document).ready(function () {
-                                $.ajax({
-                                    url: "http://localhost:8080/game/getmyfield",
-                                    type: "POST",
-                                    data: JSON.stringify({
-                                        login: mylogin //to find game
-                                    }),
-                                    contentType: 'application/json; charset=utf-8',
-                                    dataType: "json",
-                                    success: function (data2) {
-                                        buffermas = data2;
-                                        showField(buffermas, buttonsmas);
-                                    }
-                                });
-                            });
+                            getMyField();
+                            gotMyField = false;
                         }
 
                         if (data === "gameover1"){
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
                             clearInterval(timer2);
-                            answer = confirm("Победил первый игрок(создатель сессии). Хотите сохранить реплей этого боя?");
+                            replayResult = confirm("Вы победили. Хотите сохранить реплей этого боя?");
                             //TODO сохранять в бд запись
                         }
                         if (data === "gameover2"){
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
                             clearInterval(timer2);
-                            answer = confirm("Победил второй игрок(присоединившийся грок). Хотите сохранить реплей этого боя?");
+                            replayResult = confirm("Вы проиграли. Хотите сохранить реплей этого боя?");
                             //TODO сохранять в бд запись
                         }
                     }
