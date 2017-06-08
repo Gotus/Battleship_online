@@ -75,8 +75,8 @@ function fire(fireevent) {
                         type: "POST",
                         data: JSON.stringify({
                             login: mylogin, //to find game
-                            xx: xbutton,
-                            yy: ybutton
+                            xx: exbutton,
+                            yy: eybutton
                         }),
                         contentType: 'application/json; charset=utf-8',
                         dataType: "json",
