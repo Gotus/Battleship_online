@@ -251,8 +251,17 @@ public class actionController {
         userData = user_dataService.getByLogin(loginContainer.getLogin());
         if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
 
+
+            if (battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+
+                return "";
+            }
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
+
+                return "";
+            }
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
 
                 return "failure";
@@ -263,8 +272,16 @@ public class actionController {
             }
         } else {
 
+            if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+
+                return "";
+            }
             //player is host
             battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
+
+                return "";
+            }
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
 
                 return "myturn";
@@ -288,31 +305,12 @@ public class actionController {
         if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
 
             //player is opponent
-            battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
-            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
+            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
 
-                //Host's turn => return field of opponent
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
-
-            } else {
-
-                //Opponent's turn => return field of host
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
-            }
         } else {
 
             //player is host
-            battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
-            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
-
-                //Host's turn => return field of opponent
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
-
-            } else {
-
-                //Opponent's turn => return field of host
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
-            }
+            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
         }
     }
 
@@ -329,39 +327,28 @@ public class actionController {
 
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
-            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
 
-                //Host's turn => return field of opponent
-                Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0),
-                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
+            Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0),
+                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
 
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
+            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(true);
 
-            } else {
+            //return field of host
+            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
 
-                //Opponent's turn => return field of host
-                Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1),
-                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
-            }
         } else {
 
             //player is host
             battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
-            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
 
-                //Host's turn => return field of opponent
-                Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0),
-                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
+            Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1),
+                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
 
-            } else {
+            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(false);
 
-                //Opponent's turn => return field of host
-                Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1),
-                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
-                return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
-            }
+            //return field of opponent
+            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
+
         }
     }
 
@@ -460,6 +447,10 @@ public class actionController {
 
             return result;
         }
+        if (selectedBattle.getOpponent_ID() != null) {
+
+            return result;
+        }
 
         selectedBattle.setOpponent_ID(opponent.getUser_ID());
         selectedBattle.setDate_of_joining(currentMoment);
@@ -473,16 +464,6 @@ public class actionController {
         return result;
     }
 
-    //not tested
-    //Method shows achievements of user
-    @RequestMapping(value = "/achievements/{id}")
-    public List<EAchievement> getUserAchievement(@PathVariable("id") Integer userID) {
-
-        EUserData userData;
-        userData = user_dataService.getByUser_ID(userID);
-        List<EAchievement> achievementArrayList = new ArrayList<EAchievement>(userData.getAchievementsOfUser());
-        return achievementArrayList;
-    }
 }
 
 class DataContainer {
