@@ -258,7 +258,7 @@ public class actionController {
             }
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
-            if (BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
+            if (!BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
 
                 return "";
             }
@@ -278,7 +278,7 @@ public class actionController {
             }
             //player is host
             battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
-            if (BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
+            if (!BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
 
                 return "";
             }
@@ -305,11 +305,15 @@ public class actionController {
         if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
 
             //player is opponent
+            battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+
             return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
 
         } else {
 
             //player is host
+            battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+
             return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
         }
     }
@@ -318,18 +322,18 @@ public class actionController {
      * Method allow user to shot to opponent
      */
     @RequestMapping(value = "/fire", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody int[][] fireToEnemy(@RequestBody FullBattleData fullBattleData) {
+    public @ResponseBody int[][] fireToEnemy(@RequestBody FireData fireData) {
 
         EBattle battle = new EBattle();
         EUserData userData = new EUserData();
-        userData = user_dataService.getByLogin(fullBattleData.getLogin());
+        userData = user_dataService.getByLogin(fireData.getLogin());
         if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
 
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
 
             Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0),
-                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
+                    new Coordinate(fireData.getXx(), fireData.getYy()));
 
             BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(true);
 
@@ -342,7 +346,7 @@ public class actionController {
             battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
 
             Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1),
-                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()));
+                    new Coordinate(fireData.getXx(), fireData.getYy()));
 
             BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(false);
 
@@ -637,6 +641,37 @@ class FullBattleData {
     public Boolean getOrientation() {
 
         return orientation;
+    }
+}
+
+class FireData {
+
+    public String login;
+    public Integer xx;
+    public Integer yy;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public Integer getXx() {
+        return xx;
+    }
+
+    public void setXx(Integer xx) {
+        this.xx = xx;
+    }
+
+    public Integer getYy() {
+        return yy;
+    }
+
+    public void setYy(Integer yy) {
+        this.yy = yy;
     }
 }
 
