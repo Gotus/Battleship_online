@@ -29,9 +29,8 @@ var ebuffermas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //I
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  //J
 ];
-
+var ebutton;
 function allowFire() {
-    var ebutton;
     /*checks what number in battlefield and sets attributes*/
     for (var x = 0; x < 10; x++) {
         for (var y = 0; y < 10; y++) {
@@ -70,10 +69,6 @@ function fire(fireevent) {
     for (var exbutton = 0; exbutton < 10; exbutton++) {
         for (var  eybutton = 0; eybutton < 10; eybutton++) {
             if(ebuttonsmas[exbutton][eybutton]===savedeventtarget) {
-
-                console.log(exbutton);
-                console.log(eybutton);
-
                 $(document).ready(function () {
                     $.ajax({
                         url: "http://localhost:8080/game/fire",
@@ -87,8 +82,9 @@ function fire(fireevent) {
                         dataType: "json",
                         success: function (data) {
                             ebuffermas = data; //поле противника
-                                                                                                                                            allowFire();
-                                                                                                                                            banFire();
+                            console.log(ebuffermas);
+                            allowFire();
+                            banFire();
                         }
                     });
                 });
@@ -138,9 +134,10 @@ var timer = setInterval(function () {
                             location.href = "http://localhost:8080/lobies.html";
                         }
                         if (data === "myturn") {
-                            allowFire();
+                        allowFire();
                             if (!gotMyField) {
                                 getMyField();
+                                allowFire();
                                 gotMyField = true;
                             }
                             middleleftelem.innerHTML = "Ваш ход";

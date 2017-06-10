@@ -67,62 +67,64 @@ public class actionController {
      * returns battlefield with located ship
      */
     @RequestMapping(value = "/location", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Object[] putShip(@RequestBody FullBattleData fullBattleData) {
+    public
+    @ResponseBody
+    Object[] putShip(@RequestBody FullBattleData fullBattleData) {
 
         List<EBattle> battle = new ArrayList<>();
         Boolean playerIsHost = false;
         //Get battle in which player is and define his role: opponent or host
         //try {
 
-            if (battleService.getByHostIDAndDateOfEnding(user_dataService.
-                            getByLogin(fullBattleData.getLogin()).getUser_ID(),
-                    null).isEmpty()) {
+        if (battleService.getByHostIDAndDateOfEnding(user_dataService.
+                        getByLogin(fullBattleData.getLogin()).getUser_ID(),
+                null).isEmpty()) {
 
-                //player is opponent
-                System.out.println("i am opponent");
-                battle = battleService.getByOpponentIDAndDateOfEnding(user_dataService
-                        .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
-                playerIsHost = false;
-            } else {
+            //player is opponent
+            System.out.println("i am opponent");
+            battle = battleService.getByOpponentIDAndDateOfEnding(user_dataService
+                    .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
+            playerIsHost = false;
+        } else {
 
-                //player is host
-                battle = battleService.getByHostIDAndDateOfEnding(user_dataService
-                        .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
-                System.out.println("i am host");
-                playerIsHost = true;
-            }
+            //player is host
+            battle = battleService.getByHostIDAndDateOfEnding(user_dataService
+                    .getByLogin(fullBattleData.getLogin()).getUser_ID(), null);
+            System.out.println("i am host");
+            playerIsHost = true;
+        }
 
-            Battle currentBattle = new Battle();
+        Battle currentBattle = new Battle();
 
-            currentBattle = BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue());
-            System.out.println(battle.get(0).getBattle_ID());
+        currentBattle = BattleMap.battleHashMap.get(battle.get(0).getBattle_ID().intValue());
+        System.out.println(battle.get(0).getBattle_ID());
 
-            if (playerIsHost) {
+        if (playerIsHost) {
 
-                System.out.println(currentBattle);
-                System.out.println(currentBattle.getBattlefields());
-                System.out.println(currentBattle.getBattlefields().get(0));
-                Battlefield hostBattlefield = currentBattle.getBattlefields().get(0);
-                Place.place(hostBattlefield.getBattlefield(),
-                        hostBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
-                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
-                        fullBattleData.getOrientation());
+            System.out.println(currentBattle);
+            System.out.println(currentBattle.getBattlefields());
+            System.out.println(currentBattle.getBattlefields().get(0));
+            Battlefield hostBattlefield = currentBattle.getBattlefields().get(0);
+            Place.place(hostBattlefield.getBattlefield(),
+                    hostBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
+                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
+                    fullBattleData.getOrientation());
 
-                battle.get(0).setDate_of_last_action(new Date());
-                battleService.addBattle(battle.get(0));
-                return hostBattlefield.getFleet().toArray();
-            } else {
+            battle.get(0).setDate_of_last_action(new Date());
+            battleService.addBattle(battle.get(0));
+            return hostBattlefield.getFleet().toArray();
+        } else {
 
-                Battlefield opponentBattlefield = currentBattle.getBattlefields().get(1);
-                Place.place(opponentBattlefield.getBattlefield(),
-                        opponentBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
-                        new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
-                        fullBattleData.getOrientation());
+            Battlefield opponentBattlefield = currentBattle.getBattlefields().get(1);
+            Place.place(opponentBattlefield.getBattlefield(),
+                    opponentBattlefield.getFleet().get(fullBattleData.getNumberInFleet()),
+                    new Coordinate(fullBattleData.getXx(), fullBattleData.getYy()),
+                    fullBattleData.getOrientation());
 
-                battle.get(0).setDate_of_last_action(new Date());
-                battleService.addBattle(battle.get(0));
-                return opponentBattlefield.getFleet().toArray();
-            }
+            battle.get(0).setDate_of_last_action(new Date());
+            battleService.addBattle(battle.get(0));
+            return opponentBattlefield.getFleet().toArray();
+        }
         /*} catch (NullPointerException exception) {
 
             EUserData slowUser = new EUserData();
@@ -141,7 +143,9 @@ public class actionController {
     *
     */
     @RequestMapping(value = "/readytofight", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Result markAsReady(@RequestBody ReadyToFightContainer readyToFightContainer) {
+    public
+    @ResponseBody
+    Result markAsReady(@RequestBody ReadyToFightContainer readyToFightContainer) {
 
         EBattle currentEBattle = new EBattle();
         EUserData userData = new EUserData();
@@ -153,7 +157,7 @@ public class actionController {
         userData = user_dataService.getByLogin(readyToFightContainer.getLogin());
         Boolean isHost = false;
         result.setIsSuccess(false);
-        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
             //user is opponent
             currentEBattle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
@@ -168,7 +172,7 @@ public class actionController {
             Integer fleetSize = fleet.size();
 
             //Puttting data of user's fleet in database
-            for (int i = 0; i < fleetSize; i++){
+            for (int i = 0; i < fleetSize; i++) {
 
                 EShip currentShip = new EShip();
                 currentShip.setBattleID(currentEBattle.getBattle_ID());
@@ -183,7 +187,7 @@ public class actionController {
             }
 
 
-            if ((currentBattle.getHostIsReady() == true) && (currentBattle.getOpponentIsReady() == true)){
+            if ((currentBattle.getHostIsReady() == true) && (currentBattle.getOpponentIsReady() == true)) {
 
                 currentBattle.setGameBegun(true);
             } else {
@@ -211,7 +215,7 @@ public class actionController {
             Integer fleetSize = fleet.size();
 
             //Puttting data of user's fleet in database
-            for (int i = 0; i < fleetSize; i++){
+            for (int i = 0; i < fleetSize; i++) {
 
                 EShip currentShip = new EShip();
                 currentShip.setBattleID(currentEBattle.getBattle_ID());
@@ -225,7 +229,7 @@ public class actionController {
                 shipService.addShip(currentShip);
             }
 
-            if ((currentBattle.getHostIsReady() == true) && (currentBattle.getOpponentIsReady() == true)){
+            if ((currentBattle.getHostIsReady() == true) && (currentBattle.getOpponentIsReady() == true)) {
 
                 currentBattle.setGameBegun(true);
             } else {
@@ -244,15 +248,17 @@ public class actionController {
      *
      */
     @RequestMapping(value = "/isready", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String refreshOrderTurn(@RequestBody LoginContainer loginContainer){
+    public
+    @ResponseBody
+    String refreshOrderTurn(@RequestBody LoginContainer loginContainer) {
 
         EUserData userData = new EUserData();
         EBattle battle = new EBattle();
         userData = user_dataService.getByLogin(loginContainer.getLogin());
-        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
 
-            if (battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+            if (battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
                 return "";
             }
@@ -272,7 +278,7 @@ public class actionController {
             }
         } else {
 
-            if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+            if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
                 return "";
             }
@@ -297,12 +303,14 @@ public class actionController {
      *
      */
     @RequestMapping(value = "/getmyfield", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody int[][] refreshField(@RequestBody LoginContainer loginContainer){
+    public
+    @ResponseBody
+    int[][] refreshField(@RequestBody LoginContainer loginContainer) {
 
         EBattle battle = new EBattle();
         EUserData userData = new EUserData();
         userData = user_dataService.getByLogin(loginContainer.getLogin());
-        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
@@ -322,20 +330,26 @@ public class actionController {
      * Method allow user to shot to opponent
      */
     @RequestMapping(value = "/fire", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody int[][] fireToEnemy(@RequestBody FireData fireData) {
+    public
+    @ResponseBody
+    int[][] fireToEnemy(@RequestBody FireData fireData) {
 
         EBattle battle = new EBattle();
         EUserData userData = new EUserData();
         userData = user_dataService.getByLogin(fireData.getLogin());
-        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()){
+        int result = -1;
+        if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
 
-            Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0),
+            result = Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0),
                     new Coordinate(fireData.getXx(), fireData.getYy()));
 
-            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(true);
+            if (result == 1) {
+
+                BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(true);
+            }
 
             //return field of host
             return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield());
@@ -345,10 +359,13 @@ public class actionController {
             //player is host
             battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
 
-            Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1),
+            result = Fire.fire(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1),
                     new Coordinate(fireData.getXx(), fireData.getYy()));
 
-            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(false);
+            if (result == 1) {
+
+                BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(false);
+            }
 
             //return field of opponent
             return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield());
@@ -360,7 +377,9 @@ public class actionController {
     //works correct
     //Method shows all available lobbies
     @RequestMapping(value = "/lobby", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody DataContainer[] getAllLobby() {
+    public
+    @ResponseBody
+    DataContainer[] getAllLobby() {
 
         ArrayList<EBattle> battleArrayList = new ArrayList<EBattle>(battleService.getByDateOfEnding(null));
         DataContainer[] allData = new DataContainer[battleArrayList.size()];
@@ -434,7 +453,9 @@ public class actionController {
     //not tested
     //Method adds opponent to lobby
     @RequestMapping(value = "/join", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Result addOppponent(@RequestBody OpponentData opponentData) {
+    public
+    @ResponseBody
+    Result addOppponent(@RequestBody OpponentData opponentData) {
 
         EBattle selectedBattle = new EBattle();
         EUserData opponent = new EUserData();
@@ -468,7 +489,114 @@ public class actionController {
         return result;
     }
 
+
+    @RequestMapping(value = "/getmyopponent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public
+    @ResponseBody
+    EnemyContainer getEnemy(@RequestBody LoginContainer myLogin) {
+
+        EUserData me = new EUserData();
+        EBattle battle = new EBattle();
+        EnemyContainer enemy = new EnemyContainer();
+
+        me = user_dataService.getByLogin(myLogin.getLogin());
+
+        if (!battleService.getByHostIDAndDateOfEnding(me.getUser_ID(), null).isEmpty()) {
+
+            //i am host
+
+            battle = battleService.getByHostIDAndDateOfEnding(me.getUser_ID(), null).get(0);
+            if (battle.getOpponent_ID() != null){
+
+                enemy.setEnemyLogin(user_dataService.getByUser_ID(battle.getOpponent_ID()).getLogin());
+                enemy.setSuccess(true);
+                return enemy;
+            } else {
+
+                enemy.setSuccess(true);
+                enemy.setEnemyLogin(null);
+                return enemy;
+            }
+
+        }
+
+        if (!battleService.getByOpponentIDAndDateOfEnding(me.getUser_ID(), null).isEmpty()) {
+
+            //i am opponent, enemy always exists
+
+            battle = battleService.getByOpponentIDAndDateOfEnding(me.getUser_ID(), null).get(0);
+
+            enemy.setEnemyLogin(user_dataService.getByUser_ID(battle.getHost_ID()).getLogin());
+            enemy.setSuccess(true);
+            return enemy;
+
+        }
+
+        System.out.println("my opponent login");
+        enemy.setSuccess(false);
+        return enemy;
+    }
+
+    @RequestMapping(value = "/getready", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ReadyChecker checkPlayersReady(@RequestBody LoginContainer loginContainer) {
+
+        ReadyChecker checker = new ReadyChecker();
+        EUserData userData = new EUserData();
+        EBattle battle = new EBattle();
+
+        userData = user_dataService.getByLogin(loginContainer.getLogin());
+
+        if (!battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
+
+            //player is host
+
+
+            battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())){
+
+                checker.setMeReady(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostIsReady());
+                checker.setEnemyReady(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getOpponentIsReady());
+                System.out.println("returned success 1");
+                checker.setIsSuccess(true);
+                System.out.println(checker.getIsSuccess());
+                return checker;
+            } else {
+
+                System.out.println("ready false");
+                checker.setIsSuccess(false);
+                return checker;
+            }
+
+        }
+
+        if (!battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
+
+            //player is opponent
+
+            battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+            if (BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())){
+
+                checker.setMeReady(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getOpponentIsReady());
+                checker.setEnemyReady(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostIsReady());
+                System.out.println("returned success 2");
+                checker.setIsSuccess(true);
+                return checker;
+            } else {
+
+                System.out.println("ready 2 false");
+                checker.setIsSuccess(false);
+                return checker;
+            }
+
+        }
+
+        System.out.println("ready 3 false");
+        checker.setIsSuccess(false);
+        return checker;
+
+    }
 }
+
 
 class DataContainer {
 
@@ -700,6 +828,58 @@ class Transporator {
     }
 }
 
+class EnemyContainer {
+
+    public String enemyLogin;
+    public Boolean isSuccess;
+
+    public String getEnemyLogin() {
+        return enemyLogin;
+    }
+
+    public void setEnemyLogin(String enemyLogin) {
+        this.enemyLogin = enemyLogin;
+    }
+
+    public Boolean getSuccess() {
+        return isSuccess;
+    }
+
+    public void setSuccess(Boolean success) {
+        isSuccess = success;
+    }
+}
+
+class ReadyChecker {
+
+    private Boolean meReady;
+    private Boolean enemyReady;
+    private Boolean isSuccess;
+
+    public Boolean getMeReady() {
+        return meReady;
+    }
+
+    public void setMeReady(Boolean meReady) {
+        this.meReady = meReady;
+    }
+
+    public Boolean getEnemyReady() {
+        return enemyReady;
+    }
+
+    public void setEnemyReady(Boolean enemyReady) {
+        this.enemyReady = enemyReady;
+    }
+
+    public Boolean getIsSuccess() {
+        return isSuccess;
+    }
+
+    public void setIsSuccess(Boolean success) {
+        isSuccess = success;
+    }
+}
 /*
  *
  * Class contains information about user's battlefield
