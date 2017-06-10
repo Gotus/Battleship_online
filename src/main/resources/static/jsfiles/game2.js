@@ -62,12 +62,17 @@ function banFire() {
     }
 }
 
+var savedevent, savedeventtarget;
 function fire(fireevent) {
+    savedevent = fireevent;
+    savedeventtarget = fireevent.target;
+    banFire();
     for (var exbutton = 0; exbutton < 10; exbutton++) {
         for (var  eybutton = 0; eybutton < 10; eybutton++) {
-            if(ebuttonsmas[exbutton][eybutton]===fireevent.target){
+            if(ebuttonsmas[exbutton][eybutton]===savedeventtarget) {
 
-                banFire();
+                console.log(exbutton);
+                console.log(eybutton);
 
                 $(document).ready(function () {
                     $.ajax({
@@ -87,6 +92,8 @@ function fire(fireevent) {
                         }
                     });
                 });
+
+                return;
             }
         }
     }

@@ -169,9 +169,9 @@ public class Place {
                     }
                 }
 
-                if (newPrownXX + i <= 9)  // ограничение справа                            //проверка последнего квадрата на корабли вплотную
+                if (newPrownXX + i + 1 <= 9)  // ограничение справа                            //проверка последнего квадрата на корабли вплотную
                 {
-                    if (battlefield[newPrownYY][newPrownXX + i] == 2) {
+                    if (battlefield[newPrownYY][newPrownXX + i + 1] == 2) {
                         return;
                     }
                 }
