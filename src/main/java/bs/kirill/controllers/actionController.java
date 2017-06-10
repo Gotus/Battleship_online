@@ -307,14 +307,14 @@ public class actionController {
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
 
-            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
+            return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield());
 
         } else {
 
             //player is host
             battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
 
-            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
+            return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield());
         }
     }
 
@@ -338,7 +338,7 @@ public class actionController {
             BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(true);
 
             //return field of host
-            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield();
+            return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield());
 
         } else {
 
@@ -351,7 +351,7 @@ public class actionController {
             BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(false);
 
             //return field of opponent
-            return BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield();
+            return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield());
 
         }
     }
@@ -672,6 +672,31 @@ class FireData {
 
     public void setYy(Integer yy) {
         this.yy = yy;
+    }
+}
+
+/*
+ *  class transporates square matrix
+ *  He wants you square matrix
+ */
+class Transporator {
+
+    private static int [][] resultMatrix;
+
+    public static int[][] transporateMatrix(int [][] startMatrix) {
+
+        resultMatrix = new int[startMatrix.length][startMatrix.length];
+
+        for (int i = 0; i < startMatrix.length; i++) {
+
+            for (int j = 0; j < startMatrix[i].length; j++) {
+
+                resultMatrix[i][j] = startMatrix[j][i];
+
+            }
+        }
+
+        return resultMatrix;
     }
 }
 
