@@ -280,3 +280,79 @@ function drop(dragAndDropEvent) {
         }
     }
 }
+var myEnemy, enemyElem;
+var gotEnemy = false;
+enemyElem = document.getElementById("opponent-header");
+var timerOpponentGet = setInterval(function () {
+
+    if (!gotEnemy) {
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://localhost:8080/game/getmyopponent",
+                type: "POST",
+                data: JSON.stringify({
+                    login: mylogin //to find game
+                }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (data) {
+                    if (data.isSuccess) {
+                        gotEnemy = true;
+                        myEnemy = data.enemyLogin;
+                        enemyElem.innerHTML = "Поле противника " + myEnemy;
+                    } else {
+                        alert("игра закончена из-за бездействия игроков");
+                        location.href = "http://localhost:8080/lobies.html";
+                    }
+                }
+            });
+        });
+    } else {
+        clearInterval(timerOpponentGet);
+    }
+}, 3000);
+
+var iamReady = false;
+var enemyReady = false;
+var middleleftelem, middlerightelem;
+middleleftelem = document.getElementById("middle-left");
+middlerightelem = document.getElementById("middle-right");
+var timerReadyGet = setInterval(function () {
+
+    if (!iamReady && !enemyReady) {
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://localhost:8080/game/getready",
+                type: "POST",
+                data: JSON.stringify({
+                    login: mylogin //to find game
+                }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (data) {
+                    if (data.isSuccess) {
+                        iamReady = data.meReady;
+                        enemyReady = data.enemyReady;
+                        if (!iamReady) {
+                            middleleftelem.innerHTML = "Вы еще не расположили корабли";
+                        } else {
+                            middleleftelem.innerHTML = "Вы готовы к бою";
+                        }
+                        if (!enemyReady) {
+                            middlerightelem.innerHTML = "Противник еще не расположили корабли";
+                        } else {
+                            middlerightelem.innerHTML = "Противник готов к бою";
+                        }
+                    } else {
+                        alert("игра закончена из-за бездействия игроков");
+                        location.href = "http://localhost:8080/lobies.html";
+                    }
+                }
+            });
+        });
+    } else {
+        clearInterval(timerReadyGet);
+    }
+}, 3000);

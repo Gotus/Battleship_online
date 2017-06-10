@@ -82,6 +82,8 @@ function fire(fireevent) {
                         dataType: "json",
                         success: function (data) {
                             ebuffermas = data; //поле противника
+                                                                                                                                            allowFire();
+                                                                                                                                            banFire();
                         }
                     });
                 });
@@ -91,7 +93,6 @@ function fire(fireevent) {
 }
 
 function getMyField(){
-    /*посмотреть, что стало с моим полем после выстрела*/
     $(document).ready(function () {
         $.ajax({
             url: "http://localhost:8080/game/getmyfield",
@@ -135,12 +136,16 @@ var timer = setInterval(function () {
                                 getMyField();
                                 gotMyField = true;
                             }
+                            middleleftelem.innerHTML = "Ваш ход";
+                            middlerightelem.innerHTML = "";
                         }
 
                         if (data === "failure") {
                             banFire();
                             getMyField();
                             gotMyField = false;
+                            middleleftelem.innerHTML = "";
+                            middlerightelem.innerHTML = "Ход противника";
                         }
 
                         if (data === "gameover1"){
@@ -162,5 +167,7 @@ var timer = setInterval(function () {
             });
         }, 1000)
     }
-    console.log("gostil proveryaet")
+
+    console.log("gostil proveryaet");
+
 }, 1000);

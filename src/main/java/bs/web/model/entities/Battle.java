@@ -1,5 +1,7 @@
 package bs.web.model.entities;
 
+import bs.web.controller.gamelogic.achievementcheck.AchievementCheck;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +16,7 @@ public class Battle {
       replay[3]- shot result (1 - miss, 2 - hit, 3 - dead)
      */
     private char[] replay = new char[800];
+    private AchievementCheck achievements;
     private Boolean hostIsReady, opponentIsReady, gameBegun, hostTurn;
 
     public Battle() {
@@ -25,6 +28,8 @@ public class Battle {
 
         battlefields.add(firstField);
         battlefields.add(secondField);
+
+        achievements = new AchievementCheck(this);
     }
 
     public Boolean getGameBegun() {
@@ -73,5 +78,13 @@ public class Battle {
 
     public void setReplay(char[] replay) {
         this.replay = replay;
+    }
+
+    public AchievementCheck getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(AchievementCheck achievements) {
+        this.achievements = achievements;
     }
 }
