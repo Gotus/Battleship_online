@@ -9,10 +9,14 @@ function getCookie(name) {
     else return "";
 }
 
+localStorage.removeItem("battleID");
+
 var mylogin = getCookie("login");
+var battleIDMas = [];
+
 var conditionwait = "ожидается противник"; //opponentConnected = 0
 var conditionbattle = "идет бой"; //opponentConnected = 1
-
+var watchbuttonelement, watchbuttonelements;
 $(document).ready(function () {
     var table = $("#games").find('tbody');
     var savedButtonID, savedBattleID;
@@ -26,16 +30,20 @@ $(document).ready(function () {
                 var battleID = $('<td>').append(data[i].battleID);
                 var hostLogin = $('<td>').append(data[i].hostLogin);
                 var opponentConnected = $('<td>').append(data[i].opponentConnected ? conditionbattle : conditionwait);
-                var joinbutton = $('<td>')
+                var joinbutton = $('<td>');
 
-                .append($('<a>')
-                    .attr("href", "#")
-                    .attr("class", "btn btn-success")
-                    .attr("id", "" + data[i].battleID)
-                    .append("Присоединиться")
-                )
+                if (data[i].opponentConnected) {
+                    joinbutton.append($('<a>')
+                        .attr("href", "#")
+                        .attr("class", "btn btn-success")
+                        .attr("id", "" + data[i].battleID)
+                        .append("Присоединиться")
+                    )
+                }
+                ;
 
-                .append($('<a>')
+
+                joinbutton.append($('<a>')
                     .attr("href", "#")
                     .attr("class", "btn btn-primary")
                     .append("Смотреть")
@@ -48,8 +56,8 @@ $(document).ready(function () {
                     .append(joinbutton)
                 );
 
-                savedButtonID='#' + data[i].battleID;
-                savedBattleID=data[i].battleID;
+                savedButtonID = '#' + data[i].battleID;
+                savedBattleID = data[i].battleID;
 
                 $(document).ready(function () {
 
@@ -74,8 +82,31 @@ $(document).ready(function () {
                         return false;
                     });
                 });
+
+                battleIDMas[i] = savedBattleID;
             }
             return false;
         }
     });
 });
+
+watchbuttonelements = document.getElementsByClassName('btn-primary');
+for (var i = 0; i < watchbuttonelements.length; i++) {
+    watchbuttonelement = watchbuttonelements[i];
+    watchbuttonelement.setAttribute("onclick", "movetowitness(moveevent)");
+}
+
+
+var savedevent, savedeventtarget;
+function movetowitness(moveevent) {
+    savedevent = moveevent;
+    savedeventtarget = moveevent.target;
+    for (var ibutton = 0; ibutton < watchbuttonelements.length; ibutton++) {
+        if (watchbuttonelements[ibutton] === savedeventtarget) {
+            localStorage.setItem('battleID', battleIDMas[ibutton]);
+            location.href = "http://localhost:8080/witness.html";
+
+            return;
+        }
+    }
+}

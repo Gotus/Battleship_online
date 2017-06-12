@@ -156,20 +156,20 @@ var timer = setInterval(function () {
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
                             clearInterval(timer2);
-                            replayResult = confirm("Вы победили. Хотите сохранить реплей этого боя?");
-                            //TODO сохранять в бд запись
+                            replayResult = alert("Вы победили.");
+                            location.href = "http://localhost:8080/lobies.html";
                         }
                         if (data === "gameover2"){
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
                             clearInterval(timer2);
-                            replayResult = confirm("Вы проиграли. Хотите сохранить реплей этого боя?");
-                            //TODO сохранять в бд запись
+                            replayResult = alert("Вы проиграли");
+                            location.href = "http://localhost:8080/lobies.html";
                         }
                     }
                 });
             });
-        }, 1000)
+        }, 1000);
     }
 
     console.log("gostil proveryaet");
