@@ -17,7 +17,7 @@ public class Battle {
      */
     private char[] replay = new char[800];
     private AchievementCheck achievements;
-    private Boolean hostIsReady, opponentIsReady, gameBegun, hostTurn;
+    private Boolean hostIsReady, opponentIsReady, gameBegun, hostTurn, gameEnded;
 
     public Battle() {
         Battlefield firstField = new Battlefield();
@@ -39,6 +39,10 @@ public class Battle {
     public void setGameBegun(Boolean gameBegun) {
         this.gameBegun = gameBegun;
     }
+
+    public Boolean getGameEnded() { return gameEnded;}
+
+    public void setGameEnded(Boolean gameEnded) { this.gameEnded = gameEnded;}
 
     public Boolean getHostTurn() {
         return hostTurn;

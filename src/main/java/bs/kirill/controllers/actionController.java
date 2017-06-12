@@ -264,10 +264,24 @@ public class actionController {
             }
             //player is opponent
             battle = battleService.getByOpponentIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+
             if (!BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
 
                 return "";
             }
+
+            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getFleet().isEmpty()){
+
+                //opponent has not fleet and looses
+                return "gameover2";
+            }
+
+            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getFleet().isEmpty()){
+
+                //host has not fleet and looses, opponent win
+                return "gameover1";
+            }
+
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
 
                 return "failure";
@@ -284,10 +298,24 @@ public class actionController {
             }
             //player is host
             battle = battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).get(0);
+
             if (!BattleMap.battleHashMap.containsKey(battle.getBattle_ID().intValue())) {
 
                 return "";
             }
+
+            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getFleet().isEmpty()){
+
+                //opponent has not fleet and looses
+                return "gameover1";
+            }
+
+            if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getFleet().isEmpty()){
+
+                //host has not fleet and looses, opponent win
+                return "gameover2";
+            }
+
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
 
                 return "myturn";
@@ -351,6 +379,10 @@ public class actionController {
                 BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(true);
             }
 
+
+            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setGameEnded(BattleMap.battleHashMap.get(battle.
+                    getBattle_ID().intValue()).getBattlefields().
+                    get(0).getFleet().isEmpty());
             //return field of host
             return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getBattlefield());
 
@@ -367,6 +399,9 @@ public class actionController {
                 BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(false);
             }
 
+            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setGameEnded(BattleMap.battleHashMap.get(battle.
+                    getBattle_ID().intValue()).getBattlefields().
+                    get(1).getFleet().isEmpty());
             //return field of opponent
             return Transporator.transporateMatrix(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getBattlefield());
 
