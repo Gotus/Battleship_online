@@ -9,5 +9,5 @@ function getCookie(name) {
 }
 
 if (getCookie("login")=="") {
-    location.href = "http://localhost:8080/startpage.html";
+    location.href = "/startpage.html";
 }

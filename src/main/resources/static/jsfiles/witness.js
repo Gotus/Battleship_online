@@ -63,7 +63,7 @@ var saveddata;
 var timer = setInterval(function () {
     $(document).ready(function () {
         $.ajax({
-            url: "http://localhost:8080/game/witness",
+            url: "/game/witness",
             type: "POST",
             data: JSON.stringify({
                 battleID: battleID //to find game
@@ -72,13 +72,22 @@ var timer = setInterval(function () {
             dataType: "json",
             success: function (data) {
                 saveddata = data;
-                buffermas = saveddata.hostBattleField;
-                ebuffermas = saveddata.opponentBattleField;
-                showField(buffermas, buttonsmas);
-                showField(ebuffermas, ebuttonsmas);
+                console.log(data);
+                console.log(saveddata);
+                if (saveddata.isSuccess) {
+                    buffermas = saveddata.hostBattleField;
+                    ebuffermas = saveddata.opponentBattleField;
+                    showField(buffermas, buttonsmas);
+                    showField(ebuffermas, ebuttonsmas);
+                } else {
+
+                    alert("Игра окончена");
+                    location.href = "/lobies.html";
+                }
             }
         });
     });
+    return;
 }, 1000);
 
 function showField(dataforbuttons, buttons) {

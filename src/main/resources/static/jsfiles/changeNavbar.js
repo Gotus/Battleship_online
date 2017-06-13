@@ -25,7 +25,7 @@ function deleteCookie(name) {
     var date = new Date(); // Берём текущую дату
     date.setTime(date.getTime() - 1); // Возвращаемся в "прошлое"
     document.cookie = name += "=; expires=" + date.toGMTString(); // Устанавливаем cookie пустое значение и срок действия до прошедшего уже времени
-    location.href = "http://localhost:8080/startpage.html";
+    location.href = "/startpage.html";
 }
 
 

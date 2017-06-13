@@ -27,7 +27,7 @@ $(document).ready(function () {
             alert("Please fill all fields...!!!!!!");
         } else {
             $.ajax({
-                url: "http://localhost:8080/gamegate/login",
+                url: "/gamegate/login",
                 type: "POST",
                 data: JSON.stringify({
                     login: login,
@@ -38,7 +38,7 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.isSuccess) {
                         setCookie("login", login);
-                        location.href = "http://localhost:8080/profile.html";
+                        location.href = "/profile.html";
                     } else {
                         alert("Неверный логин/пароль");
                     }

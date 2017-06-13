@@ -15,7 +15,7 @@ $(document).ready(function () {
         login = getCookie("login");
 
             $.ajax({
-                url: "http://localhost:8080/game/battle/login",
+                url: "/game/battle/login",
                 type: "POST",
                 data: JSON.stringify({
                     login: login
@@ -24,7 +24,7 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     if (data.isSuccess) {
-                        location.href = "http://localhost:8080/game.html";
+                        location.href = "/game.html";
                     } else {
                         alert("something went wrong");
                     }

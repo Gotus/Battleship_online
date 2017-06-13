@@ -8,5 +8,5 @@ function getCookie(name) {
 }
 
 if (getCookie("login")!=="") {
-    location.href = "http://localhost:8080/profile.html";
+    location.href = "/profile.html";
 }

@@ -168,7 +168,7 @@ function refresh() {
 
         $(document).ready(function () {
             $.ajax({
-                url: "http://localhost:8080/game/readytofight",
+                url: "/game/readytofight",
                 type: "POST",
                 data: JSON.stringify({
                     login: mylogin, //to find game
@@ -248,7 +248,7 @@ function drop(dragAndDropEvent) {
 
                 $(document).ready(function () {
                     $.ajax({
-                        url: "http://localhost:8080/game/location",
+                        url: "/game/location",
                         type: "POST",
                         data: JSON.stringify({
                             login: mylogin, //to find game
@@ -262,7 +262,7 @@ function drop(dragAndDropEvent) {
                         success: function (data) {
                             if(data===null){
                                 alert("игра закончена из-за бездействия игроков");
-                                location.href = "http://localhost:8080/lobies.html";
+                                location.href = "/lobies.html";
                             }
                             for (var i=0; i< data.length; i++){
                                 fleet[i].prown.xx=data[i].prown.xx;
@@ -289,7 +289,7 @@ var timerOpponentGet = setInterval(function () {
 
         $(document).ready(function () {
             $.ajax({
-                url: "http://localhost:8080/game/getmyopponent",
+                url: "/game/getmyopponent",
                 type: "POST",
                 data: JSON.stringify({
                     login: mylogin //to find game
@@ -306,7 +306,7 @@ var timerOpponentGet = setInterval(function () {
                         }
                     } else {
                         alert("игра закончена из-за бездействия игроков");
-                        location.href = "http://localhost:8080/lobies.html";
+                        location.href = "/lobies.html";
                     }
                 }
             });
@@ -330,7 +330,7 @@ var timerReadyGet = setInterval(function () {
 
         $(document).ready(function () {
             $.ajax({
-                url: "http://localhost:8080/game/getready",
+                url: "/game/getready",
                 type: "POST",
                 data: JSON.stringify({
                     login: mylogin //to find game
@@ -356,7 +356,7 @@ var timerReadyGet = setInterval(function () {
                         }
                     } else {
                         alert("игра закончена из-за бездействия игроков");
-                        location.href = "http://localhost:8080/lobies.html";
+                        location.href = "/lobies.html";
                     }
                 }
             });

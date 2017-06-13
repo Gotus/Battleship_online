@@ -18,7 +18,6 @@ public class BattleMap {
     }
 
     public HashMap<Integer, Battle> getBattleHashMap() {
-
         return battleHashMap;
     }
 }

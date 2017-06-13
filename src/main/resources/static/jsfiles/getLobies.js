@@ -21,7 +21,7 @@ $(document).ready(function () {
     var table = $("#games").find('tbody');
     var savedButtonID, savedBattleID;
     $.ajax({
-        url: "http://localhost:8080/game/lobby",
+        url: "/game/lobby",
         type: "GET",
         dataType: "json",
         success: function (data) {
@@ -32,7 +32,7 @@ $(document).ready(function () {
                 var opponentConnected = $('<td>').append(data[i].opponentConnected ? conditionbattle : conditionwait);
                 var joinbutton = $('<td>');
 
-                if (data[i].opponentConnected) {
+                if (!data[i].opponentConnected) {
                     joinbutton.append($('<a>')
                         .attr("href", "#")
                         .attr("class", "btn btn-success")
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
                     $(savedButtonID).click(function () {
                         $.ajax({
-                            url: "http://localhost:8080/game/join/",
+                            url: "/game/join/",
                             type: "POST",
                             data: JSON.stringify({
                                 login: mylogin,
@@ -73,7 +73,7 @@ $(document).ready(function () {
                             dataType: "json",
                             success: function (data2) {
                                 if (data2.isSuccess) {
-                                    location.href = "http://localhost:8080/game.html";
+                                    location.href = "/game.html";
                                 } else {
                                     alert("something went wrong");
                                 }
@@ -85,17 +85,17 @@ $(document).ready(function () {
 
                 battleIDMas[i] = savedBattleID;
             }
+
+            watchbuttonelements = document.getElementsByClassName('btn-primary');
+            for (var i = 0; i < watchbuttonelements.length; i++) {
+                watchbuttonelement = watchbuttonelements[i];
+                watchbuttonelement.setAttribute("onclick", "movetowitness(event)");
+            }
+
             return false;
         }
     });
 });
-
-watchbuttonelements = document.getElementsByClassName('btn-primary');
-for (var i = 0; i < watchbuttonelements.length; i++) {
-    watchbuttonelement = watchbuttonelements[i];
-    watchbuttonelement.setAttribute("onclick", "movetowitness(moveevent)");
-}
-
 
 var savedevent, savedeventtarget;
 function movetowitness(moveevent) {
@@ -104,7 +104,7 @@ function movetowitness(moveevent) {
     for (var ibutton = 0; ibutton < watchbuttonelements.length; ibutton++) {
         if (watchbuttonelements[ibutton] === savedeventtarget) {
             localStorage.setItem('battleID', battleIDMas[ibutton]);
-            location.href = "http://localhost:8080/witness.html";
+            location.href = "/witness.html";
 
             return;
         }

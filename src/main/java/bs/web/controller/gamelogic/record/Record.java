@@ -9,11 +9,11 @@ import static bs.web.util.Convert.convertBack;
  * Created by stalk on 05.05.2017.
  */
 public class Record {
-    private char[] replay;
+    private static char[] replay;
     public Record(Battle battle){
         this.replay=battle.getReplay();
     }
-    public void record(Battle battle, int player, Coordinate coordinate, int result) {
+    public static void record(Battle battle, int player, Coordinate coordinate, int result) {
         char[] coordinateback = convertBack(coordinate);
 
         for (int i = 0; i < replay.length; i += 4) {

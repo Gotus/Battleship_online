@@ -71,7 +71,7 @@ function fire(fireevent) {
             if(ebuttonsmas[exbutton][eybutton]===savedeventtarget) {
                 $(document).ready(function () {
                     $.ajax({
-                        url: "http://localhost:8080/game/fire",
+                        url: "/game/fire",
                         type: "POST",
                         data: JSON.stringify({
                             login: mylogin, //to find game
@@ -98,7 +98,7 @@ function fire(fireevent) {
 function getMyField(){
     $(document).ready(function () {
         $.ajax({
-            url: "http://localhost:8080/game/getmyfield",
+            url: "/game/getmyfield",
             type: "POST",
             data: JSON.stringify({
                 login: mylogin //to find game
@@ -121,7 +121,7 @@ var timer = setInterval(function () {
         var timer2 = setInterval(function () {
             $(document).ready(function () {
                 $.ajax({
-                    url: "http://localhost:8080/game/isready",
+                    url: "/game/isready",
                     type: "POST",
                     data: JSON.stringify({
                         login: mylogin //to find game
@@ -131,7 +131,7 @@ var timer = setInterval(function () {
                     success: function (data) {
                         if (data === "") {
                             alert("игра закончена из-за бездействия игроков");
-                            location.href = "http://localhost:8080/lobies.html";
+                            location.href = "/lobies.html";
                         }
                         if (data === "myturn") {
                         allowFire();
@@ -157,14 +157,14 @@ var timer = setInterval(function () {
                             showField(ebuffermas,ebuttonsmas);
                             clearInterval(timer2);
                             replayResult = alert("Вы победили.");
-                            location.href = "http://localhost:8080/lobies.html";
+                            location.href = "/lobies.html";
                         }
                         if (data === "gameover2"){
                             banFire();
                             showField(ebuffermas,ebuttonsmas);
                             clearInterval(timer2);
                             replayResult = alert("Вы проиграли");
-                            location.href = "http://localhost:8080/lobies.html";
+                            location.href = "/lobies.html";
                         }
                     }
                 });

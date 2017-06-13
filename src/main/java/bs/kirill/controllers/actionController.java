@@ -630,7 +630,37 @@ public class actionController {
         return checker;
 
     }
+
+    @RequestMapping(value = "/witness", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody WitnessContainer showFields(@RequestBody BattleFinder battleFinder) {
+
+        WitnessContainer result = new WitnessContainer();
+        Battle battle = new Battle();
+
+        System.out.println("BattleID " + battleFinder.getBattleID());
+        System.out.println("int BattleID " + battleFinder.getBattleID().intValue());
+
+        battle = BattleMap.battleHashMap.get(battleFinder.getBattleID().intValue());
+
+        System.out.println(battle);
+            if(battle != null) {
+
+                result.setHostBattleField(battle.getBattlefields().get(0).getBattlefield());
+                result.setOpponentBattleField(battle.getBattlefields().get(1).getBattlefield());
+                result.setIsSuccess(true);
+                System.out.println("I see you");
+                System.out.println(result);
+                System.out.println(result.getIsSuccess());
+                return result;
+
+            } else {
+                result.setIsSuccess(false);
+                System.out.println("You invisible");
+                return result;
+            }
+    }
 }
+
 
 
 class DataContainer {
@@ -914,6 +944,77 @@ class ReadyChecker {
     public void setIsSuccess(Boolean success) {
         isSuccess = success;
     }
+}
+
+class WitnessContainer {
+
+    private int [][] hostBattleField, opponentBattleField;
+    Boolean isSuccess;
+
+    public int[][] getHostBattleField() {
+
+        return hostBattleField;
+    }
+
+    public void setHostBattleField(int[][] hostBattleField) {
+
+        this.hostBattleField = new int[hostBattleField.length][hostBattleField.length];
+
+        for (int i = 0; i < hostBattleField.length; i++) {
+
+            for (int j = 0; j < hostBattleField[i].length; j++) {
+
+                this.hostBattleField[i][j] = hostBattleField[i][j];
+
+            }
+        }
+    }
+
+    public int[][] getOpponentBattleField() {
+
+        return opponentBattleField;
+    }
+
+    public void setOpponentBattleField(int[][] opponentBattleField) {
+
+        this.opponentBattleField = new int[opponentBattleField.length][opponentBattleField.length];
+
+        for (int i = 0; i < opponentBattleField.length; i++) {
+
+            for (int j = 0; j < opponentBattleField[i].length; j++) {
+
+                this.getOpponentBattleField()[i][j] = opponentBattleField[i][j];
+
+            }
+        }
+    }
+
+    public Boolean getIsSuccess() {
+
+        return isSuccess;
+    }
+
+    public void setIsSuccess(Boolean success) {
+
+        isSuccess = success;
+    }
+}
+
+
+class BattleFinder{
+
+    private Long battleID;
+
+    public Long getBattleID() {
+
+        return battleID;
+    }
+
+    public void setBattleID(Long battleID) {
+
+        this.battleID = battleID;
+    }
+
 }
 /*
  *
