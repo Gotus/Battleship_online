@@ -17,7 +17,7 @@ var unique = $("#uniqueachievements");
 var saveddata = [];
 $(document).ready(function () {
     $.ajax({
-        url: "/profile/getmyachievements",
+        url: "/game/getmyachievements",
         type: "POST",
         data: JSON.stringify({
             login: mylogin
@@ -26,13 +26,16 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             saveddata = data;
-            var column, achievement, img;
-            for (var i = 0; i < 1; i++) {
+            var column, achievement, img, tooltiptext;;
+            for (var i = 0; i <= 1; i++) {
+                tooltiptext = "name: " + saveddata[i].description + "\n" + "description:" +  saveddata[i].name;
                 column = $('<div>').attr("class", "col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding");
                 achievement = $('<div>').attr("class", "achievement");
                 img = $('<img>')
                     .attr("src", "" + saveddata[i].path)
-                    .attr("id", "" + saveddata[i].achievementID);
+                    .attr("id", "" + saveddata[i].achievementID)
+                    .attr("data-toggle","tooltip")
+                    .attr("title", tooltiptext);
                 if (saveddata[i].gotAchievement){
                     img.attr("class", "img img-responsive img-thumbnail got");
                 } else {
@@ -45,12 +48,14 @@ $(document).ready(function () {
             }
 
             for (var i = 2; i <= 10; i++) {
-
+                tooltiptext = "name: " + saveddata[i].description + "\n" + "description:" +  saveddata[i].name;
                 column = $('<div>').attr("class", "col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding");
                 achievement = $('<div>').attr("class", "achievement");
                 img = $('<img>')
                     .attr("src", "" + saveddata[i].path)
-                    .attr("id", "" + saveddata[i].achievementID);
+                    .attr("id", "" + saveddata[i].achievementID)
+                    .attr("data-toggle","tooltip")
+                    .attr("title", tooltiptext);
                 if (saveddata[i].gotAchievement){
                     img.attr("class", "img img-responsive img-thumbnail got");
                 } else {
@@ -62,13 +67,15 @@ $(document).ready(function () {
                 killstreak.append(column);
             }
 
-            for (var i = 11; i <= 16; i++) {
-
+            for (var i = 11; i <= 15; i++) {
+                tooltiptext = "name: " + saveddata[i].description + "\n" + "description:" +  saveddata[i].name;
                 column = $('<div>').attr("class", "col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding");
                 achievement = $('<div>').attr("class", "achievement");
                 img = $('<img>')
                     .attr("src", "" + saveddata[i].path)
-                    .attr("id", "" + saveddata[i].achievementID);
+                    .attr("id", "" + saveddata[i].achievementID)
+                    .attr("data-toggle","tooltip")
+                    .attr("title", tooltiptext);
                 if (saveddata[i].gotAchievement){
                     img.attr("class", "img img-responsive img-thumbnail got");
                 } else {
@@ -80,13 +87,13 @@ $(document).ready(function () {
                 missstreak.append(column);
             }
 
-            var achievementID, tooltiptext;
+            /*var achievementID;*/
             for (var i = 0; i<saveddata.length; i++) {
-                achievementID = "#";
-                achievementID += saveddata[i].achievementID;
-                tooltiptext = "name: " + saveddata[i].name + "\n" + "description" + saveddata[i].description;
+                /*achievementID = "#";
+                achievementID += saveddata[i].achievementID;*/
+
                 $(document).ready(function () {
-                    $(achievementID).tooltip({title: tooltiptext, trigger: "hover", placement: "right"});
+                    $('[data-toggle="tooltip"]').tooltip({trigger: "hover", placement: "right"});
                 });
             }
         }

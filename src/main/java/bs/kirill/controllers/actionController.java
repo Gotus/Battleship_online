@@ -886,8 +886,43 @@ public class actionController {
                 return result;
             }
     }
-}
 
+    @RequestMapping(value = "/getmyachievements", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody AchievementData[] getAchievements(@RequestBody LoginContainer loginContainer){
+
+        EUserData user = new EUserData();
+        user = user_dataService.getByLogin(loginContainer.getLogin());
+
+        Set<EAchievement> userAchievement = new HashSet<>();
+        userAchievement = user.getAchievementsOfUser();
+
+        List<EAchievement> allAchievementsList = new ArrayList<EAchievement>();
+        allAchievementsList = achievementService.getAll();
+
+        Integer numOfAchievements = achievementService.getAll().size();
+        AchievementData[] allAchievementsArray = new AchievementData[numOfAchievements];
+
+        for (int i = 0; i < numOfAchievements; i++) {
+
+            allAchievementsArray[i] = new AchievementData();
+
+            if (userAchievement.contains(allAchievementsList.get(i))) {
+
+                allAchievementsArray[i].setGotAchievement(true);
+            } else {
+
+                allAchievementsArray[i].setGotAchievement(false);
+            }
+
+            allAchievementsArray[i].setAchievementID(allAchievementsList.get(i).getAchievementID());
+            allAchievementsArray[i].setDescription(allAchievementsList.get(i).getDescription());
+            allAchievementsArray[i].setName(allAchievementsList.get(i).getName());
+            allAchievementsArray[i].setPath(allAchievementsList.get(i).getImageLink());
+        }
+
+        return allAchievementsArray;
+    }
+}
 
 
 class DataContainer {
@@ -1227,7 +1262,6 @@ class WitnessContainer {
     }
 }
 
-
 class BattleFinder{
 
     private Long battleID;
@@ -1241,4 +1275,50 @@ class BattleFinder{
 
         this.battleID = battleID;
     }
+}
+
+
+class AchievementData {
+
+    Integer achievementID;
+    String name;
+    String description;
+    String path;
+    Boolean gotAchievement;
+
+    public Integer getAchievementID() {
+        return achievementID;
+    }
+
+    public void setAchievementID(Integer achievementID) {
+        this.achievementID = achievementID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Boolean getGotAchievement() { return gotAchievement; }
+
+    public void setGotAchievement(Boolean gotAchievement) { this.gotAchievement = gotAchievement; }
 }
