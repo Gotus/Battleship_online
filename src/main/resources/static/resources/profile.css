@@ -13,6 +13,11 @@
     width: inherit;
 }
 
+.got {
+    border-color: gold;
+    background-color: gold;
+}
+
 #statistic {
     padding-top: 100px;
 }

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="resources/general.css">
 </head>
 <body>
-<script src="jsfiles/redirecttostartpage.js"></script>
+<!--<script src="jsfiles/redirecttostartpage.js"></script>-->
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -59,18 +59,18 @@
 
             <div id="statistic">
                 <h1 class="text-center">Общая статистика</h1>
-                <p class="text-center">Вы убили: ---</p>
                 <p class="text-center">Выйграно боев: ---</p>
                 <p class="text-center">Всего игр: ---</p>
+                <p class="text-center">Процент побед: ---</p>
             </div>
 
             <div id="achievements">
                 <h1 class="text-center">Достижения</h1>
 
-                <div id="killstreak" class="achievements-block">
+                <div  class="achievements-block">
                     <h3 class="text-center">Достижения за убийства подряд</h3>
-                    <div class="container-fluid">
-                        <div class="row">
+                    <div class="container-fluid" >
+                        <div class="row" id="killstreakachievements">
                             <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
                                 <div class="achievement">
                                     <img src="/images/Double_trouble.PNG" class="img img-responsive img-thumbnail">
@@ -120,10 +120,10 @@
                     </div>
                 </div>
 
-                <div id="missstreak" class="achievements-block">
+                <div  class="achievements-block">
                     <h3 class="text-center">Достижения за промахи подряд</h3>
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row" id="missstreakachievements">
                             <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
                                 <div class="achievement">
                                     <img src="/images/missstreak.jpg" class="img img-responsive img-thumbnail">
@@ -155,10 +155,10 @@
                     </div>
                 </div>
 
-                <div id="unique" class="achievements-block">
+                <div class="achievements-block">
                     <h3 class="text-center">Уникальные достижения</h3>
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row" id="uniqueachievements">
                             <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding">
                                 <div class="achievement">
                                     <img src="/images/first_blood.png" class="img img-responsive img-thumbnail">
