@@ -10,5 +10,6 @@ import java.util.List;
 public interface EAchievementService {
     EAchievement getByID(Integer ID);
     EAchievement getByName(String Nm);
+    EAchievement addAchievement(EAchievement eAchievement);
     List<EAchievement> getAll();
 }

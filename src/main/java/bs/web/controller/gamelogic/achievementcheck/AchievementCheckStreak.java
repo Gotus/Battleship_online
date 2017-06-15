@@ -22,33 +22,30 @@ class AchievementCheckStreak extends AchievementCheck {
     }
 
     void killStreak() {
-        char[] replay = battle.getReplay();
+        StringBuilder replay = battle.getReplay();
         int player1max = 0;
         int player2max = 0;
         int buffer1 = 0;
         int buffer2 = 0;
 
-        for (int i = 0; i < replay.length; i += 4) {
-            if (replay[i] == 1) {
-                switch (replay[i + 3]) {
-                    case 1: buffer1 = 0; continue;
-                    case 3: buffer1 += 1;
+        for (int i = 0; i < replay.length(); i += 4) {
+            if (replay.charAt(i) == '1') {
+                switch (replay.charAt(i + 3)) {
+                    case '1': buffer1 = 0; continue;
+                    case '3': buffer1 += 1;
                 }
                 if (buffer1 > player1max) {
                     player1max = buffer1;
                 }
             }
-            if (replay[i] == 2) {
-                switch (replay[i + 3]) {
-                    case 1: buffer2 = 0; continue;
-                    case 3: buffer2 += 1;
+            if (replay.charAt(i) == '2') {
+                switch (replay.charAt(i + 3)) {
+                    case '1': buffer2 = 0; continue;
+                    case '3': buffer2 += 1;
                 }
                 if (buffer2 > player2max) {
                     player2max = buffer2;
                 }
-            }
-            if (replay[i] == '\0' || replay[i] == '\u0000'){
-                break;
             }
         }
 
@@ -240,35 +237,32 @@ class AchievementCheckStreak extends AchievementCheck {
     }
 
     void missStreak() {
-        char[] replay = battle.getReplay();
+        StringBuilder replay = battle.getReplay();
         int player1max = 0;
         int player2max = 0;
         int buffer1 = 0;
         int buffer2 = 0;
 
-        for (int i = 0; i < replay.length; i += 4) {
-            if (replay[i] == 1) {
-                switch (replay[i + 3]) {
-                    case 1: buffer1 += 1; continue;
-                    case 2: buffer1 = 0; break;
-                    case 3: buffer1 = 0; break;
+        for (int i = 0; i < replay.length(); i += 4) {
+            if (replay.charAt(i) == '1') {
+                switch (replay.charAt(i + 3)) {
+                    case '1': buffer1 += 1; continue;
+                    case '2': buffer1 = 0; break;
+                    case '3': buffer1 = 0; break;
                 }
                 if (buffer1 > player1max) {
                     player1max = buffer1;
                 }
             }
-            if (replay[i] == 2) {
-                switch (replay[i + 3]) {
-                    case 1: buffer2 += 1; continue;
-                    case 2: buffer2 = 0; break;
-                    case 3: buffer2 = 0; break;
+            if (replay.charAt(i) == '2') {
+                switch (replay.charAt(i + 3)) {
+                    case '1': buffer2 += 1; continue;
+                    case '2': buffer2 = 0; break;
+                    case '3': buffer2 = 0; break;
                 }
                 if (buffer2 > player2max) {
                     player2max = buffer2;
                 }
-            }
-            if (replay[i] == '\0' || replay[i] == '\u0000'){
-                break;
             }
         }
 
@@ -386,8 +380,6 @@ class AchievementCheckStreak extends AchievementCheck {
             if (!player2hasmisserable) {
                 player2gotAchievement.add(lifeispain);
             }
-
         }
-
     }
 }

@@ -18,13 +18,13 @@ public class EAchievement
     @Column(name = "description")
     private String description;
 
-    @Column(name = "name")
+    @Column(name = "achievement_name")
     private String name;
 
-    @Column(name = "column")
+    @Column(name = "column_number")
     private Integer column;
 
-    @Column(name = "type")
+    @Column(name = "achievement_type")
     private Integer type;
 
     @Column(name = "image_link")
@@ -45,4 +45,6 @@ public class EAchievement
     public void setType(Integer Typ){type = Typ;}
     public String getImageLink(){return imageLink;}
     public void setImageLink(String Link){imageLink = Link;}
+    public Set<EUserData> getUsers() {return users; }
+    public void setUsers(Set<EUserData> users) {this.users = users;}
 }

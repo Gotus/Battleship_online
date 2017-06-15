@@ -4,6 +4,7 @@ import bs.kirill.entity.EAchievement;
 import bs.kirill.entity.EBattle;
 import bs.kirill.entity.EShip;
 import bs.kirill.entity.EUserData;
+import bs.kirill.service.EAchievementService;
 import bs.kirill.service.EBattleService;
 import bs.kirill.service.EShipService;
 import bs.kirill.service.EUser_DataService;
@@ -11,6 +12,7 @@ import bs.kirill.util.ClassExecutingTask;
 import bs.web.BattleMap;
 import bs.web.controller.gamelogic.mainlogic.Fire;
 import bs.web.controller.gamelogic.mainlogic.Place;
+import bs.web.controller.gamelogic.record.Record;
 import bs.web.model.entities.Battle;
 import bs.web.model.entities.Battlefield;
 import bs.web.model.entities.Coordinate;
@@ -21,9 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Gotus on 12.05.2017.
@@ -42,6 +42,9 @@ public class actionController {
 
     @Resource(name = "EShipService")
     private EShipService shipService;
+
+    @Resource(name = "EAchievementService")
+    private EAchievementService achievementService;
 
     public ClassExecutingTask executingTask = new ClassExecutingTask();
 
@@ -73,8 +76,6 @@ public class actionController {
 
         List<EBattle> battle = new ArrayList<>();
         Boolean playerIsHost = false;
-        //Get battle in which player is and define his role: opponent or host
-        //try {
 
         if (battleService.getByHostIDAndDateOfEnding(user_dataService.
                         getByLogin(fullBattleData.getLogin()).getUser_ID(),
@@ -125,16 +126,6 @@ public class actionController {
             battleService.addBattle(battle.get(0));
             return opponentBattlefield.getFleet().toArray();
         }
-        /*} catch (NullPointerException exception) {
-
-            EUserData slowUser = new EUserData();
-            slowUser = user_dataService.getByLogin(fullBattleData.getLogin());
-            slowUser.setCurrentBattle(null);
-            user_dataService.updateUser(slowUser);
-
-            Object [] error = null;
-            return error;
-        }*/
     }
 
 
@@ -247,6 +238,7 @@ public class actionController {
      * Method refresh order of user's turn
      *
      */
+
     @RequestMapping(value = "/isready", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public
     @ResponseBody
@@ -255,6 +247,11 @@ public class actionController {
         EUserData userData = new EUserData();
         EBattle battle = new EBattle();
         userData = user_dataService.getByLogin(loginContainer.getLogin());
+        Set<EAchievement> hostAchievements = new HashSet<EAchievement>();
+        Set<EAchievement> opponentAchievements = new HashSet<>();
+        Set<EUserData> userDatas = new HashSet<EUserData>();
+        userDatas.add(userData);
+
         if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
 
@@ -273,21 +270,131 @@ public class actionController {
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getFleet().isEmpty()){
 
                 //opponent has not fleet and looses
+                battle.setReplay(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+                battleService.addBattle(battle);
+
+                EUserData eHost = new EUserData();
+                eHost = user_dataService.getByUser_ID(battle.getHost_ID());
+                ArrayList<EAchievement> hostAchievementsList = new ArrayList<EAchievement>();
+                ArrayList<EAchievement> opponentAchievementsList = new ArrayList<EAchievement>();
+
+                //Setting achievements of each user
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().size(); i++) {
+
+                    hostAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                    hostAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                }
+
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().size(); i++) {
+
+                    opponentAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                    opponentAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                }
+
+                System.out.println("String " + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay());
+                System.out.println("Char" + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+
+                eHost.setAchievementsOfUser(hostAchievements);
+                userData.setAchievementsOfUser(opponentAchievements);
+
+                user_dataService.updateUser(eHost);
+                user_dataService.updateUser(userData);
+
+                //writing data about host's achievements
+                for (int i = 0; i < hostAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(hostAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(eHost);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                //writing data about opponent's achievements
+                for (int i = 0; i < opponentAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(opponentAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(userData);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                userDatas.add(user_dataService.getByUser_ID(battle.getHost_ID()));
                 return "gameover2";
             }
 
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getFleet().isEmpty()){
 
                 //host has not fleet and looses, opponent win
+                battle.setReplay(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+                battleService.addBattle(battle);
+
+                EUserData eHost = new EUserData();
+                eHost = user_dataService.getByUser_ID(battle.getHost_ID());
+                ArrayList<EAchievement> hostAchievementsList = new ArrayList<EAchievement>();
+                ArrayList<EAchievement> opponentAchievementsList = new ArrayList<EAchievement>();
+
+                //Setting achievements of each user
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().size(); i++) {
+
+                    hostAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                    hostAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                }
+
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().size(); i++) {
+
+                    opponentAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                    opponentAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                }
+
+                System.out.println("String " + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay());
+                System.out.println("Char" + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+
+                eHost.setAchievementsOfUser(hostAchievements);
+                userData.setAchievementsOfUser(opponentAchievements);
+
+                user_dataService.updateUser(eHost);
+                user_dataService.updateUser(userData);
+
+                //writing data about host's achievements
+                for (int i = 0; i < hostAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(hostAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(eHost);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                //writing data about opponent's achievements
+                for (int i = 0; i < opponentAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(opponentAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(userData);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                userDatas.add(user_dataService.getByUser_ID(battle.getHost_ID()));
                 return "gameover1";
             }
 
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getHostTurn()) {
 
+                battle.setReplay(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+                battleService.addBattle(battle);
                 return "failure";
 
             } else {
 
+                battle.setReplay(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+                battleService.addBattle(battle);
                 return "myturn";
             }
         } else {
@@ -307,12 +414,120 @@ public class actionController {
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(1).getFleet().isEmpty()){
 
                 //opponent has not fleet and looses
+                battle.setReplay(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+                battleService.addBattle(battle);
+
+                EUserData eOpponent = new EUserData();
+                eOpponent = user_dataService.getByUser_ID(battle.getOpponent_ID());
+                ArrayList<EAchievement> hostAchievementsList = new ArrayList<EAchievement>();
+                ArrayList<EAchievement> opponentAchievementsList = new ArrayList<EAchievement>();
+
+                System.out.println("host size " + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().size());
+                System.out.println("opponent size " + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().size());
+
+                //Setting achievements of each user
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().size(); i++) {
+
+                    hostAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                    hostAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                }
+
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().size(); i++) {
+
+                    opponentAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                    opponentAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                }
+
+                System.out.println("String " + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay());
+                System.out.println("Char" + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+
+                eOpponent.setAchievementsOfUser(opponentAchievements);
+                userData.setAchievementsOfUser(hostAchievements);
+
+                user_dataService.updateUser(eOpponent);
+                user_dataService.updateUser(userData);
+
+                //writing data about host's achievements
+                for (int i = 0; i < hostAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(hostAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(userData);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                //writing data about opponent's achievements
+                for (int i = 0; i < opponentAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(opponentAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(eOpponent);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                userDatas.add(user_dataService.getByUser_ID(battle.getHost_ID()));
                 return "gameover1";
             }
 
             if (BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getBattlefields().get(0).getFleet().isEmpty()){
 
                 //host has not fleet and looses, opponent win
+                battle.setReplay(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+                battleService.addBattle(battle);
+
+                EUserData eOpponent = new EUserData();
+                eOpponent = user_dataService.getByUser_ID(battle.getHost_ID());
+                ArrayList<EAchievement> hostAchievementsList = new ArrayList<EAchievement>();
+                ArrayList<EAchievement> opponentAchievementsList = new ArrayList<EAchievement>();
+
+                //Setting achievements of each user
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().size(); i++) {
+
+                    hostAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                    hostAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer1gotAchievement().get(i).getId()));
+                }
+
+                for (int i = 0; i < BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().size(); i++) {
+
+                    opponentAchievements.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                    opponentAchievementsList.add(achievementService.getByID(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().getPlayer2gotAchievement().get(i).getId()));
+                }
+                System.out.println("String " + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay());
+                System.out.println("Char" + BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getReplay().toString());
+
+                eOpponent.setAchievementsOfUser(opponentAchievements);
+                userData.setAchievementsOfUser(hostAchievements);
+
+                user_dataService.updateUser(eOpponent);
+                user_dataService.updateUser(userData);
+
+                //writing data about host's achievements
+                for (int i = 0; i < hostAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(hostAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(userData);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                //writing data about opponent's achievements
+                for (int i = 0; i < opponentAchievementsList.size(); i++) {
+
+                    EAchievement achievement = new EAchievement();
+                    achievement = achievementService.getByID(opponentAchievementsList.get(i).getAchievementID());
+                    Set<EUserData> usersGotAchievement = new HashSet<EUserData>();
+                    usersGotAchievement.add(eOpponent);
+                    achievement.setUsers(usersGotAchievement);
+                    achievementService.addAchievement(achievement);
+                }
+
+                userDatas.add(user_dataService.getByUser_ID(battle.getHost_ID()));
                 return "gameover2";
             }
 
@@ -365,6 +580,8 @@ public class actionController {
         EBattle battle = new EBattle();
         EUserData userData = new EUserData();
         userData = user_dataService.getByLogin(fireData.getLogin());
+
+
         int result = -1;
         if (battleService.getByHostIDAndDateOfEnding(userData.getUser_ID(), null).isEmpty()) {
 
@@ -378,6 +595,12 @@ public class actionController {
 
                 BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(true);
             }
+
+            Record.record(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()),
+                    2, new Coordinate(fireData.getXx(), fireData.getYy()), result);
+
+            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().check();
+
 
 
             BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setGameEnded(BattleMap.battleHashMap.get(battle.
@@ -398,6 +621,11 @@ public class actionController {
 
                 BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setHostTurn(false);
             }
+
+            Record.record(BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()),
+                    1, new Coordinate(fireData.getXx(), fireData.getYy()), result);
+
+            BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).getAchievements().check();
 
             BattleMap.battleHashMap.get(battle.getBattle_ID().intValue()).setGameEnded(BattleMap.battleHashMap.get(battle.
                     getBattle_ID().intValue()).getBattlefields().
@@ -1014,38 +1242,4 @@ class BattleFinder{
 
         this.battleID = battleID;
     }
-
 }
-/*
- *
- * Class contains information about user's battlefield
- * and fleet
- */
-
-/*
-class UserBattleData {
-
-    public Battlefield userBattlefield;
-    public ArrayList<Ship> fleet;
-
-    public void setUserBattlefield(Battlefield battlefield) {
-
-        this.userBattlefield = battlefield;
-    }
-
-    public void setFleet(ArrayList<Ship> fleet) {
-
-        this.fleet = fleet;
-    }
-
-    public Battlefield getUserBattlefield() {
-
-        return userBattlefield;
-    }
-
-    public ArrayList<Ship> getFleet() {
-
-        return fleet;
-    }
-}*/
-

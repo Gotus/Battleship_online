@@ -19,11 +19,11 @@ public class AchievementCheck {
         this.battle = battle;
     }
 
-    ArrayList<Achievement> getPlayer1gotAchievement() {
+    public ArrayList<Achievement> getPlayer1gotAchievement() {
         return player1gotAchievement;
     }
 
-    ArrayList<Achievement> getPlayer2gotAchievement() {
+    public ArrayList<Achievement> getPlayer2gotAchievement() {
         return player2gotAchievement;
     }
 

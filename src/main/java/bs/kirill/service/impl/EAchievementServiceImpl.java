@@ -13,7 +13,6 @@ import java.util.List;
  * Created by Администратор on 23.12.2016.
  */
 @Service("EAchievementService")
-@Transactional
 public class EAchievementServiceImpl implements EAchievementService
 {
     @Autowired
@@ -33,5 +32,12 @@ public class EAchievementServiceImpl implements EAchievementService
     @Override
     public List<EAchievement> getAll() {
         return (List<EAchievement>) ARepository.findAll();
+    }
+
+    @Override
+    public EAchievement addAchievement(EAchievement eAchievement) {
+
+        EAchievement EBattle = ARepository.saveAndFlush(eAchievement);
+        return EBattle;
     }
 }

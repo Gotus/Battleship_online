@@ -25,47 +25,73 @@ class AchievementCheckUnique extends AchievementCheck {
     //TODO forever alone
 
     void intuition() {
-        char[] replay = battle.getReplay();
+        StringBuilder replay = battle.getReplay();
+        System.out.println("size " + replay.length());
 
-        if (replay[0] == '\0') {
+        if (replay.length() == 0) {
             return;
         }
+
+        System.out.println("kill");
         for (Achievement a : player1gotAchievement) {
             if (a.getId() == 1) {
                 return;
             }
         }
+        System.out.println("me");
         for (Achievement a : player2gotAchievement) {
             if (a.getId() == 1) {
                 return;
             }
         }
 
-        if ((replay[3] == 3 && replay[0] == 1) || (replay[7] == 3 && replay[4] == 1)) {
+        if ((replay.charAt(3) == '3' && replay.charAt(0) == '1')) {
 
             Achievement intuition = new Achievement();
             intuition.setId(1);
             intuition.setName("Intuition");
-            intuition.setDescription("Kill 1-sized ship with your first shot");
-
+            intuition.setDescription("Destroy 1-sized ship with your first shot");
+            System.out.println("You are lucky!");
             player1gotAchievement.add(intuition);
+        } else {
+
+            if ((replay.length() == 8) && (replay.charAt(7) == '3' && replay.charAt(4) == '2')) {
+
+                Achievement intuition = new Achievement();
+                intuition.setId(1);
+                intuition.setName("Intuition");
+                intuition.setDescription("Destroy 1-sized ship with your first shot");
+
+                player2gotAchievement.add(intuition);
+            }
         }
 
-        if ((replay[3] == 3 && replay[0] == 2) || (replay[7] == 3 && replay[4] == 2)) {
+        if ((replay.charAt(3) == '3' && replay.charAt(0) == '2')) {
 
             Achievement intuition = new Achievement();
             intuition.setId(1);
             intuition.setName("Intuition");
-            intuition.setDescription("Kill 1-sized ship with your first shot");
+            intuition.setDescription("Destroy 1-sized ship with your first shot");
 
             player2gotAchievement.add(intuition);
+        } else {
+
+            if((replay.length() == 8) && (replay.charAt(7) == '3' && replay.charAt(4) == '1')) {
+
+                Achievement intuition = new Achievement();
+                intuition.setId(1);
+                intuition.setName("Intuition");
+                intuition.setDescription("Destroy 1-sized ship with your first shot");
+
+                player1gotAchievement.add(intuition);
+            }
         }
     }
 
     void firstBlood() {
-        char[] replay = battle.getReplay();
+        StringBuilder replay = battle.getReplay();
 
-        if (replay[0] == '\0') {
+        if (replay.length() == 0) {
             return;
         }
 
@@ -80,18 +106,16 @@ class AchievementCheckUnique extends AchievementCheck {
             }
         }
 
-        for (int i = 3; i < replay.length; i += 4) {
-            if (replay[i] == '\0') {
-                break;
-            }
-            if (replay[i] == 3) {
+        for (int i = 3; i < replay.length(); i += 4) {
+
+            if (replay.charAt(i) == '3') {
 
                 Achievement firstBlood = new Achievement();
                 firstBlood.setId(2);
                 firstBlood.setName("First Blood!");
-                firstBlood.setDescription("Kill ship of enemy, before he kills your ship");
+                firstBlood.setDescription("Destroy ship of enemy, before your ship will be destroyed");
 
-                if (replay[i - 3] == 1) {
+                if (replay.charAt(i - 3) == '1') {
                     player1gotAchievement.add(firstBlood);
                 } else {
                     player2gotAchievement.add(firstBlood);
@@ -99,6 +123,4 @@ class AchievementCheckUnique extends AchievementCheck {
             }
         }
     }
-
 }
-

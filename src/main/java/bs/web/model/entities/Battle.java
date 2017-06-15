@@ -15,7 +15,8 @@ public class Battle {
       replay[2]- y coordinate to shoot(number, like 1)
       replay[3]- shot result (1 - miss, 2 - hit, 3 - dead)
      */
-    private char[] replay = new char[800];
+    //private char[] replay;
+    private StringBuilder replay;
     private AchievementCheck achievements;
     private Boolean hostIsReady, opponentIsReady, gameBegun, hostTurn, gameEnded;
 
@@ -29,6 +30,10 @@ public class Battle {
         battlefields.add(firstField);
         battlefields.add(secondField);
 
+        //replay = new char[800];
+        replay = new StringBuilder(); //added by Gotus
+        //char end = '\0';
+        //replay.append(end);
         achievements = new AchievementCheck(this);
     }
 
@@ -72,7 +77,7 @@ public class Battle {
         return battlefields;
     }
 
-    public char[] getReplay() {
+    public StringBuilder getReplay() {
         return replay;
     }
 
@@ -80,7 +85,7 @@ public class Battle {
         this.battlefields = battlefields;
     }
 
-    public void setReplay(char[] replay) {
+    public void setReplay(StringBuilder replay) {
         this.replay = replay;
     }
 

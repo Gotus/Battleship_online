@@ -9,29 +9,15 @@ import static bs.web.util.Convert.convertBack;
  * Created by stalk on 05.05.2017.
  */
 public class Record {
-    private static char[] replay;
-    public Record(Battle battle){
-        this.replay=battle.getReplay();
-    }
     public static void record(Battle battle, int player, Coordinate coordinate, int result) {
-        char[] coordinateback = convertBack(coordinate);
+        StringBuilder replay = battle.getReplay();
 
-        for (int i = 0; i < replay.length; i += 4) {
-            if (replay[i] == '\0' || replay[i] == '\u0000') {
-                replay[i] = (char) player;
-                replay[i + 1] = coordinateback[0];
-                replay[i + 2] = coordinateback[1];
-                replay[i + 3] = (char) result;
-                break;
-            }
-        }
-    }
+        replay.append(player);
+        replay.append(coordinate.getXx());
+        replay.append(coordinate.getYy());
+        replay.append(result);
 
-    public char[] getReplay() {
-        return replay;
-    }
+        System.out.println(replay.length());
 
-    public void setReplay(char[] replay) {
-        this.replay = replay;
     }
 }
