@@ -1,6 +1,16 @@
 /**
  * Created by stalk on 15.06.2017.
  */
+
+//Get cookie by name
+function getCookie(name) {
+    var r = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+    if (r) return r[2];
+    else return "";
+}
+
+var mylogin = getCookie("login");
+
 var killstreak = $("#killstreakachievements");
 var missstreak = $("#missstreakachievements");
 var unique = $("#uniqueachievements");
