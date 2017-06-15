@@ -30,7 +30,9 @@ $(document).ready(function () {
             for (var i = 0; i < 1; i++) {
                 column = $('<div>').attr("class", "col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding");
                 achievement = $('<div>').attr("class", "achievement");
-                img = $('<img>').attr("src", "" + saveddata[i].path);
+                img = $('<img>')
+                    .attr("src", "" + saveddata[i].path)
+                    .attr("id", "" + saveddata[i].achievementID);
                 if (saveddata[i].gotAchievement){
                     img.attr("class", "img img-responsive img-thumbnail got");
                 } else {
@@ -46,7 +48,9 @@ $(document).ready(function () {
 
                 column = $('<div>').attr("class", "col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding");
                 achievement = $('<div>').attr("class", "achievement");
-                img = $('<img>').attr("src", "" + saveddata[i].path);
+                img = $('<img>')
+                    .attr("src", "" + saveddata[i].path)
+                    .attr("id", "" + saveddata[i].achievementID);
                 if (saveddata[i].gotAchievement){
                     img.attr("class", "img img-responsive img-thumbnail got");
                 } else {
@@ -62,7 +66,9 @@ $(document).ready(function () {
 
                 column = $('<div>').attr("class", "col-xs-4 col-sm-3 col-md-2 col-lg-2 no-padding");
                 achievement = $('<div>').attr("class", "achievement");
-                img = $('<img>').attr("src", "" + saveddata[i].path);
+                img = $('<img>')
+                    .attr("src", "" + saveddata[i].path)
+                    .attr("id", "" + saveddata[i].achievementID);
                 if (saveddata[i].gotAchievement){
                     img.attr("class", "img img-responsive img-thumbnail got");
                 } else {
@@ -72,6 +78,16 @@ $(document).ready(function () {
                 achievement.append(img);
                 column.append(achievement);
                 missstreak.append(column);
+            }
+
+            var achievementID, tooltiptext;
+            for (var i = 0; i<saveddata.length; i++) {
+                achievementID = "#";
+                achievementID += saveddata[i].achievementID;
+                tooltiptext = "name: " + saveddata[i].name + "\n" + "description" + saveddata[i].description;
+                $(document).ready(function () {
+                    $(achievementID).tooltip({title: tooltiptext, trigger: "hover", placement: "right"});
+                });
             }
         }
     });
