@@ -72,8 +72,6 @@ var timer = setInterval(function () {
             dataType: "json",
             success: function (data) {
                 saveddata = data;
-                console.log(data);
-                console.log(saveddata);
                 if (saveddata.isSuccess) {
                     buffermas = saveddata.hostBattleField;
                     ebuffermas = saveddata.opponentBattleField;

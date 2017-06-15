@@ -156,8 +156,6 @@ function refresh() {
             }
         }
     }
-    console.log(fleet);
-    console.log(buffermas);
 
     showField(buffermas,buttonsmas);
 
@@ -297,7 +295,6 @@ var timerOpponentGet = setInterval(function () {
                 contentType: 'application/json; charset=utf-8',
                 dataType: "json",
                 success: function (data) {
-                       console.log(data.isSuccess);
                     if (data.isSuccess) {
                         if (data.enemyLogin !== null){
                             gotEnemy = true;
@@ -339,8 +336,6 @@ var timerReadyGet = setInterval(function () {
                 dataType: "json",
                 success: function (data) {
                     dataBufer = data;
-                    console.log(data);
-                    console.log(dataBufer);
                     if (dataBufer.isSuccess) {
                         iamReady = dataBufer.meReady;
                         enemyReady = dataBufer.enemyReady;

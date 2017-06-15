@@ -82,7 +82,6 @@ function fire(fireevent) {
                         dataType: "json",
                         success: function (data) {
                             ebuffermas = data; //поле противника
-                            console.log(ebuffermas);
                             allowFire();
                             banFire();
                         }
@@ -171,7 +170,5 @@ var timer = setInterval(function () {
             });
         }, 1000);
     }
-
-    console.log("gostil proveryaet");
 
 }, 1000);
