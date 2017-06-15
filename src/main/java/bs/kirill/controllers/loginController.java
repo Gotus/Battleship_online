@@ -42,9 +42,6 @@ public class loginController {
 
             if (user_dataService.getByLogin(loginData.getLogin()).getPassword().equals(loginData.getPassword())) {
 
-                Gson gson = new Gson();
-                String userDataJSON = gson.toJson(user_dataService.getByLogin(loginData.getLogin()));
-                System.out.println(userDataJSON);
                 //Password is correct
                 EUserData userData = new EUserData();
                 userData = user_dataService.getByLogin(loginData.getLogin());
@@ -204,4 +201,49 @@ class RegisterData {
 
         return this.email;
     }
+}
+
+class AchievementData {
+
+    Integer achievementID;
+    String name;
+    String description;
+    String path;
+
+    public Integer getAchievementID() {
+        return achievementID;
+    }
+
+    public void setAchievementID(Integer achievementID) {
+        this.achievementID = achievementID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+}
+
+class LoginResultContainer {
+
+
 }
