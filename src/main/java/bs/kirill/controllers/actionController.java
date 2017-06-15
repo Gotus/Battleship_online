@@ -143,7 +143,6 @@ public class actionController {
         Battle currentBattle = new Battle();
         Result result = new Result();
         ArrayList<Ship> fleet = new ArrayList<Ship>(10);
-        //ArrayList<EShip> eFleet = new ArrayList<EShip>(10);
 
         userData = user_dataService.getByLogin(readyToFightContainer.getLogin());
         Boolean isHost = false;
@@ -873,8 +872,8 @@ public class actionController {
         System.out.println(battle);
             if(battle != null) {
 
-                result.setHostBattleField(battle.getBattlefields().get(0).getBattlefield());
-                result.setOpponentBattleField(battle.getBattlefields().get(1).getBattlefield());
+                result.setHostBattleField(Transporator.transporateMatrix(battle.getBattlefields().get(0).getBattlefield()));
+                result.setOpponentBattleField(Transporator.transporateMatrix(battle.getBattlefields().get(1).getBattlefield()));
                 result.setIsSuccess(true);
                 System.out.println("I see you");
                 System.out.println(result);
