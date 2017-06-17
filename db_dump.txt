@@ -1,0 +1,399 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.2
+-- Dumped by pg_dump version 9.6.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: achievement; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE achievement (
+    achievement_id bigint NOT NULL,
+    description text NOT NULL,
+    achievement_name text NOT NULL,
+    column_number integer NOT NULL,
+    achievement_type integer NOT NULL,
+    image_link text NOT NULL
+);
+
+
+ALTER TABLE achievement OWNER TO postgres;
+
+--
+-- Name: achievement_achievement_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE achievement_achievement_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE achievement_achievement_id_seq OWNER TO postgres;
+
+--
+-- Name: achievement_achievement_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE achievement_achievement_id_seq OWNED BY achievement.achievement_id;
+
+
+--
+-- Name: achievement_user_data; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE achievement_user_data (
+    achievement_id bigint NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+ALTER TABLE achievement_user_data OWNER TO postgres;
+
+--
+-- Name: battle; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE battle (
+    battle_id bigint NOT NULL,
+    host_id bigint NOT NULL,
+    opponent_id bigint,
+    replay text,
+    date_of_creation date NOT NULL,
+    date_of_joining date,
+    date_of_start date,
+    date_of_end date,
+    date_of_ending timestamp without time zone,
+    last_actioner_id bigint,
+    date_of_last_action timestamp with time zone
+);
+
+
+ALTER TABLE battle OWNER TO postgres;
+
+--
+-- Name: battle_battle_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE battle_battle_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE battle_battle_id_seq OWNER TO postgres;
+
+--
+-- Name: battle_battle_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE battle_battle_id_seq OWNED BY battle.battle_id;
+
+
+--
+-- Name: ship; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE ship (
+    battle_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    ship_id bigint NOT NULL,
+    length smallint NOT NULL,
+    prow_xx integer NOT NULL,
+    prow_yy integer NOT NULL,
+    stern_xx integer NOT NULL,
+    stern_yy integer NOT NULL
+);
+
+
+ALTER TABLE ship OWNER TO postgres;
+
+--
+-- Name: ship_ship_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE ship_ship_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE ship_ship_id_seq OWNER TO postgres;
+
+--
+-- Name: ship_ship_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE ship_ship_id_seq OWNED BY ship.ship_id;
+
+
+--
+-- Name: user_data; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE user_data (
+    user_id bigint NOT NULL,
+    mail text NOT NULL,
+    login text NOT NULL,
+    password text NOT NULL,
+    date_of_registration date NOT NULL,
+    current_battle bigint
+);
+
+
+ALTER TABLE user_data OWNER TO postgres;
+
+--
+-- Name: user_data_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_data_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_data_user_id_seq OWNER TO postgres;
+
+--
+-- Name: user_data_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE user_data_user_id_seq OWNED BY user_data.user_id;
+
+
+--
+-- Name: achievement achievement_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY achievement ALTER COLUMN achievement_id SET DEFAULT nextval('achievement_achievement_id_seq'::regclass);
+
+
+--
+-- Name: battle battle_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY battle ALTER COLUMN battle_id SET DEFAULT nextval('battle_battle_id_seq'::regclass);
+
+
+--
+-- Name: ship ship_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ship ALTER COLUMN ship_id SET DEFAULT nextval('ship_ship_id_seq'::regclass);
+
+
+--
+-- Name: user_data user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_data ALTER COLUMN user_id SET DEFAULT nextval('user_data_user_id_seq'::regclass);
+
+
+--
+-- Data for Name: achievement; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY achievement (achievement_id, description, achievement_name, column_number, achievement_type, image_link) FROM stdin;
+1	Intuition	Destroy 1-sized ship with your first shot	2	3	/images/intuition.png
+2	First blood	Destroy ship of enemy, before your ship will be destroyed	1	3	/images/first_blood.png
+3	Double trouble	Destroy 2 enemy ships in 1 turn	1	1	/images/Double_trouble.PNG
+4	tRIPple RIPple	Destroy 3 enemy ships in 1 turn	2	1	/images/TRIPple_RIPple2.PNG
+6	RAMPAGE	Destroy 5 enemy ships in 1 turn	4	1	/images/RAMPAGE.PNG
+5	Fourth wall	Destroy 4 enemy ships in 1 turn	3	1	/images/Fourth_wall.PNG
+7	Sixth Sense	Destroy 6 enemy ships in 1 turn	5	1	/images/Sixth_sense.PNG
+8	Wrath of the 7 seas	Destroy 7 enemy ships in 1 turn	6	1	/images/Wrath_of_7_seas.jpg
+9	Octawa of war	Destroy 8 enemy ships in 1 turn	1	1	/images/Octava_of_war.PNG
+10	!NEIN!	Destroy 9 enemy ships in 1 turn	2	1	/images/NEIN.PNG
+11	When is my turn?	Destroy 10 enemy ships in 1 turn	3	1	/images/When_is_my_turn.PNG
+12	miSSStreak	miss 10 times in a raw	1	2	/images/missstreak.jpg
+13	Unlucky day	miss 20 times in a raw	2	2	/images/unlucky_day.png
+14	I know this feeling, bro	miss 30 times in a raw	3	2	/images/i_know_this_feeling_bro.png
+15	Life is pain	miss 40 times in a raw	4	2	/images/Life_is_pain.png
+16	MISSerable	miss 50 times in a raw	5	2	/images/Misserable.png
+\.
+
+
+--
+-- Name: achievement_achievement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('achievement_achievement_id_seq', 16, true);
+
+
+--
+-- Data for Name: achievement_user_data; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY achievement_user_data (achievement_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: battle; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY battle (battle_id, host_id, opponent_id, replay, date_of_creation, date_of_joining, date_of_start, date_of_end, date_of_ending, last_actioner_id, date_of_last_action) FROM stdin;
+\.
+
+
+--
+-- Name: battle_battle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('battle_battle_id_seq', 163, true);
+
+
+--
+-- Data for Name: ship; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ship (battle_id, user_id, ship_id, length, prow_xx, prow_yy, stern_xx, stern_yy) FROM stdin;
+\.
+
+
+--
+-- Name: ship_ship_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('ship_ship_id_seq', 1164, true);
+
+
+--
+-- Data for Name: user_data; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY user_data (user_id, mail, login, password, date_of_registration, current_battle) FROM stdin;
+\.
+
+
+--
+-- Name: user_data_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_data_user_id_seq', 7, true);
+
+
+--
+-- Name: achievement achievement_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY achievement
+    ADD CONSTRAINT achievement_pkey PRIMARY KEY (achievement_id);
+
+
+--
+-- Name: battle battle_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY battle
+    ADD CONSTRAINT battle_pkey PRIMARY KEY (battle_id);
+
+
+--
+-- Name: ship ship_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ship
+    ADD CONSTRAINT ship_pkey PRIMARY KEY (ship_id);
+
+
+--
+-- Name: user_data user_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_data
+    ADD CONSTRAINT user_data_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: achievement_user_data achievement_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY achievement_user_data
+    ADD CONSTRAINT achievement_id_fkey FOREIGN KEY (achievement_id) REFERENCES achievement(achievement_id);
+
+
+--
+-- Name: ship battle_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ship
+    ADD CONSTRAINT battle_id_fkey FOREIGN KEY (battle_id) REFERENCES battle(battle_id);
+
+
+--
+-- Name: achievement_user_data fkmkj39025r74upe9k5xvy7ycvb; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY achievement_user_data
+    ADD CONSTRAINT fkmkj39025r74upe9k5xvy7ycvb FOREIGN KEY (user_id) REFERENCES user_data(user_id);
+
+
+--
+-- Name: achievement_user_data fko8a6koaecw2lglbkm772ote52; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY achievement_user_data
+    ADD CONSTRAINT fko8a6koaecw2lglbkm772ote52 FOREIGN KEY (achievement_id) REFERENCES achievement(achievement_id);
+
+
+--
+-- Name: battle host_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY battle
+    ADD CONSTRAINT host_id_fkey FOREIGN KEY (host_id) REFERENCES user_data(user_id);
+
+
+--
+-- Name: achievement_user_data user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY achievement_user_data
+    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES user_data(user_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
